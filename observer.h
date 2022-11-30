@@ -3,6 +3,7 @@
 #include "mapcontroller.h"
 #include "subject.h"
 #include "window.h"
+#include "board.h"
 
 class Subject;
 

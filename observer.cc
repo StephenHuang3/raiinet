@@ -14,7 +14,19 @@ textObserver::~textObserver() {
 }
 
 void textObserver::print(int player){
-  if (player == 1){
+  if(player == 0) {
+    std::cout << "========" << '\n';
+    for( int i = 0; i < 8; ++i) {
+      for( int j = 0; j < 8; ++j) {
+        std::cout << brd->getTile(i+j*8);
+      }
+      std::cout << '\n';
+    }
+    std::cout << "========" << '\n';
+  } else if (player == 1){
+    std::cout << "Player 1:\nDownloaded: \nAbilities: "
+    << "a: " << "b: " << "c: " << "d: " 
+    << "\ne:" << "f: " << "g: " << "h: " << '\n';
 
   }else {
 

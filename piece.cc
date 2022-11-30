@@ -1,6 +1,6 @@
 #include "piece.h"
 
-Piece::Piece(int p, std::string id): player{p}, id{id} {};
+Piece::Piece(int p, std::string id, int val): player{p}, id{id}, val{val} {};
   
 Piece::~Piece() {};
   
