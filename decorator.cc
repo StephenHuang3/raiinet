@@ -9,7 +9,7 @@ Serverport::Serverport(Board* next, int pos): Decorator{next}, pos{pos} {};
 Serverport::~Serverport() {};
 
 char Serverport::getTile(int pos) const {
-  if( this->pos == pos ) {
+  if( pos ==  3 || pos == 4 || pos == 59 || pos == 60) {
     return 'S';
   }
   return gB->getTile(pos);

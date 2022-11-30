@@ -29,7 +29,9 @@ void textObserver::print(int player){
     << "\ne:" << "f: " << "g: " << "h: " << '\n';
 
   }else {
-
+    std::cout << "Player 1:\nDownloaded: \nAbilities: "
+    << "A: " << "B: " << "C: " << "D: " 
+    << "\nE:" << "f: " << "g: " << "H: " << '\n';
   }
   
 }

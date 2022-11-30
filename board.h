@@ -1,9 +1,13 @@
 #include <map>
+#include "piece.h"
+#include "player.h"
+#include <memory>
 
 class Piece;
 
 class Board {
-  std::map<int, Piece*> board;
+  std::map<int, std::unique_ptr<Player>> players;
+  std::map<int, std::unique_ptr<Piece>> board;
 public:
   Board();
 

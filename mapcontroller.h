@@ -18,7 +18,7 @@ class Mapcontroller: public Subject {
   void render(int player);
   
   ~Mapcontroller();
-  char getState(int pos) const override;
+  char getTile(int pos) const override;
 };
 
 #endif
