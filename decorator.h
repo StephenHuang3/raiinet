@@ -5,6 +5,7 @@ protected:
   Board* gB;
 public:
   Decorator(Board* gameBoard);
+
   virtual ~Decorator();
 };
 
@@ -16,6 +17,8 @@ public:
   ~Serverport();
 
   char getTile(int pos) const override;
+
+  bool isFirewall(int pos) const override;
 };
 
 class Firewall: public Decorator {
@@ -26,5 +29,7 @@ public:
   ~Firewall();
 
   char getTile(int pos) const override;
+
+  bool isFirewall(int pos) const override;
 };
 

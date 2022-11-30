@@ -7,4 +7,6 @@ public:
   ~Blank();
   
   char getTile(int pos) const override;
+
+  bool isFirewall(int pos) const override;  
 };

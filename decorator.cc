@@ -15,11 +15,19 @@ char Serverport::getTile(int pos) const {
   return gB->getTile(pos);
 };
 
+bool Serverport::isFirewall(int pos) const {
+  return false || gB->isFirewall(pos);
+}
+
 Firewall::Firewall(Board* next, int pos): Decorator{next}, pos{pos} {};
 
 Firewall::~Firewall() {};
 
 char Firewall::getTile(int pos) const {
   return '.';
+}
+
+bool Serverport::isFirewall(int pos) const {
+  return true;
 }
 
