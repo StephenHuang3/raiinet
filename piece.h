@@ -9,5 +9,5 @@ public:
   
   ~Piece();
   
-  void move(char d);
+  int move(char d);
 };
