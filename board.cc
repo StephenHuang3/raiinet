@@ -3,8 +3,3 @@
 Board::Board() {};
 
 Board::~Board() {};
-
-void Board::start() {
-  
-};
-

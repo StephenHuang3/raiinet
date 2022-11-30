@@ -24,7 +24,7 @@ Firewall::Firewall(Board* next, int pos): Decorator{next}, pos{pos} {};
 Firewall::~Firewall() {};
 
 char Firewall::getTile(int pos) const {
-  return '.';
+  return gB->getTile(pos);
 }
 
 bool Serverport::isFirewall(int pos) const {

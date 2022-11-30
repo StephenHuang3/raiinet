@@ -9,10 +9,6 @@ public:
 
   ~Board();
   
-  void start();
-  
-  void reset();
-  
   virtual char getTile(int pos) const = 0;
 
   virtual bool isFirewall(int pos) const = 0;
