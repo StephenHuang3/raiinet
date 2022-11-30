@@ -1,12 +1,13 @@
 #include <string>
 
 class Piece {
+  int player;
   std::string id;
   int boosted;
 public:
-  Piece(std::string id);
+  Piece(int p, std::string id);
   
   ~Piece();
   
-  void move(char d);
+  int move(char d);
 };

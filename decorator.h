@@ -1,13 +1,15 @@
 #include "board.h"
 
 class Decorator: public Board {
-  Board* gameBoard;
+protected:
+  Board* gB;
 public:
   Decorator(Board* gameBoard);
   virtual ~Decorator();
 };
 
 class Serverport: public Decorator {
+  int pos;
 public:
   Serverport(Board* next, int pos);
 
@@ -17,6 +19,7 @@ public:
 };
 
 class Firewall: public Decorator {
+  int pos;
 public:
   Firewall(Board* next, int pos);
 
