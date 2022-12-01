@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <string>
+using namespace std;
 
 /* 
 Question: Do we want to make piece a decorator? 
@@ -11,19 +12,23 @@ Cons: may cause move() functionality to be more complicated?
 */
 class Piece {
   int player;
-  std::string id;
+  string id;
+  string type;
   int boosted;
   int val;
 public:
-  Piece(int p, std::string id);
+  Piece(int p, string id, string type);
   
   ~Piece();
   
   int move(char d);
 
-  std::string getId() const;
+  string getId() const;
 
   int getPlayer() const;
+
+  string getType() const;
+  void changeType();
 };
 
 #endif
