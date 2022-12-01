@@ -38,3 +38,7 @@ void Piece::changeType() {
     type = "virus";
   }
 }
+
+void Piece::addVal() {
+  val++;
+}

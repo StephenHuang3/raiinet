@@ -13,3 +13,7 @@ void Download::activate(Player* player, Piece* p, int pos){ //player here is the
     }
     delete p; //not sure if I need access to the board
 }
+
+void Download::activate(Player* player, Piece* p, int pos){
+    p->addVal();
+}

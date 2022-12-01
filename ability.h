@@ -17,7 +17,10 @@ public:
   virtual void activate(Player* player, Piece* p, int pos) = 0; // --uses
 };
 
-class LinkBoost: public Ability {};
+class LinkBoost: public Ability {
+  public:
+    void activate(Player* player, Piece* p, int pos) override;
+};
 
 class Firewall: public Ability {};
 
