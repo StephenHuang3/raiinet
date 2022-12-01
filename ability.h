@@ -21,7 +21,10 @@ class LinkBoost: public Ability {};
 
 class Firewall: public Ability {};
 
-class Download: public Ability {};
+class Download: public Ability {
+  public:
+    void activate(Player* player, Piece* p, int pos) override;
+};
 
 class Polarize: public Ability {
   public:
