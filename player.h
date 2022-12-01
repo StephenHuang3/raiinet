@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include <map>
 #include <string>
 
@@ -29,3 +32,5 @@ public:
   // check for win/lose
   char Player::checkScore();
 };
+
+#endif

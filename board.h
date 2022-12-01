@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <map>
 #include "piece.h"
 #include "player.h"
@@ -19,3 +22,4 @@ public:
   virtual bool isFirewall(int pos) const = 0;
 };
 
+#endif

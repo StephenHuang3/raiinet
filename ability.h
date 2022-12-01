@@ -1,3 +1,6 @@
+#ifndef ABILITY_H
+#define ABILITY_H
+
 #include <string>
 
 class Player;
@@ -29,3 +32,5 @@ Freeze - freezes an enenmy piece for 2 or 3 turns.
 Stim - temporary boosts the value of a piece for 2-3 turns
 
 */
+
+#endif
