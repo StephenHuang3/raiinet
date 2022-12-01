@@ -8,7 +8,7 @@ Player::Player() {
   abilities[3] = new Polarize;
   abilities[4] = new Scan;
   // other abilities can be added there
-  links = 0;
+  data = 0;
   viruses = 0;
 };
 
@@ -31,7 +31,7 @@ void Player::useAbility(std::string ability) {
 
 // called when player downloads a link
 void Player::addLink() {
-  ++links;
+  ++data;
 };
 
 // called when player downloads a virus
@@ -41,7 +41,7 @@ void Player::addVirus() {
 
 // run to check if game ends
 char Player::checkScore() {
-  if( links >= 4 ) {
+  if( data >= 4 ) {
     return 'w'; // win
   } else if ( viruses >= 4 ) {
     return 'l'; // lose

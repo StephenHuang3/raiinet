@@ -9,7 +9,7 @@ class Ability;
 class Player {
   // Dictionary of Abilities - tracks the number of abilities
   std::map<int, Ability*> abilities;
-  int links;
+  int data;
   int viruses;
 public:
   Player();
