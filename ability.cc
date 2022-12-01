@@ -5,6 +5,10 @@ void Polarize::activate(Player* player, Piece* p, int pos){
     p->changeType();
 }
 
+void LinkBoost::activate(Player* player, Piece* p, int pos){
+    p->boost();
+}
+
 void Download::activate(Player* player, Piece* p, int pos){ //player here is the opponent
     if (p->getType() == "virus"){
         player->addVirus();

@@ -46,3 +46,7 @@ void Piece::addVal() {
 int Piece::getVal() {
   return val;
 }
+
+void Piece::boost() {
+  boosted = 2;
+}

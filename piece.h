@@ -31,6 +31,7 @@ public:
   void changeType();
 
   void addVal();
+  void boost();
 
   int getVal();
 };
