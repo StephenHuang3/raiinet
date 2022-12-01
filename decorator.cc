@@ -4,7 +4,7 @@ Decorator::Decorator(Board* gameBoard): gB{gameBoard} {};
 
 Decorator::~Decorator() { delete gB; };
 
-Serverport::Serverport(Board* next, int pos): Decorator{next}, pos{pos} {};
+Serverport::Serverport(Board* next, int position): Decorator{next}, position{position} {};
 
 Serverport::~Serverport() {};
 
@@ -19,7 +19,7 @@ bool Serverport::isFirewall(int pos) const {
   return false || gB->isFirewall(pos);
 }
 
-Firewall::Firewall(Board* next, int pos): Decorator{next}, pos{pos} {};
+Firewall::Firewall(Board* next, int pos): Decorator{next}, position{position} {};
 
 Firewall::~Firewall() {};
 
