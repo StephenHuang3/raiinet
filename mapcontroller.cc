@@ -13,4 +13,4 @@ Mapcontroller::~Mapcontroller() { delete board; };
 
 char Mapcontroller::getTile(int pos) const {
   return board->getTile(pos);
-};
+}
