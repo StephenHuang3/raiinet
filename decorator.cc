@@ -9,7 +9,7 @@ Serverport::Serverport(Board* next, int pos): Decorator{next}, pos{pos} {};
 Serverport::~Serverport() {};
 
 char Serverport::getTile(int pos) const {
-  if( pos ==  3 || pos == 4 || pos == 59 || pos == 60) {
+  if( position ==  3 || position == 4 || position == 59 || position == 60) {
     return 'S';
   }
   return gB->getTile(pos);
@@ -24,6 +24,10 @@ Firewall::Firewall(Board* next, int pos): Decorator{next}, pos{pos} {};
 Firewall::~Firewall() {};
 
 char Firewall::getTile(int pos) const {
+  if(position == pos){
+    return 'F';
+  }
+  
   return gB->getTile(pos);
 }
 
