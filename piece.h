@@ -1,5 +1,11 @@
 #include <string>
 
+/* 
+Question: Do we want to make piece a decorator? 
+Pros: makes implementation of printing out the board easier - only need getTitle
+Cons: may cause move() functionality to be more complicated?
+      idk I haven't really thought this through
+*/
 class Piece {
   int player;
   std::string id;

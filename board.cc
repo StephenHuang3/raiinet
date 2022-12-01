@@ -2,6 +2,7 @@
 
 
 Board::Board() {
+  // setting the pieces on the default squares
   this->board[0] = std::make_unique<Piece>(1, "a");
   this->board[1] = std::make_unique<Piece>(1, "b");
   this->board[2] = std::make_unique<Piece>(1, "c");
@@ -18,6 +19,11 @@ Board::Board() {
   this->board[61] = std::make_unique<Piece>(1, "F");
   this->board[62] = std::make_unique<Piece>(1, "G");
   this->board[63] = std::make_unique<Piece>(1, "H");
+  // Player List
+  this->players[0] = std::make_unique<Player>();
+  this->players[1] = std::make_unique<Player>();
 };
 
+
+// everything is deleted because of unique_ptrs
 Board::~Board() {};
