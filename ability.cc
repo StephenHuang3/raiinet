@@ -17,3 +17,7 @@ void Download::activate(Player* player, Piece* p, int pos){ //player here is the
 void Download::activate(Player* player, Piece* p, int pos){
     p->addVal();
 }
+
+void Scan::activate(Player* player, Piece* p, int pos){
+    cout << "The piece" << p->getId() << " is a " << p->getType() << " power level " << p->getVal();
+}

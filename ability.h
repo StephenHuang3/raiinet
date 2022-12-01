@@ -34,7 +34,10 @@ class Polarize: public Ability {
     void activate(Player* player, Piece* p, int pos) override;
 };
 
-class Scan: public Ability {};
+class Scan: public Ability {
+  public:
+    void activate(Player* player, Piece* p, int pos) override;
+};
 
 /*
 We also need to add three additional abilities.

@@ -29,6 +29,10 @@ public:
 
   string getType() const;
   void changeType();
+
+  void addVal();
+
+  int getVal();
 };
 
 #endif

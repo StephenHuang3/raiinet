@@ -42,3 +42,7 @@ void Piece::changeType() {
 void Piece::addVal() {
   val++;
 }
+
+int Piece::getVal() {
+  return val;
+}
