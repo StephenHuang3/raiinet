@@ -1,7 +1,11 @@
 #ifndef MAPCONTROLLER_H
 #define MAPCONTROLLER_H
+
 #include <iostream>
 #include "subject.h"
+#include "board.h"
+#include "subject.h"
+
 class Board;
 
 class Mapcontroller: public Subject {
@@ -11,13 +15,13 @@ class Mapcontroller: public Subject {
   std::ostream &out = std::cout;
 
  public:
-  explicit Mapcontroller(Board* board): board{board} {}
+  explicit Mapcontroller(Board* b): board{b} {};
 
-  Board *&board() { return board; }
+  Board *&board() { return board; };
   void reset();
   void render(int player);
   
-  ~Mapcontroller();
+  ~Mapcontroller(); 
   char getTile(int pos) const override;
 };
 
