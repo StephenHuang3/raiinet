@@ -40,7 +40,7 @@ void Piece::changeType() {
 }
 
 void Piece::addVal() {
-  val++;
+  ++val;
 }
 
 int Piece::getVal() {
@@ -48,5 +48,5 @@ int Piece::getVal() {
 }
 
 void Piece::boost() {
-  boosted = 2;
+  ++boosted;
 }
