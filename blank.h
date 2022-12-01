@@ -1,3 +1,6 @@
+#ifndef BLANK_H
+#define BLANK_H
+
 #include "board.h"
 
 class Blank: public Board {
@@ -10,3 +13,5 @@ public:
 
   bool isFirewall(int pos) const override;  
 };
+
+#endif

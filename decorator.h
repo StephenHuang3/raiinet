@@ -1,3 +1,6 @@
+#ifndef DECORATOR_H
+#define DECORATOR_H
+
 #include "board.h"
 
 class Decorator: public Board {
@@ -39,3 +42,4 @@ public:
   bool isFirewall(int pos) const override;
 };
 
+#endif
