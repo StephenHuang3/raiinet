@@ -12,12 +12,12 @@ Cons: may cause move() functionality to be more complicated?
 */
 class Piece {
   int player;
-  string id;
+  char id;
   string type;
   int boosted;
   int val;
 public:
-  Piece(int p, string id, string type);
+  Piece(int p, char id, string type);
   
   ~Piece();
   

@@ -2,24 +2,24 @@
 
 using namespace std;
 
-Piece::Piece(int p, string id, string type): player{p}, id{id}, type{type} {};
+Piece::Piece(int p, char id, string type): player{p}, id{id}, type{type} {};
   
 Piece::~Piece() {};
   
 int Piece::move(char d) {
   if(d == 'u') {
-    return 8;
+    return -8;
   } else if(d == 'r') {
     return 1;
   } else if(d == 'd') {
-    return -1;
-  } else if(d == 'l') {
     return -8;
+  } else if(d == 'l') {
+    return -1;
   }
   return 0;
 };
 
-string Piece::getId() const {
+char Piece::getId() const {
   return id;
 }
 
