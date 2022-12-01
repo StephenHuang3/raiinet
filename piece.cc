@@ -1,6 +1,8 @@
 #include "piece.h"
 
-Piece::Piece(int p, std::string id): player{p}, id{id} {};
+using namespace std;
+
+Piece::Piece(int p, string id, string type): player{p}, id{id}, type{type} {};
   
 Piece::~Piece() {};
   
@@ -17,10 +19,22 @@ int Piece::move(char d) {
   return 0;
 };
 
-std::string Piece::getId() const {
+string Piece::getId() const {
   return id;
 }
 
 int Piece::getPlayer() const {
   return player;
+}
+
+string Piece::getType() const {
+  return type;
+}
+
+void Piece::changeType() {
+  if (type == "virus"){
+    type = "data";
+  } else {
+    type = "virus";
+  }
 }

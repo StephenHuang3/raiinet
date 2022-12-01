@@ -1,10 +1,12 @@
 #ifndef ABILITY_H
 #define ABILITY_H
+#include "piece.h"
+#include "player.h"
 
 #include <string>
 
-class Player;
-class Piece;
+//class Player;
+//class Piece;
 // may need to change to #include Piece if we're using functions of Piece
 
 class Ability {
@@ -12,7 +14,7 @@ class Ability {
   int uses;
 public:
   // activates ability, if needed, we can pass a pointer to the board
-  virtual void activate(Player* player, Piece* p, int pos); // --uses
+  virtual void activate(Player* player, Piece* p, int pos) = 0; // --uses
 };
 
 class LinkBoost: public Ability {};
@@ -21,7 +23,10 @@ class Firewall: public Ability {};
 
 class Download: public Ability {};
 
-class Polarize: public Ability {};
+class Polarize: public Ability {
+  public:
+    void activate(Player* player, Piece* p, int pos) override;
+};
 
 class Scan: public Ability {};
 
