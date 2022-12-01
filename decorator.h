@@ -16,7 +16,7 @@ if we wanted to cause it's not going to change ever, but what kind of functional
 are we giving it?
 */
 class Serverport: public Decorator {
-  int pos;
+  int position;
 public:
   Serverport(Board* next, int pos);
 
@@ -28,7 +28,7 @@ public:
 };
 
 class Firewall: public Decorator {
-  int pos;
+  int position;
 public:
   Firewall(Board* next, int pos);
 
