@@ -1,4 +1,4 @@
-#include "studio.h"
+#include "mapcontroller.h"
 #include "board.h"
 #include "subject.h"
 
@@ -15,5 +15,5 @@ void Mapcontroller::render(int player) {
 Mapcontroller::~Mapcontroller() { delete board; }
 
 char Mapcontroller::getState(int pos) const {
-  return thePicture->getTile(int pos);
+  return board->getTile(pos);
 }
