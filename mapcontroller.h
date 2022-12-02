@@ -13,6 +13,8 @@ class Mapcontroller: public Subject {
 
   std::ostream &out = std::cout;
 
+  // potential extra: round number?
+  
 public:
   explicit Mapcontroller(Board* b): theBoard{b} {};
 
