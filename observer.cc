@@ -5,12 +5,12 @@
 
 using namespace std;
 
-textObserver::textObserver(Board* brd): brd{brd}{
-    s->attach(this);
+textObserver::textObserver(Mapcontroller* brd): brd{brd}{
+    brd->attach(this);
 }
 
 textObserver::~textObserver() {
-  s->detach(this);
+  brd->detach(this);
 }
 
 void textObserver::print(int player){

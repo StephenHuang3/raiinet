@@ -14,9 +14,9 @@ class Observer {
 };
 
 class textObserver: public Observer {
-  Board *brd;
+  Mapcontroller *brd;
   public:
-    textObserver(Board* brd);
+    textObserver(Mapcontroller* brd);
     void print(int player) override;
     ~textObserver() override;
 };
