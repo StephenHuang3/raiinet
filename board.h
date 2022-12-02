@@ -2,7 +2,6 @@
 #define BOARD_H
 
 #include <map>
-#include "piece.h"
 #include "player.h"
 #include <memory>
 

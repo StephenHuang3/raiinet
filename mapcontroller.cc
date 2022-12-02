@@ -1,16 +1,19 @@
 #include "mapcontroller.h"
 #include "board.h"
 
+Mapcontroller::~Mapcontroller() { delete theBoard; };
 
-void Mapcontroller::reset() {};
+void Mapcontroller::reset() {
+  
+};
 
 void Mapcontroller::render(int player) {
   notifyObservers(player);
 };
 
 
-Mapcontroller::~Mapcontroller() { delete board; };
 
 char Mapcontroller::getTile(int pos) const {
-  return board->getTile(pos);
-}
+  return theBoard->getTile(pos);
+};
+

@@ -2,26 +2,28 @@
 #define MAPCONTROLLER_H
 
 #include <iostream>
-#include "subject.h"
-#include "board.h"
+#include <map>
 #include "subject.h"
 
 class Board;
 
 class Mapcontroller: public Subject {
   
-  Board* board;
+  Board* theBoard;
 
   std::ostream &out = std::cout;
 
- public:
-  explicit Mapcontroller(Board* b): board{b} {};
+public:
+  explicit Mapcontroller(Board* b): theBoard{b} {};
 
-  Board *&board() { return board; };
+  ~Mapcontroller(); 
+
+  Board *&board() { return theBoard; };
+  
   void reset();
+  
   void render(int player);
   
-  ~Mapcontroller(); 
   char getTile(int pos) const override;
 };
 

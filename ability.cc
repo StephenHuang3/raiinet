@@ -9,7 +9,7 @@ void LinkBoost::activate(Player* player, Piece* p, int pos){
     p->boost();
 }
 
-void Download::activate(Player* oppPlayer, Piece* p, int pos){ //player here is the opponent
+void Download::activate(Player* player, Piece* p, int pos){
     if (p->getType() == "virus"){
         player->addVirus();
     } else {
