@@ -4,6 +4,7 @@
 #include <map>
 #include "player.h"
 #include <memory>
+#include <string>
 
 class Piece;
 
@@ -20,7 +21,10 @@ public:
 
   virtual bool isFirewall(int pos) const = 0;
 
-  shared_ptr<Player> getPlayer(int p) const;
+  std::shared_ptr<Player> getPlayer(int p) const;
+
+  void setPiece(int p, char id, string type, int val, int position);
+  
 };
 
 #endif
