@@ -5,7 +5,6 @@ Blank::Blank() {};
 Blank::~Blank() {};
 
 char Blank::getTile(int pos) const {
-  
   return '.';
 }
 

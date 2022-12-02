@@ -23,7 +23,7 @@ public:
   
   int move(char d);
 
-  string getId() const;
+  char getId() const;
 
   int getPlayer() const;
 
