@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include <string>
+using namespace std;
 
 /* 
 Question: Do we want to make piece a decorator? 
@@ -16,7 +17,7 @@ class Piece {
   int boosted;
   int val;
 public:
-  Piece(int p, char id, string type);
+  Piece::Piece(int p, char id, string type, int val);
   
   ~Piece();
   

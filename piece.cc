@@ -1,7 +1,9 @@
 #include "piece.h"
 
-Piece::Piece(int p, char id, string type): player{p}, id{id}, type{type} {};
-  
+using namespace std;
+
+Piece::Piece(int p, char id, string type, int val): player{p}, id{id}, type{type}, boosted{0}, val{val} {};
+
 Piece::~Piece() {};
   
 int Piece::move(char d) {
