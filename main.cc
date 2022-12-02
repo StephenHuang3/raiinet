@@ -238,6 +238,7 @@ int main(int argc, char *argv[]) {
             // check abilities
         } else if (command == "board" ) {
             // displays the board depending on whose turn it is
+            theMap.render(turn);
         } else if (command == "sequence" ) {
             string fileName;
             cin >> fileName;
