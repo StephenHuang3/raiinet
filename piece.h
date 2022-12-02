@@ -2,7 +2,6 @@
 #define PIECE_H
 
 #include <string>
-using namespace std;
 
 /* 
 Question: Do we want to make piece a decorator? 

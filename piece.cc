@@ -1,7 +1,5 @@
 #include "piece.h"
 
-using namespace std;
-
 Piece::Piece(int p, char id, string type): player{p}, id{id}, type{type} {};
   
 Piece::~Piece() {};
