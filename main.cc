@@ -67,28 +67,52 @@ int main(int argc, char *argv[]) {
             }
             ++i;
         } else if (argv[i] == "link1") {
-            ifstream LinkFile(argv[i + 1]);
+            ifstream myReadFile(argv[i + 1]);
             string piecevalues;
-            getline(LinkFile, piecevalues);
+            getline(myReadFile, piecevalues);
             stringstream ss(piecevalues);
             string singlePiece;
             for(int i = 0; i < 8; i++){
                 ss >> singlePiece;
-
+                string kind;
+                int position;
+                if (singlePiece[0] == 'V'){
+                    kind = "virus";
+                } else {
+                    kind = "data";
+                }
+                if (i == 4 || i == 5){
+                    position = i + 8;
+                } else {
+                    position = i;
+                }
+                theBrd->setPiece(1, char(97 + i), kind, singlePiece[1] - '0', position);
             }
-            LinkFile.close();
+            myReadFile.close();
             ++i;
         } else if (argv[i] == "link2") {
-            ifstream LinkFile(argv[i + 1]);
+            ifstream myReadFile(argv[i + 1]);
             string piecevalues;
-            getline(LinkFile, piecevalues);
+            getline(myReadFile, piecevalues);
             stringstream ss(piecevalues);
             string singlePiece;
             for(int i = 0; i < 8; i++){
                 ss >> singlePiece;
-                // do something with singlePiece[0] and singlePiece[1]
-            }
-            LinkFile.close();
+                string kind;
+                int position;
+                if (singlePiece[0] == 'V'){
+                    kind = "virus";
+                } else {
+                    kind = "data";
+                }
+                if (i == 4 || i == 5){
+                    position = i + 57 - 8;
+                } else {
+                    position = i + 57;
+                }
+                theBrd->setPiece(2, char(65 + i), kind, singlePiece[1] - '0', position);
+                }
+            myReadFile.close();
             ++i;
         }
     };
