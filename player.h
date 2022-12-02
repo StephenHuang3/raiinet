@@ -9,6 +9,7 @@ class Ability;
 class Player {
   // Dictionary of Abilities - tracks the number of abilities
   std::map<int, Ability*> abilities;
+  std::map<int, bool> used;
   int data;
   int viruses;
 public:
@@ -19,7 +20,7 @@ public:
   void move();
   
   // sets the number of uses an ability has. I plan on having it stored in ability, but we can change that
-  void setAbility(Ability* ability, int uses);
+  void setAbility(char ability, int pos);
   
   // Uses an ability
   void useAbility(std::string ability);

@@ -2,11 +2,11 @@
 #include "ability.h"
 
 Player::Player() {
-  abilities[0] = new LinkBoost;
-  abilities[1] = new Firewall;
-  abilities[2] = new Download;
-  abilities[3] = new Polarize;
-  abilities[4] = new Scan;
+  // abilities[0] = new LinkBoost;
+  // abilities[1] = new Firewall;
+  // abilities[2] = new Download;
+  // abilities[3] = new Polarize;
+  // abilities[4] = new Scan;
   // other abilities can be added there
   data = 0;
   viruses = 0;
@@ -16,10 +16,28 @@ Player::~Player() {};
   
 void Player::move() {}; // maybe unnecessary
   
-void Player::setAbility(Ability* ability, int uses) {
-  
-};
 
+void Player::setAbility(char ability, int pos) {
+  if (ability == 'L'){
+    abilities[pos] = new LinkBoost;
+    used[pos] = false;
+  } else if (ability == 'F'){
+    abilities[pos] = new Firewall;
+    used[pos] = false;
+  } else if (ability == 'D'){
+    abilities[pos] = new Download;
+    used[pos] = false;
+  } else if (ability == 'S'){
+    abilities[pos] = new Scan;
+    used[pos] = false;
+  } else if (ability == 'P'){
+    abilities[pos] = new Polarize;
+    used[pos] = false;
+  } else {
+    abilities[pos] = new LinkBoost;
+    used[pos] = false;
+  }
+}
 
 void Player::useAbility(std::string ability) {
   if( true ) { // need to match string with Ability ptr somehow. I was thinking this could either be in main, or here
