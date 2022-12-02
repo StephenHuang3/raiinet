@@ -23,6 +23,8 @@ public:
   void reset();
   
   void render(int player);
+
+  void useAbility(int player, int id);
   
   char getTile(int pos) const override;
 };

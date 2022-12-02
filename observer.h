@@ -1,8 +1,8 @@
 #ifndef _OBSERVER_H_
 #define _OBSERVER_H_
+
 #include "mapcontroller.h"
 #include "subject.h"
-#include "window.h"
 #include "board.h"
 
 class Subject;

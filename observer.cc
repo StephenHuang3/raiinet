@@ -1,9 +1,7 @@
 #include "observer.h"
-#include "window.h"
 #include "mapcontroller.h"
 #include "subject.h"
-
-using namespace std;
+#include "window.h"
 
 textObserver::textObserver(Mapcontroller* brd): brd{brd}{
     brd->attach(this);

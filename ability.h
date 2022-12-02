@@ -1,8 +1,8 @@
 #ifndef ABILITY_H
 #define ABILITY_H
+
 #include "piece.h"
 #include "player.h"
-
 #include <string>
 
 //class Player;

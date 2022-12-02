@@ -2,7 +2,6 @@
 #define PIECE_H
 
 #include <string>
-using namespace std;
 
 /* 
 Question: Do we want to make piece a decorator? 
@@ -23,7 +22,7 @@ public:
   
   int move(char d);
 
-  string getId() const;
+  char getId() const;
 
   int getPlayer() const;
 

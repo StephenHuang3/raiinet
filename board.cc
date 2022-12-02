@@ -20,10 +20,14 @@ Board::Board() {
   this->board[62] = std::make_unique<Piece>(1, "G");
   this->board[63] = std::make_unique<Piece>(1, "H");
   // Player List
-  this->players[0] = std::make_unique<Player>();
-  this->players[1] = std::make_unique<Player>();
+  this->players[0] = std::make_shared<Player>();
+  this->players[1] = std::make_shared<Player>();
 };
 
 
 // everything is deleted because of unique_ptrs
 Board::~Board() {};
+
+std::shared_ptr<Player> Board::getPlayer(int p) const {
+  return players.at(p);
+};
