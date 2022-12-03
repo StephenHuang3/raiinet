@@ -64,13 +64,20 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   std::shared_ptr p2 = theBoard->getPlayer(opp);
   for (auto const& oppLink : p2.operator*().getLinks()) {
     if (oppLink.second.operator*().getPos() == newPos) {
-      // battle
+      // battle!
+      // Needs revealing and removing piece from board (possibly in download)
+      if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
+        p2.operator*().downloadLink(link);
+      } else {    // win or tie
+        p.operator*().downloadLink(oppLink.second);
+      }
     }
   }
 
   // check if lands on firewall:
   if (theBoard->isFirewall(newPos)) {
     // activate firewall
+    // needs removing
   }
 
   // check if lands on own server port:
@@ -82,11 +89,13 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // check if lands on opponent server port:
   if (!player && (newPos == 59 || newPos == 60)) {
-    link.operator*().download(); // need to download for opponent
+    link.operator*().toggleDownloaded(); // need to download for opponent
     // update players
+    // needs removing
   } else if (player && (newPos == 3 || newPos == 4)) {
-    link.operator*().download(); // need to download player
+    link.operator*().toggleDownloaded(); // need to download player
     // update players
+    // needs removing
   }
 
   // otherwise, normal move: 
