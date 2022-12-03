@@ -26,7 +26,7 @@ public:
 
   Ability* getAbility(int idx);
 
-  std::string getAbilityAtPos(int pos);
+  std::string checkAvailable(int pos);
 
   // for when link or add virus is downloaded
   void downloadData();

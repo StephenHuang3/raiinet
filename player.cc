@@ -85,7 +85,7 @@ char Player::checkScore() {
   return 'c'; // continue
 };
 
-std::string Player::getAbilityAtPos(int pos){
+std::string Player::checkAvailable(int pos){
   std::string isused;
 
   if (used[pos]){

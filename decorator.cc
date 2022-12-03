@@ -23,7 +23,7 @@ bool Serverport::isFirewall(int pos) const {
   return false || gB->isFirewall(pos);
 }
 
-Firewall::Firewall(Board* next, int pos): Decorator{next}, position{position} {};
+Firewall::Firewall(Board* next, int pos, int player): Decorator{next}, position{position}, player{player} {};
 
 Firewall::~Firewall() {};
 
