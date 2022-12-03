@@ -25,12 +25,13 @@ Board::Board() {
 };
 
 
-// everything is deleted because of unique_ptrs
+// everything is deleted because of shared_ptrs
 Board::~Board() {};
 
 std::shared_ptr<Player> Board::getPlayer(int p) const {
   return players.at(p);
 };
-void Board::setPiece(int p, char id, string type, int val, int position){
-  this->board[position] = std::make_unique<Piece>(p, id, type, val);
+void Board::setPiece(int p, char id, char type, int val, int position){
+  this->board[position] = std::make_shared<Piece>(p, id, type, val);
+  players[p].operator*().addPiece(board[position]);
 }

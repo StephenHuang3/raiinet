@@ -1,7 +1,6 @@
 #include "ability.h"
 #include <string>
-
-using namespace std;
+#include <iostream>
 
 void Polarize::activate(Player* player, Piece* p, int pos){
     p->changeType();
@@ -12,7 +11,7 @@ void LinkBoost::activate(Player* player, Piece* p, int pos){
 }
 
 void Download::activate(Player* player, Piece* p, int pos){
-    if (p->getType() == "virus"){
+    if (p->getType() == 'V'){
         player->addVirus();
     } else {
         player->addLink();
@@ -21,9 +20,9 @@ void Download::activate(Player* player, Piece* p, int pos){
 }
 
 void Scan::activate(Player* player, Piece* p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver
-    cout << "The piece" << p->getId() << " is a " << p->getType() << " power level " << p->getVal();
+    std::cout << "The piece" << p->getId() << " is a " << p->getType() << " power level " << p->getVal();
 }
 
-string Ability::getName() {
+std::string Ability::getName() {
     return name;
 }

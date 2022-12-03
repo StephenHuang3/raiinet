@@ -10,6 +10,7 @@ class Player {
   // Dictionary of Abilities - tracks the number of abilities
   std::map<int, Ability*> abilities;
   std::map<int, bool> used;
+  std::map<char, std::shared_ptr<Piece>> pieces;
   int data;
   int viruses;
 public:
@@ -33,7 +34,10 @@ public:
   void addVirus();
 
   // check for win/lose
-  char Player::checkScore();
+  char checkScore();
+
+  // adds a piece to the dictionary of pieces
+  void addPiece(std::shared_ptr<Piece>);
 };
 
 #endif

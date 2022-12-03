@@ -8,7 +8,7 @@
 class Subject;
 
 class Observer {
- public:
+public:
   virtual void print(int player) = 0;
   virtual ~Observer() = default;
 };
