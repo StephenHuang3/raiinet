@@ -9,8 +9,8 @@
 class Piece;
 
 class Board {
-  std::map<int, shared_ptr<Player>> players;
-  std::map<int, unique_ptr<Piece>> board;
+  std::map<int, std::shared_ptr<Player>> players;
+  std::map<int, std::shared_ptr<Piece>> board;
 
 public:
   Board();
@@ -23,7 +23,7 @@ public:
 
   std::shared_ptr<Player> getPlayer(int p) const;
 
-  void setPiece(int p, char id, string type, int val, int position);
+  void setPiece(int p, char id, char type, int val, int position);
   
 };
 

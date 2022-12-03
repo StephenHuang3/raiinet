@@ -29,6 +29,8 @@ public:
   void useAbility(int player, int id);
   
   char getTile(int pos) const override;
+
+  void randomize(int player);
 };
 
 #endif

@@ -64,6 +64,10 @@ int main(int argc, char *argv[]) {
     theBrd = new Serverport{theBrd, 61};
     theMap.board() = theBrd;
 
+    // for checking linked files
+    bool linked1 = false;
+    bool linked2 = false;
+
     for(int i = 0; i < argc; ++i) {
         if(argv[i] == "graphical") {
             graphicObserver *obs2 = new graphicObserver{theMap.board()};
@@ -85,51 +89,50 @@ int main(int argc, char *argv[]) {
             string piecevalues;
             getline(myReadFile, piecevalues);
             stringstream ss(piecevalues);
-            string singlePiece;
+            string singleLink;
             for(int i = 0; i < 8; i++){
-                ss >> singlePiece;
-                string kind;
+                ss >> singleLink;
                 int position;
-                if (singlePiece[0] == 'V'){
-                    kind = "virus";
-                } else {
-                    kind = "data";
-                }
                 if (i == 4 || i == 5){
                     position = i + 8;
                 } else {
                     position = i;
                 }
-                theBrd->setPiece(1, char(97 + i), kind, singlePiece[1] - '0', position);
+                theBrd->setPiece(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
+            // letting the rest of the program know that player 1 has a link file attached
+            linked1 = true;
         } else if (argv[i] == "link2") {
             ifstream myReadFile(argv[i + 1]);
             string piecevalues;
             getline(myReadFile, piecevalues);
             stringstream ss(piecevalues);
-            string singlePiece;
+            string singleLink;
             for(int i = 0; i < 8; i++){
-                ss >> singlePiece;
-                string kind;
+                ss >> singleLink;
                 int position;
-                if (singlePiece[0] == 'V'){
-                    kind = "virus";
-                } else {
-                    kind = "data";
-                }
                 if (i == 4 || i == 5){
                     position = i + 57 - 8;
                 } else {
                     position = i + 57;
                 }
-                theBrd->setPiece(2, char(65 + i), kind, singlePiece[1] - '0', position);
+                theBrd->setPiece(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
+            // letting the rest of the program know that player 2 has a link file attached
+            linked2 = true;
         }
     };
+
+    if( !linked1 ) {
+        // insert code later
+    }
+    if( !linked2 ) {
+        // insert same code for player2
+    }
 
 /*
     if (posOfString(argv[], "graphical") != -1){

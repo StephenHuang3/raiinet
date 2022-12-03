@@ -1,8 +1,6 @@
 #include "piece.h"
 
-using namespace std;
-
-Piece::Piece(int p, char id, string type, int val): player{p}, id{id}, type{type}, boosted{0}, val{val} {};
+Piece::Piece(int p, char id, char type, int val): player{p}, id{id}, type{type}, boosted{0}, val{val} {};
 
 Piece::~Piece() {};
   
@@ -27,7 +25,7 @@ int Piece::getPlayer() const {
   return player;
 }
 
-string Piece::getType() const {
+char Piece::getType() const {
   return type;
 }
 

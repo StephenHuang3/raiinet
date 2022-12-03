@@ -1,7 +1,6 @@
 #include "player.h"
 #include "ability.h"
-
-using namespace std;
+#include <memory>
 
 Player::Player() {
   // abilities[0] = new LinkBoost;
@@ -41,7 +40,7 @@ void Player::setAbility(char ability, int pos) {
   }
 }
 
-void Player::useAbility(string ability) {
+void Player::useAbility(std::string ability) {
   if( true ) { // need to match string with Ability ptr somehow. I was thinking this could either be in main, or here
     // activate ability somehow
   } else {
@@ -69,8 +68,8 @@ char Player::checkScore() {
   return 'c'; // continue
 };
 
-string Player::getAbilityAtPos(int pos){
-  string isused;
+std::string Player::getAbilityAtPos(int pos){
+  std::string isused;
 
   if (used[pos]){
     isused = " already used";
@@ -78,7 +77,11 @@ string Player::getAbilityAtPos(int pos){
     isused = " not used";
   }
 
-  string abilityatpos = abilities[pos]->getName();
+  std::string abilityatpos = abilities[pos]->getName();
 
   return abilityatpos + isused;
-}
+};
+
+void Player::addPiece(std::shared_ptr<Piece> p) {
+  pieces[p.operator*().getId()] = p;
+};
