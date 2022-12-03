@@ -42,4 +42,17 @@ public:
   bool isFirewall(int pos) const override;
 };
 
+class DisplayLinks: public Decorator {
+  Board* theBoard;
+  public:
+
+  DisplayLinks(Board* next);
+
+  ~DisplayLinks();
+
+  char getTile(int pos) const override;
+
+  bool isFirewall(int pos) const override;
+}
+
 #endif

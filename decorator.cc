@@ -1,4 +1,8 @@
 #include "decorator.h"
+#include "Piece.h"
+#include <map>
+
+using namespace std;
 
 Decorator::Decorator(Board* gameBoard): gB{gameBoard} {};
 
@@ -35,3 +39,25 @@ bool Serverport::isFirewall(int pos) const {
   return true;
 }
 
+DisplayLinks::DisplayLinks(Board* next): Decorator{next}, theBoard{next} {};
+
+DisplayLinks::~DisplayLinks() {};
+
+bool DisplayLinks::isFirewall(int pos) const {
+  return false;
+}
+
+char DisplayLinks::getTile(int pos) const{
+  // if(theBoard->getTile(pos) == '.'){
+  //   for(int i = 0; i < 8; i++){
+  //     theBoard->board
+  //   }
+  // }
+  try {
+    std::shared_ptr<Piece> p {theBoard->getPiece(pos)};
+    return p->getId();
+  } catch (...) {
+    return gB->getTile(pos);
+  }
+
+}
