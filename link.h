@@ -13,15 +13,18 @@ class Link {
   int player;
   char id;
   char type;
+  int pos;
   int moveAmount = 1;
   int val;
   bool downloaded = false;
 public:
-  Link(int p, char id, char type, int val);
+  Link(int p, int pos, char id, char type, int val);
   
   ~Link();
   
   char getId() const;
+
+  int getPos() const;
 
   int getPlayer() const;
   
