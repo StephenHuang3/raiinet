@@ -15,9 +15,6 @@ Player::Player() {
 };
 
 Player::~Player() {};
-  
-void Player::move() {}; // maybe unnecessary
-  
 
 void Player::setAbility(char ability, int pos) {
   if (ability == 'L'){

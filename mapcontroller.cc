@@ -12,6 +12,10 @@ void Mapcontroller::render(int player) {
   notifyObservers(player);
 };
 
+void moveLink(int player, char id, std::string dir) {
+  if board[id]
+}
+
 void useAbility(int player, int id) {
 
 };

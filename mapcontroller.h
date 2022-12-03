@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include <string>
 #include "subject.h"
 
 class Board;
@@ -14,7 +15,7 @@ class Mapcontroller: public Subject {
   std::ostream &out = std::cout;
 
   // potential extra: round number?
-  
+
 public:
   explicit Mapcontroller(Board* b): theBoard{b} {};
 
@@ -25,6 +26,8 @@ public:
   void reset();
   
   void render(int player);
+
+  void moveLink(int player, char id, std::string dir);
 
   void useAbility(int player, int id);
   
