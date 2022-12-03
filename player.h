@@ -25,6 +25,8 @@ public:
   // Uses an ability
   void useAbility(std::string ability);
 
+  std::string getAbilityAtPos(int pos);
+
   // for when link or add virus is downloaded
   void addLink();
   

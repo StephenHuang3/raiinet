@@ -1,6 +1,8 @@
 #include "ability.h"
 #include <string>
 
+using namespace std;
+
 void Polarize::activate(Player* player, Piece* p, int pos){
     p->changeType();
 }
@@ -20,4 +22,8 @@ void Download::activate(Player* player, Piece* p, int pos){
 
 void Scan::activate(Player* player, Piece* p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver
     cout << "The piece" << p->getId() << " is a " << p->getType() << " power level " << p->getVal();
+}
+
+string Ability::getName() {
+    return name;
 }
