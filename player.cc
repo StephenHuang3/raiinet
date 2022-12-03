@@ -1,6 +1,8 @@
 #include "player.h"
 #include "ability.h"
 
+using namespace std;
+
 Player::Player() {
   // abilities[0] = new LinkBoost;
   // abilities[1] = new Firewall;
@@ -39,7 +41,7 @@ void Player::setAbility(char ability, int pos) {
   }
 }
 
-void Player::useAbility(std::string ability) {
+void Player::useAbility(string ability) {
   if( true ) { // need to match string with Ability ptr somehow. I was thinking this could either be in main, or here
     // activate ability somehow
   } else {
@@ -66,3 +68,17 @@ char Player::checkScore() {
   }
   return 'c'; // continue
 };
+
+string Player::getAbilityAtPos(int pos){
+  string isused;
+
+  if (used[pos]){
+    isused = " already used";
+  } else {
+    isused = " not used";
+  }
+
+  string abilityatpos = abilities[pos]->getName();
+
+  return abilityatpos + isused;
+}

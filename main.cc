@@ -223,15 +223,36 @@ int main(int argc, char *argv[]) {
 
     bool readfile = false;
 
+    bool usedAbility = false;
+
     string command;
 
+    // render board for player 1 before game
+    theMap.render(0);
+
     while( cin >> command ) {
+
+        // render map before move
+
         if( command == "move" ) {
             char id, d;
             cin >> id >> d;
+            // check valid move
+
             // function
+
+            // change turn
         } else if ( command == "abilities" ) {
             // display abilities
+            if(turn == 0){
+                for(int i = 0; i < numabilities; i++){
+                    cout << p1->getAbilityAtPos(i);
+                }
+            } else if (turn == 1){
+                for(int i = 0; i < numabilities; i++){
+                    cout << p2->getAbilityAtPos(i);
+                }
+            }
         } else if ( command == "ability" ) {
             int id;
             cin >> id;
@@ -260,6 +281,9 @@ int main(int argc, char *argv[]) {
                         // check abilities
                     } else if (command == "board" ) {
                         // displays the board depending on whose turn it is
+                        theMap.render(turn);
+
+                        //
                     } else if (command == "quit") break;
                 }
             }
