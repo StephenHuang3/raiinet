@@ -33,6 +33,9 @@ public:
   
   void downloadVirus();
 
+  int getDataDownloaded();
+  int getVirusesDownloaded();
+
   // check for win/lose
   char checkScore();
 
@@ -40,6 +43,7 @@ public:
   void addLink(std::shared_ptr<Link>);
 
   std::map<char, std::shared_ptr<Link>> getLinks();
+  int getAbilityStatus();
 };
 
 #endif
