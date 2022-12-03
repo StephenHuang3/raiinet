@@ -45,10 +45,24 @@ int main(int argc, char *argv[]) {
     textObserver *obs1 = new textObserver{&theMap};
     observers.emplace_back(obs1);
 
+
     // creates player 1
     Player* p1 = new Player{};
     // creates player2
     Player* p2 = new Player{};
+
+    //add serverport decorators
+    theBrd = new Serverport{theBrd, 4};
+    theMap.board() = theBrd;
+
+    theBrd = new Serverport{theBrd, 5};
+    theMap.board() = theBrd;
+
+    theBrd = new Serverport{theBrd, 60};
+    theMap.board() = theBrd;
+
+    theBrd = new Serverport{theBrd, 61};
+    theMap.board() = theBrd;
 
     for(int i = 0; i < argc; ++i) {
         if(argv[i] == "graphical") {
