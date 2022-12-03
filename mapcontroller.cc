@@ -54,7 +54,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // refuse if lands on own piece:
   for (auto const& ownLink : p.operator*().getLinks()) {
-    if (ownLink.getPos() == newPos) {
+    if (ownLink.second.operator*().getPos() == newPos) {
       throw 3;
     }
   }
@@ -63,7 +63,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   int opp = !player;
   std::shared_ptr p2 = theBoard->getPlayer(opp);
   for (auto const& oppLink : p2.operator*().getLinks()) {
-    if (oppLink.getPos() == newPos) {
+    if (oppLink.second.operator*().getPos() == newPos) {
       // battle
     }
   }
@@ -76,7 +76,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   // check if lands on own server port:
   if (!player && (newPos == 3 || newPos == 4)) {
     throw 4;
-  } else if (player && (newPos == 59 || newPos == 60) {
+  } else if (player && (newPos == 59 || newPos == 60)) {
     throw 4;
   }
 
@@ -84,7 +84,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   if (!player && (newPos == 59 || newPos == 60)) {
     link.operator*().download(); // need to download for opponent
     // update players
-  } else if (player && (newPos == 3 || newPos == 4) {
+  } else if (player && (newPos == 3 || newPos == 4)) {
     link.operator*().download(); // need to download player
     // update players
   }

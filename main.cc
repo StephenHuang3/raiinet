@@ -224,6 +224,7 @@ int main(int argc, char *argv[]) {
     theMap.render(0);
 
     while( cin >> command ) {
+        ++playerTurn;
         cout << "Enter a command: \n";
         // render map before move
 
@@ -260,11 +261,11 @@ int main(int argc, char *argv[]) {
             // display abilities
             if(playerTurn == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1->getAbilityAtPos(i);
+                    cout << p1->checkAvailable(i);
                 }
             } else if (playerTurn == 1) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2->getAbilityAtPos(i);
+                    cout << p2->checkAvailable(i);
                 }
             }
         } else if ( command == "ability" ) {

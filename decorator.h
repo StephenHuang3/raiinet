@@ -33,8 +33,9 @@ public:
 
 class Firewall: public Decorator {
   int position;
+  int player;
 public:
-  Firewall(Board* next, int pos);
+  Firewall(Board* next, int pos, int player);
 
   ~Firewall();
 
