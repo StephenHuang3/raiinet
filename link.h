@@ -1,15 +1,15 @@
-#ifndef PIECE_H
-#define PIECE_H
+#ifndef LINK_H
+#define LINK_H
 
 #include <string>
 
 /* 
-Question: Do we want to make piece a decorator? 
+Question: Do we want to make link a decorator? 
 Pros: makes implementation of printing out the board easier - only need getTitle
 Cons: may cause move() functionality to be more complicated?
       idk I haven't really thought this through
 */
-class Piece {
+class Link {
   int player;
   char id;
   char type;
@@ -17,9 +17,9 @@ class Piece {
   int val;
   bool downloaded = false;
 public:
-  Piece::Piece(int p, char id, char type, int val);
+  Link::Link(int p, char id, char type, int val);
   
-  ~Piece();
+  ~Link();
   
   int move(char d);
 
