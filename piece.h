@@ -14,8 +14,9 @@ class Piece {
   int player;
   char id;
   string type;
-  int boosted;
+  int boosted = 0;
   int val;
+  bool downloaded = false;
 public:
   Piece::Piece(int p, char id, string type, int val);
   
