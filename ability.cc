@@ -2,12 +2,18 @@
 #include <string>
 #include <iostream>
 
+int Ability::getUses() {
+    return uses;
+}
+
 void Polarize::activate(Player* player, Piece* p, int pos){
     p->changeType();
 }
 
-void LinkBoost::activate(Player* player, Piece* p, int pos){
-    p->boost();
+void LinkBoost::activate(Player* player, Piece* p, int pos = 0){
+    if( player->getPieces().find(p->getId()) != player->getPieces().end()) {
+        p->boost();
+    }
 }
 
 void Download::activate(Player* player, Piece* p, int pos){
@@ -16,7 +22,7 @@ void Download::activate(Player* player, Piece* p, int pos){
     } else {
         player->addLink();
     }
-    delete p; //not sure if I need access to the board
+    p->download();
 }
 
 void Scan::activate(Player* player, Piece* p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver

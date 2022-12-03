@@ -24,7 +24,7 @@ public:
   void setAbility(char ability, int pos);
   
   // Uses an ability
-  void useAbility(std::string ability);
+  void useAbility(int idx);
 
   std::string getAbilityAtPos(int pos);
 
@@ -38,6 +38,8 @@ public:
 
   // adds a piece to the dictionary of pieces
   void addPiece(std::shared_ptr<Piece>);
+
+  std::map<char, std::shared_ptr<Piece>> getPieces();
 };
 
 #endif

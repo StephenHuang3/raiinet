@@ -30,21 +30,25 @@ char Piece::getType() const {
 }
 
 void Piece::changeType() {
-  if (type == "virus"){
-    type = "data";
+  if (type == 'V'){
+    type = 'D';
   } else {
-    type = "virus";
+    type = 'V';
   }
-}
+};
 
 void Piece::addVal() {
   ++val;
-}
+};
 
 int Piece::getVal() {
   return val;
-}
+};
 
 void Piece::boost() {
   ++boosted;
+};
+
+void Piece::download() {
+  downloaded = true;
 }

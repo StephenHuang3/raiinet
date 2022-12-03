@@ -14,8 +14,9 @@ void Mapcontroller::render(int player) {
   notifyObservers(player);
 };
 
-void useAbility(int player, int id) {
-
+void Mapcontroller::useAbility(int player, int id) {
+  std::shared_ptr p = theBoard->getPlayer(player);
+  p.operator*().useAbility(id);
 };
 
 char Mapcontroller::getTile(int pos) const {

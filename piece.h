@@ -35,6 +35,8 @@ public:
   void boost();
 
   int getVal();
+
+  void download();
 };
 
 #endif

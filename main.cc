@@ -248,7 +248,7 @@ int main(int argc, char *argv[]) {
     theMap.render(0);
 
     while( cin >> command ) {
-
+        cout << "Enter a command: \n";
         // render map before move
 
         if( command == "move" ) {

@@ -1,6 +1,7 @@
 #include "player.h"
 #include "ability.h"
 #include <memory>
+#include <iostream>
 
 Player::Player() {
   // abilities[0] = new LinkBoost;
@@ -40,11 +41,13 @@ void Player::setAbility(char ability, int pos) {
   }
 }
 
-void Player::useAbility(std::string ability) {
-  if( true ) { // need to match string with Ability ptr somehow. I was thinking this could either be in main, or here
-    // activate ability somehow
+void Player::useAbility(int idx) {
+  if( abilities.at(idx)->getUses() > 0 ) { 
+     
+    abilities.at(idx)->activate(this, nullptr, 0); // we need to get pointer p and the pos if we need it somehow
+
   } else {
-    throw "You have no more available" + ability;
+    throw "You have no more available";
   }
 };
 
@@ -85,3 +88,7 @@ std::string Player::getAbilityAtPos(int pos){
 void Player::addPiece(std::shared_ptr<Piece> p) {
   pieces[p.operator*().getId()] = p;
 };
+
+std::map<char, std::shared_ptr<Piece>> Player::getPieces() {
+  return pieces;
+}
