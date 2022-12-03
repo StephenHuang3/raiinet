@@ -216,11 +216,8 @@ int main(int argc, char *argv[]) {
 */
     int playerTurn = 0;
     bool errorfree = true;
-
     bool readfile = false;
-
     bool usedAbility = false;
-
     string command;
 
     // render board for player 1 before game
@@ -234,11 +231,31 @@ int main(int argc, char *argv[]) {
             char id;
             std::string dir;
             cin >> id >> dir;
-            // check valid move
-
-            // function
-
+            try {
+                theMap.moveLink(playerTurn, id, dir);
+            }
+            catch (1) {
+                cout << "That link is already downloaded." << endl;
+                continue;
+            }
+            catch (2) {
+                cout << "The link will go out of bounds." << endl;
+                continue;
+            }
+            catch (3) {
+                cout << "You cannot move links onto your own links." << endl;
+                continue;
+            }
+            catch (4) {
+                cout << "You cannot move links onto your own server ports." << endl;
+                continue;
+            }
+            catch (...) {
+                cout << "Default Exception" << endl;
+                continue;
+            }
             // change playerTurn
+            playerTurn = !playerTurn;
         } else if ( command == "abilities" ) {
             // display abilities
             if(playerTurn == 0) {

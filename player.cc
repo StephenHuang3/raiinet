@@ -48,8 +48,8 @@ void Player::useAbility(int idx) {
   }
 };
 
-// called when player downloads a link
-void Player::downloadLink() {
+// called when player downloads a data
+void Player::downloadData() {
   ++data;
 };
 

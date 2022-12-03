@@ -27,9 +27,9 @@ public:
   std::string getAbilityAtPos(int pos);
 
   // for when link or add virus is downloaded
-  void addLink(); //ryan change this
+  void downloadData();
   
-  void addVirus();
+  void downloadVirus();
 
   // check for win/lose
   char checkScore();
