@@ -17,19 +17,24 @@ class Link {
   int val;
   bool downloaded = false;
 public:
-  Link::Link(int p, char id, char type, int val);
+  Link(int p, char id, char type, int val);
   
   ~Link();
   
   char getId() const;
+
   int getPlayer() const;
+  
   char getType() const;
+  
   int getMoveAmount() const;
+  
   bool getDownloaded() const;
 
   void changeType();
 
   void addVal();
+  
   void boost();
 
   int getVal();

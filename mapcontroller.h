@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include "subject.h"
+#include "link.h"
 
 class Board;
 
