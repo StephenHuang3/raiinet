@@ -18,17 +18,6 @@
 
 using namespace std;
 
-/*
-int posOfString(char* argv[], string str){
-    for(int i = 0; i < argv.length(); i++){
-        if (argv[i] == str){
-            return i;
-        }
-    }
-    return -1;
-}
-*/
-
 int main(int argc, char *argv[]) {
 
     // set number of abilities players have
@@ -52,16 +41,21 @@ int main(int argc, char *argv[]) {
     Player* p2 = new Player{};
 
     //add serverport decorators
-    theBrd = new Serverport{theBrd, 4};
+    theBrd = new Serverport{theBrd, 3, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 5};
+    theBrd = new Serverport{theBrd, 4, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 60};
+    theBrd = new Serverport{theBrd, 59, 2};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 61};
+    theBrd = new Serverport{theBrd, 60, 2};
+    theMap.board() = theBrd;
+
+    //add display link decorator
+
+    theBrd = new DisplayLinks{theBrd};
     theMap.board() = theBrd;
 
     // for checking linked files
@@ -87,7 +81,7 @@ int main(int argc, char *argv[]) {
         } else if (argv[i] == "link1") {
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
-            getline(myReadFile, linkalues);
+            getline(myReadFile, linkvalues);
             stringstream ss(linkvalues);
             string singleLink;
             for(int i = 0; i < 8; i++){
@@ -139,12 +133,8 @@ int main(int argc, char *argv[]) {
         graphicObserver *obs 2 = new graphicObserver{&theMap};
         observers.emplace_back(obs2);
     }
-
-
     //creates the player 1
     Player &p1 = theBrd->getPlayer1();
-
-
     if (posOfString(argv[], "ability1", argc) == -1){
         string abilityorder = "LFDSPLFDSPLFDSP";
         for(int i = 0; i < numabilities; i++){
@@ -156,7 +146,6 @@ int main(int argc, char *argv[]) {
             p1.setAbility(abilityorder[i], i);
         }
     }
-
     if (posOfString(argv[], "link1", argc) != -1){
         ifstream MyReadFile(argv[posOfString(argv, "link1", argc) + 1]);
         string linkvalues;
@@ -181,19 +170,12 @@ int main(int argc, char *argv[]) {
         }
         MyReadFile.close();
     } else { //randomize values
-
     }
-
-
     if ((posOfString(argv[], "link2") != 0) && (posOfString(argv[], "ability2") != -1)){
-
     } else if (posOfString(argv[], "link2") != -1){
-
     } else if (posOfString(argv[], "ability2") != -1){
-
     //creates player 2
     Player &p2 = theBrd->getPlayer2();
-
     if (posOfString(argv[], "ability2", argc) == -1){
         string abilityorder = "LFDSPLFDSPLFDSP";
         for(int i = 0; i < numabilities; i++){
@@ -205,9 +187,7 @@ int main(int argc, char *argv[]) {
             p2.setAbility(abilityorder[i], i);
         }
     }
-
     
-
     if (posOfString(argv[], "link2", argc) != -1){
         ifstream MyReadFile(argv[posOfString(argv[], "link2", argc) + 1]);
         string linkvalues;
@@ -232,7 +212,6 @@ int main(int argc, char *argv[]) {
         }
         MyReadFile.close();
     } else { //randomize values
-
     }
 */
     int playerTurn = 0;
@@ -323,7 +302,6 @@ int main(int argc, char *argv[]) {
                 continue;
             }
         }
-
         if (command == "sequence"){
             string file;
             cin >> file;
@@ -340,7 +318,6 @@ int main(int argc, char *argv[]) {
             cout << "quit" << endl;
             break;
         }
-
     } // command loop
 */
 

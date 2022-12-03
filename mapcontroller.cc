@@ -19,7 +19,7 @@ void Mapcontroller::useAbility(int player, int id) {
   p.operator*().useAbility(id);
 };
 
-void moveLink(int player, char id, std::string dir) {
+void Mapcontroller::moveLink(int player, char id, std::string dir) {
   std::shared_ptr p = theBoard->getPlayer(player);
   std::shared_ptr<Link> link = p.operator*().getLinks()[id];
 
