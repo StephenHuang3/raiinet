@@ -68,7 +68,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       // Needs revealing and removing piece from board (possibly in download)
       if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
         p2.operator*().downloadLink(link);
-      } else (oppLink.second.operator*().getVal() < link.operator*().getVal()) {    // win or tie
+      } else {    // win or tie
         p.operator*().downloadLink(oppLink.second);
       }
     }
