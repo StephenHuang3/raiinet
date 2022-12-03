@@ -69,11 +69,27 @@ void moveLink(int player, char id, std::string dir) {
   }
 
   // check if lands on firewall:
+  if (theBoard->isFirewall(newPos)) {
+    // activate firewall
+  }
 
-  // check if lands on server port:
+  // check if lands on own server port:
+  if (!player && (newPos == 3 || newPos == 4)) {
+    throw 4;
+  } else if (player && (newPos == 59 || newPos == 60) {
+    throw 4;
+  }
+
+  // check if lands on opponent server port:
+  if (!player && (newPos == 59 || newPos == 60)) {
+    link.operator*().download(); // need to download for opponent
+    // update players
+  } else if (player && (newPos == 3 || newPos == 4) {
+    link.operator*().download(); // need to download player
+    // update players
+  }
 
   // otherwise, normal move:
-
   
 };
 
