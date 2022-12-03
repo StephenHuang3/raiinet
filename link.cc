@@ -1,21 +1,8 @@
 #include "link.h"
 
-Link::Link(int p, char id, char type, int val): player{p}, id{id}, type{type}, boosted{0}, val{val} {};
+Link::Link(int p, char id, char type, int val): player{p}, id{id}, type{type}, val{val} {};
 
 Link::~Link() {};
-  
-int Link::move(char d) {
-  if(d == 'u') {
-    return -8;
-  } else if(d == 'r') {
-    return 1;
-  } else if(d == 'd') {
-    return -8;
-  } else if(d == 'l') {
-    return -1;
-  }
-  return 0;
-};
 
 char Link::getId() const {
   return id;
@@ -27,6 +14,14 @@ int Link::getPlayer() const {
 
 char Link::getType() const {
   return type;
+}
+
+int Link::getMoveAmount() const {
+  return moveAmount;
+}
+
+bool Link::getDownloaded() const {
+  return downloaded;
 }
 
 void Link::changeType() {
@@ -46,7 +41,7 @@ int Link::getVal() {
 };
 
 void Link::boost() {
-  ++boosted;
+  ++moveAmount;
 };
 
 void Link::download() {

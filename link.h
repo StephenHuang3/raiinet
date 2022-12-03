@@ -13,7 +13,7 @@ class Link {
   int player;
   char id;
   char type;
-  int boosted;
+  int moveAmount = 1;
   int val;
   bool downloaded = false;
 public:
@@ -21,13 +21,11 @@ public:
   
   ~Link();
   
-  int move(char d);
-
   char getId() const;
-
   int getPlayer() const;
-
   char getType() const;
+  int getMoveAmount() const;
+  bool getDownloaded() const;
 
   void changeType();
 

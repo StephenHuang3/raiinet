@@ -252,8 +252,9 @@ int main(int argc, char *argv[]) {
         // render map before move
 
         if( command == "move" ) {
-            char id, d;
-            cin >> id >> d;
+            char id;
+            std::string dir;
+            cin >> id >> dir;
             // check valid move
 
             // function

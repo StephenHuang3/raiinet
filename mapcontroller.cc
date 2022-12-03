@@ -20,7 +20,61 @@ void Mapcontroller::useAbility(int player, int id) {
 };
 
 void moveLink(int player, char id, std::string dir) {
-  if board[id]
+  std::shared_ptr p = theBoard->getPlayer(player);
+  std::shared_ptr<Link> link = p.operator*().getLinks()[id];
+
+  int moveAmt = link.operator*().getMoveAmount();
+  if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
+
+  int pos = link.operator*().getPos(); // needs implementation
+  // calculate new position based on direction
+  int newPos = pos;
+  if (dir == "up") {
+    newPos += -8 * moveAmt;
+  } else if (dir == "right") {
+    newPos += moveAmt;
+  } else if (dir == "left") {
+    newPos -= moveAmt;
+  } else if(dir == "down") {
+    newPos += 8 * moveAmt;
+  }
+
+  // check if link is already downloaded:
+  if (link.operator*().getDownloaded() == true) {
+    throw 1;
+  }
+
+  // check if link will go out-of-bounds:
+  int row = pos / 8;
+  if ((dir == "up" || dir == "down") && (newPos < 0 || newPos > 63)) {
+    throw 2;
+  } else if ((dir == "right" || dir == "left") && (newPos < row * 8 || newPos > row * 8 + 7)) {
+    throw 2;
+  }
+
+  // refuse if lands on own piece:
+  for (auto const& ownLink : p.operator*().getLinks()) {
+    if (ownLink.getPos() == newPos) {
+      throw 3;
+    }
+  }
+
+  // battle if lands on opponent:
+  int opp = !player;
+  std::shared_ptr p2 = theBoard->getPlayer(opp);
+  for (auto const& oppLink : p2.operator*().getLinks()) {
+    if (oppLink.getPos() == newPos) {
+      // battle
+    }
+  }
+
+  // check if lands on firewall:
+
+  // check if lands on server port:
+
+  // otherwise, normal move:
+
+  
 };
 
 char Mapcontroller::getTile(int pos) const {
