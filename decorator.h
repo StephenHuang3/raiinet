@@ -20,8 +20,9 @@ are we giving it?
 */
 class Serverport: public Decorator {
   int position;
+  int player;
 public:
-  Serverport(Board* next, int pos);
+  Serverport(Board* next, int pos, int player);
 
   ~Serverport();
 
@@ -53,6 +54,6 @@ class DisplayLinks: public Decorator {
   char getTile(int pos) const override;
 
   bool isFirewall(int pos) const override;
-}
+};
 
 #endif

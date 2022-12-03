@@ -18,17 +18,6 @@
 
 using namespace std;
 
-/*
-int posOfString(char* argv[], string str){
-    for(int i = 0; i < argv.length(); i++){
-        if (argv[i] == str){
-            return i;
-        }
-    }
-    return -1;
-}
-*/
-
 int main(int argc, char *argv[]) {
 
     // set number of abilities players have
@@ -52,16 +41,16 @@ int main(int argc, char *argv[]) {
     Player* p2 = new Player{};
 
     //add serverport decorators
-    theBrd = new Serverport{theBrd, 4};
+    theBrd = new Serverport{theBrd, 3, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 5};
+    theBrd = new Serverport{theBrd, 4, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 60};
+    theBrd = new Serverport{theBrd, 59, 2};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 61};
+    theBrd = new Serverport{theBrd, 60, 2};
     theMap.board() = theBrd;
 
     //add display link decorator
