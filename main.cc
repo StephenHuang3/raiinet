@@ -259,11 +259,11 @@ int main(int argc, char *argv[]) {
             playerTurn = !playerTurn;
         } else if ( command == "abilities" ) {
             // display abilities
-            if(playerTurn == 0) {
+            if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
                     cout << p1->checkAvailable(i);
                 }
-            } else if (playerTurn == 1) {
+            } else if (playerTurn%2 == 1) {
                 for(int i = 0; i < numabilities; i++){
                     cout << p2->checkAvailable(i);
                 }
@@ -274,7 +274,7 @@ int main(int argc, char *argv[]) {
             char link = ' ';
             int x = 0;
             int y = 0;
-            if( theBrd->getPlayer(1).operator*().getAbility(id)->checkInput() == 'l') {
+            if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
                 cin >> link;
             } else {
                 cin >> x >> y;
