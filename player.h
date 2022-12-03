@@ -26,15 +26,19 @@ public:
 
   Ability* getAbility(int idx);
 
-  std::string getAbilityAtPos(int pos);
+  std::string checkAvailable(int pos);
 
   // for when link or add virus is downloaded
   void downloadData();
   
   void downloadVirus();
 
+<<<<<<< textobs
   int getDataDownloaded();
   int getVirusesDownloaded();
+=======
+  void downloadLink(std::shared_ptr<Link> link);
+>>>>>>> main
 
   // check for win/lose
   char checkScore();

@@ -31,7 +31,7 @@ void Download::activate(Player* player, std::shared_ptr<Link> p, int pos){
     } else {
         player->downloadData();
     }
-    p->download();
+    p->toggleDownloaded();
 };
 
 char Download::checkInput() {

@@ -65,6 +65,16 @@ void Player::downloadVirus() {
   ++viruses;
 };
 
+// called for battle
+void Player::downloadLink(std::shared_ptr<Link> link) {
+    if (link.operator*().getType() == 'V'){
+        *this->downloadVirus();
+    } else {
+        *this->downloadData();
+    }
+    link.operator*().toggleDownloaded();
+}
+
 // run to check if game ends
 char Player::checkScore() {
   if( data >= 4 ) {
@@ -75,7 +85,7 @@ char Player::checkScore() {
   return 'c'; // continue
 };
 
-std::string Player::getAbilityAtPos(int pos){
+std::string Player::checkAvailable(int pos){
   std::string isused;
 
   if (used[pos]){

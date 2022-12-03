@@ -36,13 +36,15 @@ public:
 
   void changeType();
 
+  void changePos(int newPos);
+
   void addVal();
   
   void boost();
 
-  int getVal();
+  int getVal() const;
 
-  void download();
+  void toggleDownloaded();
 };
 
 #endif
