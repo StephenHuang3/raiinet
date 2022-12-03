@@ -40,7 +40,7 @@ void Link::addVal() {
   ++val;
 };
 
-int Link::getVal() {
+int Link::getVal() const {
   return val;
 };
 
@@ -48,6 +48,6 @@ void Link::boost() {
   ++moveAmount;
 };
 
-void Link::download() {
+void Link::toggleDownloaded() {
   downloaded = true;
 }

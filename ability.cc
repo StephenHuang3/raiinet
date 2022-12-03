@@ -22,7 +22,7 @@ void Download::activate(Player* player, Link* p, int pos){
     } else {
         player->downloadData();
     }
-    p->download();
+    p->toggleDownloaded();
 }
 
 void Scan::activate(Player* player, Link* p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver

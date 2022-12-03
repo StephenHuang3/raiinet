@@ -31,6 +31,8 @@ public:
   
   void downloadVirus();
 
+  void downloadLink(std::shared_ptr<Link> link);
+
   // check for win/lose
   char checkScore();
 
