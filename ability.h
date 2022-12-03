@@ -16,6 +16,7 @@ class Ability {
   public:
     // activates ability, if needed, we can pass a pointer to the board
     virtual void activate(Player* player, Piece* p, int pos) = 0; // --uses
+    std::string getName();
   };
 
   class LinkBoost: public Ability {
