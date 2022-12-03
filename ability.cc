@@ -27,9 +27,9 @@ char LinkBoost::checkInput() {
 
 void Download::activate(Player* player, std::shared_ptr<Link> p, int pos){
     if (p->getType() == 'V'){
-        player->addVirus();
+        player->downloadVirus();
     } else {
-        player->addLink();
+        player->downloadData();
     }
     p->download();
 };

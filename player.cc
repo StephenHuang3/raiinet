@@ -55,13 +55,13 @@ Ability* Player::getAbility(int idx) {
   return abilities.at(idx);
 }
 
-// called when player downloads a link
-void Player::addLink() {
+// called when player downloads a data
+void Player::downloadData() {
   ++data;
 };
 
 // called when player downloads a virus
-void Player::addVirus() {
+void Player::downloadVirus() {
   ++viruses;
 };
 

@@ -89,7 +89,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     // update players
   }
 
-  // otherwise, normal move:
+  // otherwise, normal move: 
   
 };
 

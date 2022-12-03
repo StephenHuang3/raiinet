@@ -18,17 +18,6 @@
 
 using namespace std;
 
-/*
-int posOfString(char* argv[], string str){
-    for(int i = 0; i < argv.length(); i++){
-        if (argv[i] == str){
-            return i;
-        }
-    }
-    return -1;
-}
-*/
-
 int main(int argc, char *argv[]) {
 
     // set number of abilities players have
@@ -52,16 +41,16 @@ int main(int argc, char *argv[]) {
     Player* p2 = new Player{};
 
     //add serverport decorators
-    theBrd = new Serverport{theBrd, 4};
+    theBrd = new Serverport{theBrd, 3, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 5};
+    theBrd = new Serverport{theBrd, 4, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 60};
+    theBrd = new Serverport{theBrd, 59, 2};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 61};
+    theBrd = new Serverport{theBrd, 60, 2};
     theMap.board() = theBrd;
 
     //add display link decorator
@@ -227,11 +216,8 @@ int main(int argc, char *argv[]) {
 */
     int playerTurn = 0;
     bool errorfree = true;
-
     bool readfile = false;
-
     bool usedAbility = false;
-
     string command;
 
     // render board for player 1 before game
@@ -245,11 +231,31 @@ int main(int argc, char *argv[]) {
             char id;
             std::string dir;
             cin >> id >> dir;
-            // check valid move
-
-            // function
-
+            try {
+                theMap.moveLink(playerTurn, id, dir);
+            }
+            catch (1) {
+                cout << "That link is already downloaded." << endl;
+                continue;
+            }
+            catch (2) {
+                cout << "The link will go out of bounds." << endl;
+                continue;
+            }
+            catch (3) {
+                cout << "You cannot move links onto your own links." << endl;
+                continue;
+            }
+            catch (4) {
+                cout << "You cannot move links onto your own server ports." << endl;
+                continue;
+            }
+            catch (...) {
+                cout << "Default Exception" << endl;
+                continue;
+            }
             // change playerTurn
+            playerTurn = !playerTurn;
         } else if ( command == "abilities" ) {
             // display abilities
             if(playerTurn == 0) {

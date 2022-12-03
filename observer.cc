@@ -36,15 +36,15 @@ void textObserver::print(int player){
   
 }
 graphicObserver::~graphicObserver() {
-  s->detach(this);
+  brd->detach(this);
   delete w;
 }
 
-graphicObserver::graphicObserver(Board* brd): brd{brd} {
+graphicObserver::graphicObserver(Mapcontroller* brd): brd{brd} {
   int width = 100 * 8 + 1;
   int height = 100 * 8 + 1;
   w = new Xwindow{width, height};
-  this->s->attach(this);
+  this->brd->attach(this);
 }
 
 void graphicObserver::print(int player) {

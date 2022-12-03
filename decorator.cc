@@ -8,7 +8,7 @@ Decorator::Decorator(Board* gameBoard): gB{gameBoard} {};
 
 Decorator::~Decorator() { delete gB; };
 
-Serverport::Serverport(Board* next, int position): Decorator{next}, position{position} {};
+Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {};
 
 Serverport::~Serverport() {};
 
