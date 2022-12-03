@@ -14,7 +14,7 @@ class Board {
 
 public:
   Board();
-  //test 
+
   ~Board();
 
   virtual char getTile(int pos) const = 0;

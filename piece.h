@@ -15,6 +15,7 @@ class Piece {
   char type;
   int boosted;
   int val;
+  bool downloaded = false;
 public:
   Piece::Piece(int p, char id, char type, int val);
   
