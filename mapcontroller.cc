@@ -42,6 +42,6 @@ void Mapcontroller::randomize(int player) {
     m.erase(i - 1);
     int position = i - 1;
     if(i == 5 || i - 1 == 6) position = i - 1 + 8; 
-    theBoard->setPiece(player, (char)i - 1 + 'a', type, (int)value + '0', position);
+    theBoard->setLink(player, (char)i - 1 + 'a', type, (int)value + '0', position);
   }
 };

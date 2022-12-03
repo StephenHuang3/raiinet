@@ -82,10 +82,10 @@ std::string Player::getAbilityAtPos(int pos){
   return abilityatpos + isused;
 };
 
-void Player::addPiece(std::shared_ptr<Piece> p) {
-  pieces[p.operator*().getId()] = p;
+void Player::addLink(std::shared_ptr<Link> p) {
+  links[p.operator*().getId()] = p;
 };
 
-std::map<char, std::shared_ptr<Piece>> Player::getPieces() {
-  return pieces;
+std::map<char, std::shared_ptr<Link>> Player::getLinks() {
+  return links;
 }

@@ -1,5 +1,5 @@
 #include "decorator.h"
-#include "Piece.h"
+#include "link.h"
 #include <map>
 
 using namespace std;
@@ -54,7 +54,7 @@ char DisplayLinks::getTile(int pos) const{
   //   }
   // }
   try {
-    std::shared_ptr<Piece> p {theBoard->getPiece(pos)};
+    std::shared_ptr<Link> p {theBoard->getLink(pos)};
     return p->getId();
   } catch (...) {
     return gB->getTile(pos);

@@ -6,11 +6,11 @@
 #include <memory>
 #include <string>
 
-class Piece;
+class Link;
 
 class Board {
   std::map<int, std::shared_ptr<Player>> players;
-  std::map<int, std::shared_ptr<Piece>> board;
+  std::map<int, std::shared_ptr<Link>> board;
 
 public:
   Board();
@@ -23,7 +23,7 @@ public:
 
   std::shared_ptr<Player> getPlayer(int p) const;
 
-  void setPiece(int p, char id, char type, int val, int position);
+  void setLink(int p, char id, char type, int val, int position);
   
 };
 

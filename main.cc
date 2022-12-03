@@ -4,7 +4,7 @@
 #include "decorator.h"
 #include "mapcontroller.h"
 #include "observer.h"
-#include "piece.h"
+#include "link.h"
 #include "player.h"
 #include "subject.h"
 
@@ -86,9 +86,9 @@ int main(int argc, char *argv[]) {
             ++i;
         } else if (argv[i] == "link1") {
             ifstream myReadFile(argv[i + 1]);
-            string piecevalues;
-            getline(myReadFile, piecevalues);
-            stringstream ss(piecevalues);
+            string linkvalues;
+            getline(myReadFile, linkalues);
+            stringstream ss(linkvalues);
             string singleLink;
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
                 } else {
                     position = i;
                 }
-                theBrd->setPiece(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
+                theBrd->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
@@ -106,9 +106,9 @@ int main(int argc, char *argv[]) {
             linked1 = true;
         } else if (argv[i] == "link2") {
             ifstream myReadFile(argv[i + 1]);
-            string piecevalues;
-            getline(myReadFile, piecevalues);
-            stringstream ss(piecevalues);
+            string linkvalues;
+            getline(myReadFile, linkvalues);
+            stringstream ss(linkvalues);
             string singleLink;
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
                 } else {
                     position = i + 57;
                 }
-                theBrd->setPiece(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
+                theBrd->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
@@ -159,15 +159,15 @@ int main(int argc, char *argv[]) {
 
     if (posOfString(argv[], "link1", argc) != -1){
         ifstream MyReadFile(argv[posOfString(argv, "link1", argc) + 1]);
-        string piecevalues;
-        getline(myReadFile, piecevalues);
-        stringstream ss(piecevalues);
-        string singlePiece;
+        string linkvalues;
+        getline(myReadFile, linkvalues);
+        stringstream ss(linkvalues);
+        string singleLink;
         for(int i = 0; i < 8; i++){
-            ss >> singlePiece;
+            ss >> singleLink;
             string kind;
             int position;
-            if (singlePiece[0] == 'V'){
+            if (singleLink[0] == 'V'){
                 kind = "virus";
             } else {
                 kind = "data";
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
             } else {
                 position = i;
             }
-            theBrd.setPiece(1, char(97 + i), kind, singlePiece[1] - '0', position);
+            theBrd.setLink(1, char(97 + i), kind, singleLink[1] - '0', position);
         }
         MyReadFile.close();
     } else { //randomize values
@@ -210,15 +210,15 @@ int main(int argc, char *argv[]) {
 
     if (posOfString(argv[], "link2", argc) != -1){
         ifstream MyReadFile(argv[posOfString(argv[], "link2", argc) + 1]);
-        string piecevalues;
-        getline(myReadFile, piecevalues);
-        stringstream ss(piecevalues);
-        string singlePiece;
+        string linkvalues;
+        getline(myReadFile, linkvalues);
+        stringstream ss(linkvalues);
+        string singleLink;
         for(int i = 0; i < 8; i++){
-            ss >> singlePiece;
+            ss >> singleLink;
             string kind;
             int position;
-            if (singlePiece[0] == 'V'){
+            if (singleLink[0] == 'V'){
                 kind = "virus";
             } else {
                 kind = "data";
@@ -228,7 +228,7 @@ int main(int argc, char *argv[]) {
             } else {
                 position = i;
             }
-            theBrd.setPiece(1, char(97 + i), kind, singlePiece[1] - '0', position);
+            theBrd.setLink(1, char(97 + i), kind, singleLink[1] - '0', position);
         }
         MyReadFile.close();
     } else { //randomize values
