@@ -128,10 +128,10 @@ int main(int argc, char *argv[]) {
     };
 
     if( !linked1 ) {
-        // insert code later
+        theMap.randomize(1);
     }
     if( !linked2 ) {
-        // insert same code for player2
+        theMap.randomize(2);
     }
 
 /*
