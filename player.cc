@@ -106,3 +106,21 @@ void Player::addLink(std::shared_ptr<Link> p) {
 std::map<char, std::shared_ptr<Link>> Player::getLinks() {
   return links;
 }
+
+int Player::getAbilityStatus() {
+  int count = 0;
+  for(int i = 0; i < 5; i++){
+    if (used[i] == true){
+      count++;
+    }
+  }
+  return count;
+}
+
+int Player::getDataDownloaded() {
+  return data;
+}
+
+int Player::getVirusesDownloaded() {
+  return viruses;
+}
