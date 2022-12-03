@@ -68,10 +68,11 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       // Needs revealing and removing piece from board (possibly in download)
       if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
         p2.operator*().downloadLink(link);
-      } else {    // win or tie
+      } else {                                                                      // win or tie
         p.operator*().downloadLink(oppLink.second);
       }
     }
+    return;
   }
 
   // check if lands on firewall:
@@ -89,17 +90,18 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // check if lands on opponent server port:
   if (!player && (newPos == 59 || newPos == 60)) {
-    link.operator*().toggleDownloaded(); // need to download for opponent
-    // update players
-    // needs removing
+    p.operator*().downloadLink(link);
+    return;
   } else if (player && (newPos == 3 || newPos == 4)) {
-    link.operator*().toggleDownloaded(); // need to download player
-    // update players
+    int opp = !player;
+    std::shared_ptr p2 = theBoard->getPlayer(opp);
+    p2.operator*().downloadLink(link);
     // needs removing
+    return;
   }
 
   // otherwise, normal move: 
-  
+  link.operator*().changePos(newPos);
 };
 
 char Mapcontroller::getTile(int pos) const {
