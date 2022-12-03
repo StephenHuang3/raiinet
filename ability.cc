@@ -18,9 +18,9 @@ void LinkBoost::activate(Player* player, Link* p, int pos = 0){
 
 void Download::activate(Player* player, Link* p, int pos){
     if (p->getType() == 'V'){
-        player->addVirus();
+        player->downloadVirus();
     } else {
-        player->addLink();
+        player->downloadData();
     }
     p->download();
 }

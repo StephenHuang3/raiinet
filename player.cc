@@ -49,12 +49,12 @@ void Player::useAbility(int idx) {
 };
 
 // called when player downloads a link
-void Player::addLink() {
+void Player::downloadLink() {
   ++data;
 };
 
 // called when player downloads a virus
-void Player::addVirus() {
+void Player::downloadVirus() {
   ++viruses;
 };
 
