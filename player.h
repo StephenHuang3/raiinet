@@ -18,8 +18,6 @@ public:
 
   ~Player();
   
-  void move();
-  
   // sets the number of uses an ability has. I plan on having it stored in ability, but we can change that
   void setAbility(char ability, int pos);
   

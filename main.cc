@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
 
     }
 */
-    int turn = 0;
+    int playerTurn = 0;
     bool errorfree = true;
 
     bool readfile = false;
@@ -258,14 +258,14 @@ int main(int argc, char *argv[]) {
 
             // function
 
-            // change turn
+            // change playerTurn
         } else if ( command == "abilities" ) {
             // display abilities
-            if(turn == 0){
+            if(playerTurn == 0) {
                 for(int i = 0; i < numabilities; i++){
                     cout << p1->getAbilityAtPos(i);
                 }
-            } else if (turn == 1){
+            } else if (playerTurn == 1) {
                 for(int i = 0; i < numabilities; i++){
                     cout << p2->getAbilityAtPos(i);
                 }
@@ -276,7 +276,7 @@ int main(int argc, char *argv[]) {
             // check abilities
         } else if (command == "board" ) {
             // displays the board depending on whose turn it is
-            theMap.render(turn);
+            theMap.render(playerTurn);
         } else if (command == "sequence" ) {
             string fileName;
             cin >> fileName;
@@ -298,7 +298,7 @@ int main(int argc, char *argv[]) {
                         // check abilities
                     } else if (command == "board" ) {
                         // displays the board depending on whose turn it is
-                        theMap.render(turn);
+                        theMap.render(playerTurn);
 
                         //
                     } else if (command == "quit") break;

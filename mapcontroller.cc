@@ -19,6 +19,10 @@ void Mapcontroller::useAbility(int player, int id) {
   p.operator*().useAbility(id);
 };
 
+void moveLink(int player, char id, std::string dir) {
+  if board[id]
+};
+
 char Mapcontroller::getTile(int pos) const {
   return theBoard->getTile(pos);
 };
