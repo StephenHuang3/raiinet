@@ -270,6 +270,15 @@ int main(int argc, char *argv[]) {
         } else if ( command == "ability" ) {
             int id;
             cin >> id;
+            char link = ' ';
+            int x = 0;
+            int y = 0;
+            if( theBrd->getPlayer(1).operator*().getAbility(id)->checkInput() == 'l') {
+                cin >> link;
+            } else {
+                cin >> x >> y;
+            }
+            theBrd->getPlayer(1).operator*().useAbility(id, link, x, y);
             // check abilities
         } else if (command == "board" ) {
             // displays the board depending on whose turn it is

@@ -22,7 +22,9 @@ public:
   void setAbility(char ability, int pos);
   
   // Uses an ability
-  void useAbility(int idx);
+  void useAbility(int idx, char l, int x, int y);
+
+  Ability* getAbility(int idx);
 
   std::string getAbilityAtPos(int pos);
 
