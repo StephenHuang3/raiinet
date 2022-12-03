@@ -4,6 +4,7 @@
 #include "link.h"
 #include "player.h"
 #include <string>
+#include <memory>
 
 //class Player;
 //class Link;
@@ -15,35 +16,44 @@ class Ability {
 
   public:
     // activates ability, if needed, we can pass a pointer to the board
-    virtual void activate(Player* player, Link* p, int pos) = 0; // --uses
+    virtual void activate(Player* player, std::shared_ptr<Link> p, int pos) = 0; // --uses
+
+    // checks what kind and how much information we need to read in;
+    virtual char checkInput() = 0;
+
     int getUses();
     std::string getName();
   };
 
   class LinkBoost: public Ability {
     public:
-      void activate(Player* player, Link* p, int pos) override;
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
   };
 
   class Firewall: public Ability {
     public:
-      void activate(Player* player, Link* p, int pos) override;
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
   }; //tbd
 
 
   class Download: public Ability {
     public:
-      void activate(Player* player, Link* p, int pos) override;
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
   };
 
   class Polarize: public Ability {
     public:
-      void activate(Player* player, Link* p, int pos) override;
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
   };
 
   class Scan: public Ability {
     public:
-      void activate(Player* player, Link* p, int pos) override;
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
   };
 
 /*

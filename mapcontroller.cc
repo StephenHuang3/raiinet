@@ -111,7 +111,7 @@ void Mapcontroller::randomize(int player) {
     }
     m.erase(i - 1);
     int position = i - 1;
-    if(i == 5 || i - 1 == 6) position = i - 1 + 8; 
+    if(i == 4 || i - 1 == 5) position = i - 1 + 8; 
     theBoard->setLink(player, (char)i - 1 + 'a', type, (int)value + '0', position);
   }
 };

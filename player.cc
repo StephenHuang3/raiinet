@@ -38,15 +38,22 @@ void Player::setAbility(char ability, int pos) {
   }
 }
 
-void Player::useAbility(int idx) {
+void Player::useAbility(int idx, char l, int x, int y) {
   if( abilities.at(idx)->getUses() > 0 ) { 
-     
-    abilities.at(idx)->activate(this, nullptr, 0); // we need to get pointer p and the pos if we need it somehow
+    if(l != ' ' && abilities.find(l) != abilities.end()) {
+      abilities.at(idx)->activate(this, links.at('l'), 0);
+    } else {
+      abilities.at(idx)->activate(this, nullptr, x+8*y);
+    }// we need to get pointer p and the pos if we need it somehow
 
   } else {
     throw "You have no more available";
   }
 };
+
+Ability* Player::getAbility(int idx) {
+  return abilities.at(idx);
+}
 
 // called when player downloads a link
 void Player::addLink() {
