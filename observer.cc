@@ -37,26 +37,26 @@ void textObserver::print(int player){
       cout << c << ": " << yourLinks[c]->getType() << yourLinks[c]->getVal() << " ";
   }
 
-  // cout << "========" << endl;
+  cout << endl << "========" << endl;
 
-  // // Print depending on player
-  // if (player == 0) {
-  //   for( int i = 0; i < 8; ++i) {
-  //     for( int j = 0; j < 8; ++j) {
-  //       cout << theMap->getTile(i*8 + j);
-  //     }
-  //     cout << endl;
-  //   }
-  // } else if (player == 1){
-  //   for( int i = 7; i >= 0; --i) {
-  //     for( int j = 7; j >= 0; --j) {
-  //       cout << theMap->getTile(i*8 + j);
-  //     }
-  //     cout << endl;
-  //   }
-  // }
+  // Print depending on player
+  if (player == 0) {
+    for( int i = 0; i < 8; ++i) {
+      for( int j = 0; j < 8; ++j) {
+        cout << theMap->getTile(i*8 + j);
+      }
+      cout << endl;
+    }
+  } else if (player == 1){
+    for( int i = 7; i >= 0; --i) {
+      for( int j = 7; j >= 0; --j) {
+        cout << theMap->getTile(i*8 + j);
+      }
+      cout << endl;
+    }
+  }
 
-  // cout << "========" << endl;
+  cout << "========" << endl;
 
   if (player == 0) {
     cout << "Player 2:" << endl;

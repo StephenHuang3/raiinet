@@ -44,7 +44,6 @@ public:
 };
 
 class DisplayLinks: public Decorator {
-  Board* theBoard;
   public:
 
   DisplayLinks(Board* next);
