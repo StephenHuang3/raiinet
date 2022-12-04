@@ -4,12 +4,11 @@
 #include "board.h"
 
 class Decorator: public Board {
-protected:
-  Board* gB;
-public:
-  Decorator(Board* gameBoard);
-
-  virtual ~Decorator();
+  protected:
+    Board* gB;
+  public:
+    Decorator(Board* gameBoard);
+    virtual ~Decorator() = 0;
 };
 
 
