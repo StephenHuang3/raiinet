@@ -1,5 +1,5 @@
 #include "observer.h"
-#include "window.h"
+// #include "window.h"
 #include "mapcontroller.h"
 #include "subject.h"
 #include "player.h"
@@ -15,8 +15,8 @@ textObserver::~textObserver() {
 }
 
 void textObserver::print(int player){
-  map<char, shared_ptr<link>> yourLinks = theMap->board()->getPlayer(player).getLinks();
-  map<char, shared_ptr<link>> enemyLinks = theMap->board()->getPlayer(!player).getLinks();
+  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
+  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
   
   int asciivalue;
   if (player == 0) {
@@ -26,15 +26,15 @@ void textObserver::print(int player){
   }
 
   cout << "Player " << player + 1 << ":" << endl;
-  cout << "Downloaded: " << theMap->board()->getPlayer(player).getDataDownloaded() << "D, " << theMap->board()->getPlayer(player).getVirusesDownloaded() << "V" << endl;
-  cout << "Abilities: " << theMap->board()->getPlayer(player).getAbilityStatus() << endl;
+  cout << "Downloaded: " << theMap->board()->getPlayer(player)->getDataDownloaded() << "D, " << theMap->board()->getPlayer(player)->getVirusesDownloaded() << "V" << endl;
+  cout << "Abilities: " << theMap->board()->getPlayer(player)->getAbilityStatus() << endl;
 
   for (int i = 0; i < 8; i++){
     if (i == 4){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      cout << c << ": " << yourLinks[c].getType() << yourLinks[c].getVal() << " ";
+      cout << c << ": " << yourLinks[c]->getType() << yourLinks[c]->getVal() << " ";
 
   }
 
@@ -64,8 +64,8 @@ void textObserver::print(int player){
   } else if (player == 1) {
     cout << "Player 1:" << endl;
   }
-  cout << "Downloaded: " << theMap->board()->getPlayer(!player).getDataDownloaded() << "D, " << theMap->board()->getPlayer(!player).getVirusesDownloaded() << "V" << endl;
-  cout << "Abilities: " << theMap->board()->getPlayer(!player).getAbilityStatus() << endl;
+  cout << "Downloaded: " << theMap->board()->getPlayer(!player)->getDataDownloaded() << "D, " << theMap->board()->getPlayer(!player)->getVirusesDownloaded() << "V" << endl;
+  cout << "Abilities: " << theMap->board()->getPlayer(!player)->getAbilityStatus() << endl;
 
   if(player == 0){
     asciivalue = 65;
@@ -78,8 +78,8 @@ void textObserver::print(int player){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      if (enemyLinks[c].getDownloaded()) {
-        cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
+      if (enemyLinks[c]->getDownloaded()) {
+        cout << c << ": " << enemyLinks[c]->getType() << enemyLinks[c]->getVal() << " ";
       } else {
         cout << "?  ";
       }
@@ -100,22 +100,22 @@ void textObserver::print(int player){
   // }
   
 }
-graphicObserver::~graphicObserver() {
-  theMap->detach(this);
-  delete w;
-}
+// graphicObserver::~graphicObserver() {
+//   theMap->detach(this);
+//   delete w;
+// }
 
-graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
-  int width = 100 * 8 + 1;
-  int height = 100 * 8 + 1;
-  w = new Xwindow{width, height};
-  this->theMap->attach(this);
-}
+// graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
+//   int width = 100 * 8 + 1;
+//   int height = 100 * 8 + 1;
+//   w = new Xwindow{width, height};
+//   this->theMap->attach(this);
+// }
 
-void graphicObserver::print(int player) {
-  if (player == 1){
+// void graphicObserver::print(int player) {
+//   if (player == 1){
     
-  } else {
+//   } else {
     
-  }
-}
+//   }
+// }
