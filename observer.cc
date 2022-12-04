@@ -58,31 +58,31 @@ void textObserver::print(int player){
 
   // cout << "========" << endl;
 
-  // if (player == 0) {
-  //   cout << "Player 2:" << endl;
-  // } else if (player == 1) {
-  //   cout << "Player 1:" << endl;
-  // }
-  // cout << "Downloaded: " << theMap->board()->getPlayer(!player)->getDataDownloaded() << "D, " << theMap->board()->getPlayer(!player)->getVirusesDownloaded() << "V" << endl;
-  // cout << "Abilities: " << theMap->board()->getPlayer(!player)->getAbilityStatus() << endl;
+  if (player == 0) {
+    cout << "Player 2:" << endl;
+  } else if (player == 1) {
+    cout << "Player 1:" << endl;
+  }
+  cout << "Downloaded: " << theMap->board()->getPlayer(!player)->getDataDownloaded() << "D, " << theMap->board()->getPlayer(!player)->getVirusesDownloaded() << "V" << endl;
+  cout << "Abilities: " << theMap->board()->getPlayer(!player)->getAbilityStatus() << endl;
 
-  // if(player == 0){
-  //   asciivalue = 65;
-  // } else if (player == 1){
-  //   asciivalue = 97;
-  // }
+  if(player == 0){
+    asciivalue = 65;
+  } else if (player == 1){
+    asciivalue = 97;
+  }
 
-  // for (int i = 0; i < 8; i++){
-  //   if (i == 4){
-  //     cout << endl;
-  //   }
-  //     char c = static_cast<char> (asciivalue + i);
-  //     if (enemyLinks[c]->getDownloaded()) {
-  //       cout << c << ": " << enemyLinks[c]->getType() << enemyLinks[c]->getVal() << " ";
-  //     } else {
-  //       cout << "?  ";
-  //     }
-  // }
+  for (int i = 0; i < 8; i++){
+    if (i == 4){
+      cout << endl;
+    }
+    char c = static_cast<char> (asciivalue + i);
+    if (enemyLinks[c]->getDownloaded()) {
+      cout << c << ": " << enemyLinks[c]->getType() << enemyLinks[c]->getVal() << " ";
+    } else {
+      cout << c << ": " << "?  ";
+    }
+  }
 
   cout << endl;  
 }
