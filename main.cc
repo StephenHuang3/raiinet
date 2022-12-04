@@ -23,9 +23,14 @@ int main(int argc, char *argv[]) {
     // set number of abilities players have
     int numabilities = 5;
 
-    //creates mapcontroller and board
+    
+        // creates player 1
+    Player* p1 = new Player{};
+    // creates player2
+    Player* p2 = new Player{};
 
-    Board* theBrd = new Blank;
+    //creates mapcontroller and board
+    Board* theBrd = new Board{p1, p2};
 
     Mapcontroller theMap{theBrd};
 
@@ -35,10 +40,7 @@ int main(int argc, char *argv[]) {
     observers.emplace_back(obs1);
 
 
-    // creates player 1
-    Player* p1 = new Player{};
-    // creates player2
-    Player* p2 = new Player{};
+
 
     //add serverport decorators
     theBrd = new Serverport{theBrd, 3, 0};
