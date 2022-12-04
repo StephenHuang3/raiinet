@@ -29,8 +29,6 @@ public:
   void render(int player);
 
   void moveLink(int player, char id, std::string dir);
-
-  void useAbility(int player, int id);
   
   char getTile(int pos) const override;
 

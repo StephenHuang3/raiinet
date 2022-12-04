@@ -17,9 +17,9 @@ public:
 
   ~Board();
 
-  virtual char getTile(int pos) const = 0; //
+  virtual char getTile(int pos) const = 0;
 
-  virtual bool isFirewall(int pos) const = 0;
+  virtual int isFirewall(int pos) const = 0;
 
   std::shared_ptr<Player> getPlayer(int p) const;
 

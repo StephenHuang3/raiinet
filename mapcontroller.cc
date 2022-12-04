@@ -14,11 +14,6 @@ void Mapcontroller::render(int player) {
   notifyObservers(player);
 };
 
-void Mapcontroller::useAbility(int player, int id) {
-  std::shared_ptr p = theBoard->getPlayer(player);
-  p.operator*().useAbility(id);
-};
-
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
   std::shared_ptr p = theBoard->getPlayer(player);
   std::shared_ptr<Link> link = p.operator*().getLinks()[id];
@@ -82,7 +77,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       if(link.operator*().getType() == 'V') {
         theBoard->getPlayer(player).operator*().downloadVirus();
       } else {
-        theBoard->getPlayer(opp).operator*().downloadLink();
+        theBoard->getPlayer(opp).operator*().downloadData();
       }
     }
     // activate firewall
