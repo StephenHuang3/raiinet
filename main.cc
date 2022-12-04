@@ -237,25 +237,19 @@ int main(int argc, char *argv[]) {
             try {
                 theMap.moveLink(playerTurn, id, dir);
             }
-            catch (1) {
-                cout << "That link is already downloaded." << endl;
-                continue;
-            }
-            catch (2) {
-                cout << "The link will go out of bounds." << endl;
-                continue;
-            }
-            catch (3) {
-                cout << "You cannot move links onto your own links." << endl;
-                continue;
-            }
-            catch (4) {
-                cout << "You cannot move links onto your own server ports." << endl;
-                continue;
-            }
-            catch (...) {
-                cout << "Default Exception" << endl;
-                continue;
+            catch (int errNum) {
+                if (errNum == 1) {
+                    cout << "That link is already downloaded." << endl;
+                } else if (errNum == 2) {
+                    cout << "The link will go out of bounds." << endl;
+                } else if (errNum == 3) {
+                    cout << "You cannot move links onto your own links." << endl;
+                } else if (errNum == 4) {
+                    cout << "You cannot move links onto your own server ports." << endl;
+                } else {
+                    cout << "Default Exception - you're doing something weird.." << endl;
+                }
+                continue; // without changing turns
             }
             // change playerTurn
             playerTurn = !playerTurn;

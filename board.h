@@ -6,7 +6,7 @@
 #include <memory>
 #include <string>
 
-class Link
+class Link;
 
 class Board {
   std::map<int, std::shared_ptr<Player>> players;
