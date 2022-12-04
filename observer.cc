@@ -104,7 +104,7 @@ graphicObserver::~graphicObserver() {
   delete w;
 }
 
-graphicObserver::graphicObserver(Mapcontroller* brd): brd{brd} {
+graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   int width = 100 * 8 + 1;
   int height = 100 * 8 + 1;
   w = new Xwindow{width, height};

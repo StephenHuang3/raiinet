@@ -5,6 +5,7 @@
 #include "subject.h"
 #include "board.h"
 #include "player.h"
+#include "window.h"
 
 class Observer {
 public:
@@ -21,10 +22,10 @@ class textObserver: public Observer {
 };
 
 class graphicObserver: public Observer {
-  Mapcontroller* brd;
+  Mapcontroller* theMap;
   Xwindow* w;
   public:
-    graphicObserver(Mapcontroller* brd);
+    graphicObserver(Mapcontroller* theMap);
     ~graphicObserver() override;
     void print(int player) override;
 };
