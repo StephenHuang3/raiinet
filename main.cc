@@ -19,6 +19,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+    srand(time(0));
 
     // set number of abilities players have
     int numabilities = 5;
@@ -130,140 +131,140 @@ int main(int argc, char *argv[]) {
         theMap.randomize(1);
     }
 
-    int playerTurn = -1;
+    // int playerTurn = -1;
     // bool errorfree = true;
     // bool readfile = false;
     // bool usedAbility = false;
-    string command;
+    // string command;
 
     // render board for player 1 before game
     theMap.render(0);
 
-    while( cin >> command ) {
-        ++playerTurn;
-        theMap.render(playerTurn % 2);
-        cout << "Enter a command: \n";
-        // render map before move
+    // while( cin >> command ) {
+    //     ++playerTurn;
+    //     theMap.render(playerTurn % 2);
+    //     cout << "Enter a command: \n";
+    //     // render map before move
 
-        if( command == "move" ) {
-            char id;
-            std::string dir;
-            cin >> id >> dir;
-            try {
-                theMap.moveLink(playerTurn, id, dir);
-            }
-            catch (int errNum) {
-                if (errNum == 1) {
-                    cout << "That link is already downloaded." << endl;
-                } else if (errNum == 2) {
-                    cout << "The link will go out of bounds." << endl;
-                } else if (errNum == 3) {
-                    cout << "You cannot move links onto your own links." << endl;
-                } else if (errNum == 4) {
-                    cout << "You cannot move links onto your own server ports." << endl;
-                } else {
-                    cout << "Default Exception - you're doing something weird.." << endl;
-                }
-                continue; // without changing turns
-            }
-            // change playerTurn
-            playerTurn = !playerTurn;
-        } else if ( command == "abilities" ) {
-            // display abilities
-            if(playerTurn%2 == 0) {
-                for(int i = 0; i < numabilities; i++){
-                    cout << p1.operator*().checkAvailable(i);
-                }
-            } else if (playerTurn%2 == 1) {
-                for(int i = 0; i < numabilities; i++){
-                    cout << p2.operator*().checkAvailable(i);
-                }
-            }
-        } else if ( command == "ability" ) {
-            int id;
-            cin >> id;
-            char link = ' ';
-            int x = 0;
-            int y = 0;
-            if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                cin >> link;
-            } else {
-                cin >> x >> y;
-                theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-            }
-            theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-            // check abilities
-        } else if (command == "board" ) {
-            // displays the board depending on whose turn it is
-            playerTurn--;
-            continue;
-        } else if (command == "sequence" ) {
-            string fileName;
-            cin >> fileName;
-            ifstream f(fileName);
-            string fLine;
-            while(getline(f, fLine)) {
-                stringstream ss(fLine);
-                string word;
-                while(ss >> word) {
-                    if( command == "move" ) {
-                        char id;
-                        std::string dir;
-                        cin >> id >> dir;
-                        try {
-                            theMap.moveLink(playerTurn, id, dir);
-                        }
-                        catch (int errNum) {
-                            if (errNum == 1) {
-                                cout << "That link is already downloaded." << endl;
-                            } else if (errNum == 2) {
-                                cout << "The link will go out of bounds." << endl;
-                            } else if (errNum == 3) {
-                                cout << "You cannot move links onto your own links." << endl;
-                            } else if (errNum == 4) {
-                                cout << "You cannot move links onto your own server ports." << endl;
-                            } else {
-                                cout << "Default Exception - you're doing something weird.." << endl;
-                            }
-                            continue; // without changing turns
-                        }
-                    } else if ( command == "abilities" ) {
-                        if(playerTurn%2 == 0) {
-                            for(int i = 0; i < numabilities; i++){
-                                cout << p1.operator*().checkAvailable(i);
-                            }
-                        } else if (playerTurn%2 == 1) {
-                            for(int i = 0; i < numabilities; i++){
-                                cout << p2.operator*().checkAvailable(i);
-                            }
-                        }
-                    } else if ( command == "ability" ) {
-                        int id;
-                        cin >> id;
-                        char link = ' ';
-                        int x = 0;
-                        int y = 0;
-                        if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                            cin >> link;
-                        } else {
-                            cin >> x >> y;
-                            theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-                        }
-                        theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-                    } else if (command == "board" ) {
-                        // displays the board depending on whose turn it is
-                        theMap.render(playerTurn%2);
+    //     if( command == "move" ) {
+    //         char id;
+    //         std::string dir;
+    //         cin >> id >> dir;
+    //         try {
+    //             theMap.moveLink(playerTurn, id, dir);
+    //         }
+    //         catch (int errNum) {
+    //             if (errNum == 1) {
+    //                 cout << "That link is already downloaded." << endl;
+    //             } else if (errNum == 2) {
+    //                 cout << "The link will go out of bounds." << endl;
+    //             } else if (errNum == 3) {
+    //                 cout << "You cannot move links onto your own links." << endl;
+    //             } else if (errNum == 4) {
+    //                 cout << "You cannot move links onto your own server ports." << endl;
+    //             } else {
+    //                 cout << "Default Exception - you're doing something weird.." << endl;
+    //             }
+    //             continue; // without changing turns
+    //         }
+    //         // change playerTurn
+    //         playerTurn = !playerTurn;
+    //     } else if ( command == "abilities" ) {
+    //         // display abilities
+    //         if(playerTurn%2 == 0) {
+    //             for(int i = 0; i < numabilities; i++){
+    //                 cout << p1.operator*().checkAvailable(i);
+    //             }
+    //         } else if (playerTurn%2 == 1) {
+    //             for(int i = 0; i < numabilities; i++){
+    //                 cout << p2.operator*().checkAvailable(i);
+    //             }
+    //         }
+    //     } else if ( command == "ability" ) {
+    //         int id;
+    //         cin >> id;
+    //         char link = ' ';
+    //         int x = 0;
+    //         int y = 0;
+    //         if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+    //             cin >> link;
+    //         } else {
+    //             cin >> x >> y;
+    //             theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
+    //         }
+    //         theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+    //         // check abilities
+    //     } else if (command == "board" ) {
+    //         // displays the board depending on whose turn it is
+    //         playerTurn--;
+    //         continue;
+    //     } else if (command == "sequence" ) {
+    //         string fileName;
+    //         cin >> fileName;
+    //         ifstream f(fileName);
+    //         string fLine;
+    //         while(getline(f, fLine)) {
+    //             stringstream ss(fLine);
+    //             string word;
+    //             while(ss >> word) {
+    //                 if( command == "move" ) {
+    //                     char id;
+    //                     std::string dir;
+    //                     cin >> id >> dir;
+    //                     try {
+    //                         theMap.moveLink(playerTurn, id, dir);
+    //                     }
+    //                     catch (int errNum) {
+    //                         if (errNum == 1) {
+    //                             cout << "That link is already downloaded." << endl;
+    //                         } else if (errNum == 2) {
+    //                             cout << "The link will go out of bounds." << endl;
+    //                         } else if (errNum == 3) {
+    //                             cout << "You cannot move links onto your own links." << endl;
+    //                         } else if (errNum == 4) {
+    //                             cout << "You cannot move links onto your own server ports." << endl;
+    //                         } else {
+    //                             cout << "Default Exception - you're doing something weird.." << endl;
+    //                         }
+    //                         continue; // without changing turns
+    //                     }
+    //                 } else if ( command == "abilities" ) {
+    //                     if(playerTurn%2 == 0) {
+    //                         for(int i = 0; i < numabilities; i++){
+    //                             cout << p1.operator*().checkAvailable(i);
+    //                         }
+    //                     } else if (playerTurn%2 == 1) {
+    //                         for(int i = 0; i < numabilities; i++){
+    //                             cout << p2.operator*().checkAvailable(i);
+    //                         }
+    //                     }
+    //                 } else if ( command == "ability" ) {
+    //                     int id;
+    //                     cin >> id;
+    //                     char link = ' ';
+    //                     int x = 0;
+    //                     int y = 0;
+    //                     if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+    //                         cin >> link;
+    //                     } else {
+    //                         cin >> x >> y;
+    //                         theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
+    //                     }
+    //                     theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+    //                 } else if (command == "board" ) {
+    //                     // displays the board depending on whose turn it is
+    //                     theMap.render(playerTurn%2);
 
-                        //
-                    } else if (command == "quit") break;
-                }
-            }
-        } else if (command == "quit") break;
+    //                     //
+    //                 } else if (command == "quit") break;
+    //             }
+    //         }
+    //     } else if (command == "quit") break;
 
-        if( theBrd->getPlayer(playerTurn%2).operator*().checkScore() ) {
-            break;
-        }
-    }
+    //     if( theBrd->getPlayer(playerTurn%2).operator*().checkScore() ) {
+    //         break;
+    //     }
+    // }
     int size = observers.size();
     for (int i = 0; i < size; ++i) {
         delete observers[i];

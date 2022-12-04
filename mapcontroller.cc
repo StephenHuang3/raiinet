@@ -3,6 +3,7 @@
 #include "board.h"
 #include <vector>
 #include <cstdlib>
+#include <iostream>
 
 Mapcontroller::~Mapcontroller() { delete theBoard; };
 
@@ -113,8 +114,9 @@ char Mapcontroller::getTile(int pos) const {
 void Mapcontroller::randomize(int player) {
   std::map<int, std::string> m = {{0, "D1"}, {1, "D2"}, {2, "D3"}, {3, "D4"}, 
                                   {4, "V1"}, {5, "V2"}, {6, "V3"}, {7, "V4"}};
-  for(int i = 8; i > 1; --i) {
+  for(int i = 8; i > 0; --i) {
     int idx = rand() % i;
+    std::cout << idx << '\n';
     std::string name = m[idx];
     char type = name[0];
     char value = name[1];
@@ -123,11 +125,14 @@ void Mapcontroller::randomize(int player) {
       m[j] = m[j + 1];
     }
     m.erase(i - 1);
-    int position = i - 1;
-    if(i == 4 || i - 1 == 5) position = i - 1 + 8; 
+
     if (player == 0) {
+      int position = i - 1;
+      if(i == 4 || i - 1 == 5) position += 8; 
       theBoard->setLink(player, (char)(i - 1 + 97), type, (int)value - 48, position);
     } else {
+      int position = i - 1 + 56;
+      if(i == 4 || i - 1 == 5) position -= 8; 
       theBoard->setLink(player, (char)(i - 1 + 65), type, (int)value - 48, position);
     }
   }
