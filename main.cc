@@ -315,6 +315,10 @@ int main(int argc, char *argv[]) {
                 }
             }
         } else if (command == "quit") break;
+
+        if( theBrd->getPlayer(playerTurn%2).operator*().checkScore() ) {
+            break;
+        }
     }
 
 /*        
