@@ -25,6 +25,8 @@ public:
 
   std::shared_ptr<Link> getLink(int pos);
 
+  void setPlayer(std::shared_ptr<Player> p, int position);
+
   void setLink(int p, char id, char type, int val, int position);
   
 };

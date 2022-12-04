@@ -24,13 +24,17 @@ int main(int argc, char *argv[]) {
     int numabilities = 5;
 
     
-        // creates player 1
+    // creates player 1
     Player* p1 = new Player{};
+    shared_ptr<Player> player1 {p1};
     // creates player2
     Player* p2 = new Player{};
+    shared_ptr<Player> player2 {p2};
 
     //creates mapcontroller and board
-    Board* theBrd = new Board{p1, p2};
+    Board* theBrd = new Board{};
+    theBrd->setPlayer(*player1, 0);
+    theBrd->setPlayer(*player2, 1);
 
     Mapcontroller theMap{theBrd};
 
@@ -38,9 +42,6 @@ int main(int argc, char *argv[]) {
     std::vector<Observer*> observers;
     textObserver *obs1 = new textObserver{&theMap};
     observers.emplace_back(obs1);
-
-
-
 
     //add serverport decorators
     theBrd = new Serverport{theBrd, 3, 0};

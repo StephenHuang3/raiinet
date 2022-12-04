@@ -1,15 +1,15 @@
 #include "board.h"
 
 
-Board::Board(Player* p1, Player* p2) {
+Board::Board() {
   // Player List
   //this->players[0] = std::make_shared<Player>();
   //this->players[1] = std::make_shared<Player>();
-  std::shared_ptr<Player> a {p1};
-  this->players[0] = a;
+  // std::shared_ptr<Player> a {p1};
+  // this->players[0] = a;
 
-  std::shared_ptr<Player> b {p2};
-  this->players[1] = b;
+  // std::shared_ptr<Player> b {p2};
+  // this->players[1] = b;
 };
 
 
@@ -22,6 +22,10 @@ std::shared_ptr<Player> Board::getPlayer(int p) const {
 
 std::shared_ptr<Link> Board::getLink(int pos){
   return board.at(pos);
+}
+
+void Board::setPlayer(shared_ptr<Player>* p, int position) {
+  this->players[position] = p;
 }
 
 void Board::setLink(int p, char id, char type, int val, int position){
