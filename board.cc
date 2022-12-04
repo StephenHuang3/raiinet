@@ -12,7 +12,6 @@ Board::Board() {
   // this->players[1] = b;
 };
 
-
 // everything is deleted because of shared_ptrs
 Board::~Board() {};
 

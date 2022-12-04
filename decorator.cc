@@ -5,13 +5,13 @@
 using namespace std;
 
 // Decorator implementation
-Decorator::Decorator(Board* gameBoard): gB{gameBoard} {};
-Decorator::~Decorator() { delete gB; };
+Decorator::Decorator(Board* gameBoard): gB{gameBoard} {}
+Decorator::~Decorator() { delete gB; }
 
 // Serverport implementation
-Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {};
+Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {}
 
-Serverport::~Serverport() {};
+Serverport::~Serverport() {}
 
 char Serverport::getTile(int pos) const {
   if( pos ==  3 || pos == 4 || pos == 59 || pos == 60) {

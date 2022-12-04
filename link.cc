@@ -4,12 +4,12 @@ Link::Link(int p, int pos, char id, char type, int val): player{p}, pos{pos}, id
 
 Link::~Link() {};
 
-char Link::getId() const {
-  return id;
-}
-
 int Link::getPos() const {
   return pos;
+}
+
+char Link::getId() const {
+  return id;
 }
 
 int Link::getPlayer() const {
@@ -24,8 +24,16 @@ int Link::getMoveAmount() const {
   return moveAmount;
 }
 
+int Link::getVal() const {
+  return val;
+}
+
 bool Link::getDownloaded() const {
   return downloaded;
+}
+
+bool Link::getRevealed() const {
+  return revealed;
 }
 
 void Link::changeType() {
@@ -34,7 +42,7 @@ void Link::changeType() {
   } else {
     type = 'V';
   }
-};
+}
 
 void Link::changePos(int newPos) {
   pos = newPos;
@@ -42,20 +50,16 @@ void Link::changePos(int newPos) {
 
 void Link::addVal() {
   ++val;
-};
-
-int Link::getVal() const {
-  return val;
-};
+}
 
 void Link::boost() {
   ++moveAmount;
-};
+}
 
 void Link::toggleDownloaded() {
   downloaded = true;
-};
+}
 
 void Link::reveal() {
   revealed = true;
-};
+}
