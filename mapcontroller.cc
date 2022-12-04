@@ -82,7 +82,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       if(link.operator*().getType() == 'V') {
         theBoard->getPlayer(player).operator*().downloadVirus();
       } else {
-        theBoard->getPlayer(opp).operator*().downloadVirus();
+        theBoard->getPlayer(opp).operator*().downloadLink();
       }
     }
     // activate firewall
