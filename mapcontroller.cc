@@ -8,11 +8,11 @@ Mapcontroller::~Mapcontroller() { delete theBoard; };
 
 void Mapcontroller::reset() {
   
-};
+}
 
 void Mapcontroller::render(int player) {
   notifyObservers(player);
-};
+}
 
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
   std::shared_ptr p = theBoard->getPlayer(player);
@@ -106,11 +106,11 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // otherwise, normal move: 
   link.operator*().changePos(newPos);
-};
+}
 
 char Mapcontroller::getTile(int pos) const {
   return theBoard->getTile(pos);
-};
+}
 
 void Mapcontroller::randomize(int player) {
   std::map<int, std::string> m = {{0, "D1"}, {1, "D2"}, {2, "D3"}, {3, "D4"}, 
@@ -129,4 +129,4 @@ void Mapcontroller::randomize(int player) {
     if(i == 4 || i - 1 == 5) position = i - 1 + 8; 
     theBoard->setLink(player, (char)i - 1 + 'a', type, (int)value + '0', position);
   }
-};
+}
