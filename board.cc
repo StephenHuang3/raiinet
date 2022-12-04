@@ -3,8 +3,8 @@
 
 Board::Board() {
   // Player List
-  //this->players[0] = std::make_shared<Player>();
-  //this->players[1] = std::make_shared<Player>();
+  this->players[0] = std::make_shared<Player>();
+  this->players[1] = std::make_shared<Player>();
   // std::shared_ptr<Player> a {p1};
   // this->players[0] = a;
 
@@ -25,7 +25,7 @@ std::shared_ptr<Link> Board::getLink(int pos){
   return board.at(pos);
 }
 
-void Board::setPlayer(shared_ptr<Player>* p, int position) {
+void Board::setPlayer(std::shared_ptr<Player>* p, int position) {
   this->players[position] = p;
 }
 

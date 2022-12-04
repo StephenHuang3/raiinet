@@ -23,18 +23,16 @@ int main(int argc, char *argv[]) {
     // set number of abilities players have
     int numabilities = 5;
 
-    
-    // creates player 1
-    Player* p1 = new Player{};
-    shared_ptr<Player> player1 {p1};
-    // creates player2
-    Player* p2 = new Player{};
-    shared_ptr<Player> player2 {p2};
+    // // creates player 1
+    // Player* p1 = new Player{};
+    // // creates player2
+    // Player* p2 = new Player{};
 
     //creates mapcontroller and board
-    Board* theBrd = new Board{};
-    theBrd->setPlayer(*player1, 0);
-    theBrd->setPlayer(*player2, 1);
+    Board* theBrd = new Blank{};
+    // creates player 1 and player 2
+    shared_ptr<Player> p1 = theBrd->getPlayer(0);
+    shared_ptr<Player> p2 = theBrd->getPlayer(1);
 
     Mapcontroller theMap{theBrd};
 
@@ -67,18 +65,18 @@ int main(int argc, char *argv[]) {
 
     for(int i = 0; i < argc; ++i) {
         if(argv[i] == "graphical") {
-            graphicObserver *obs2 = new graphicObserver{&theMap};
-            observers.emplace_back(obs2);
+            // graphicObserver *obs2 = new graphicObserver{&theMap};
+            // observers.emplace_back(obs2);
         } else if (argv[i] == "ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                p1->setAbility(abilityorder[i], i);
+                p1.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
         } else if (argv[i] == "ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                p2->setAbility(abilityorder[i], i);
+                p2.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
         } else if (argv[i] == "link1") {
@@ -265,11 +263,11 @@ int main(int argc, char *argv[]) {
             // display abilities
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1->checkAvailable(i);
+                    cout << p1.operator*().checkAvailable(i);
                 }
             } else if (playerTurn%2 == 1) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2->checkAvailable(i);
+                    cout << p2.operator*().checkAvailable(i);
                 }
             }
         } else if ( command == "ability" ) {
