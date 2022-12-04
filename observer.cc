@@ -101,7 +101,7 @@ void textObserver::print(int player){
   
 }
 graphicObserver::~graphicObserver() {
-  brd->detach(this);
+  theMap->detach(this);
   delete w;
 }
 
@@ -109,12 +109,12 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   int width = 100 * 8 + 1;
   int height = 100 * 8 + 1;
   w = new Xwindow{width, height};
-  this->brd->attach(this);
+  this->theMap->attach(this);
 }
 
 void graphicObserver::print(int player) {
   if (player == 1){
-
+    
   } else {
     
   }
