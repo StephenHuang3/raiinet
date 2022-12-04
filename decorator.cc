@@ -24,19 +24,19 @@ int Serverport::isFirewall(int pos) const {
   return 0;
 }
 
-// Firewall implementation
-Firewall::Firewall(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {};
+// FirewallTile implementation
+FirewallTile::FirewallTile(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {};
 
-Firewall::~Firewall() {};
+FirewallTile::~FirewallTile() {};
 
-char Firewall::getTile(int pos) const {
+char FirewallTile::getTile(int pos) const {
   if (position == pos) {
     return 'F';
   }
   return gB->getTile(pos);
 };
 
-int Firewall::isFirewall(int pos) const {
+int FirewallTile::isFirewall(int pos) const {
   return player;
 }
 

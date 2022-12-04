@@ -275,7 +275,7 @@ int main(int argc, char *argv[]) {
                 cin >> link;
             } else {
                 cin >> x >> y;
-                theBrd = new Firewall(theBrd, x + y * 8, playerTurn%2);
+                theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
             }
             theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
             // check abilities

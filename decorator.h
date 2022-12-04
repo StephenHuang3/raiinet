@@ -30,13 +30,13 @@ public:
   int isFirewall(int pos) const override;
 };
 
-class Firewall: public Decorator {
+class FirewallTile: public Decorator {
   int position;
   int player;
 public:
-  Firewall(Board* next, int pos, int player);
+  FirewallTile(Board* next, int pos, int player);
 
-  ~Firewall();
+  ~FirewallTile();
 
   char getTile(int pos) const override;
 
