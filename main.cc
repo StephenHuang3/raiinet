@@ -264,7 +264,8 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
-    for (int i = 0; i < observers.size(); ++i) {
+    int size = observers.size();
+    for (int i = 0; i < size; ++i) {
         delete observers[i];
     }
 }
