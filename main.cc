@@ -281,7 +281,7 @@ int main(int argc, char *argv[]) {
                 cin >> x >> y;
                 theBrd = new Firewall(theBrd, x + y * 8, playerTurn%2);
             }
-            theBrd->getPlayer(1).operator*().useAbility(id, link, x, y);
+            theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
             // check abilities
         } else if (command == "board" ) {
             // displays the board depending on whose turn it is
