@@ -6,8 +6,8 @@
 
 using namespace std;
 
-textObserver::textObserver(Mapcontroller* theMap): theMap{theMap}{
-    theMap->attach(this);
+textObserver::textObserver(Mapcontroller* theMap): theMap{theMap} {
+  theMap->attach(this);
 }
 
 textObserver::~textObserver() {
@@ -16,18 +16,17 @@ textObserver::~textObserver() {
 
 void textObserver::print(int player){
   map<char, shared_ptr<link>> yourLinks = theMap->board()->getPlayer(player).getLinks();
-  map<char, shared_ptr<link>> enemyLinks = theMap->board()->getPlayer(abs(player - 1)).getLinks();
+  map<char, shared_ptr<link>> enemyLinks = theMap->board()->getPlayer(!player).getLinks();
   
   int asciivalue;
-  if(player == 0){
+  if (player == 0) {
     asciivalue = 97;
-  } else if (player == 1){
+  } else if (player == 1) {
     asciivalue = 65;
   }
 
   cout << "Player " << player + 1 << ":" << endl;
-
-  cout << "Downloaded: " << theMap->board()->getPlayer(player).getDataDownloaded() << "D, " << theMap->board()->getPlayer(0).getVirusesDownloaded() << "V" << endl;
+  cout << "Downloaded: " << theMap->board()->getPlayer(player).getDataDownloaded() << "D, " << theMap->board()->getPlayer(player).getVirusesDownloaded() << "V" << endl;
   cout << "Abilities: " << theMap->board()->getPlayer(player).getAbilityStatus() << endl;
 
   for (int i = 0; i < 8; i++){
@@ -39,35 +38,34 @@ void textObserver::print(int player){
 
   }
 
-  if(player == 0) {
-    
+  cout << "========" << endl;
 
-    std::cout << "========" << '\n';
+  // Print depending on player
+  if (player == 0) {
     for( int i = 0; i < 8; ++i) {
       for( int j = 0; j < 8; ++j) {
-        std::cout << theMap->getTile(i+j*8);
+        cout << theMap->getTile(i*8 + j);
       }
-      std::cout << '\n';
+      cout << endl;
     }
-    std::cout << "========" << '\n';
   } else if (player == 1){
-    std::cout << "========" << '\n';
     for( int i = 7; i >= 0; --i) {
-      for( int j = 0; j < 8; ++j) {
-        std::cout << theMap->getTile(i+j*8);
+      for( int j = 7; j >= 0; --j) {
+        cout << theMap->getTile(i*8 + j);
       }
-      std::cout << '\n';
+      cout << endl;
     }
-    std::cout << "========" << '\n';
   }
 
-  if（player == 0){
+  cout << "========" << endl;
+
+  if (player == 0) {
     cout << "Player 2:" << endl;
-  }else if (player == 1){
+  } else if (player == 1) {
     cout << "Player 1:" << endl;
   }
-
-  cout << "Abilities: " << theMap->board()->getPlayer(abs(player-1)).getAbilityStatus() << endl;
+  cout << "Downloaded: " << theMap->board()->getPlayer(!player).getDataDownloaded() << "D, " << theMap->board()->getPlayer(!player).getVirusesDownloaded() << "V" << endl;
+  cout << "Abilities: " << theMap->board()->getPlayer(!player).getAbilityStatus() << endl;
 
   if(player == 0){
     asciivalue = 65;
@@ -80,13 +78,14 @@ void textObserver::print(int player){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      if(enemyLinks[c].getDownload) {
-      cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
+      if (enemyLinks[c].getDownloaded()) {
+        cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
       } else {
-        cout << "?  "
+        cout << "?  ";
       }
-
   }
+
+  cout << endl;
   
 
   // else if (player == 1){
@@ -116,7 +115,7 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
 void graphicObserver::print(int player) {
   if (player == 1){
 
-  }else {
+  } else {
     
   }
 }

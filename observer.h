@@ -7,8 +7,6 @@
 #include "player.h"
 #include "window.h"
 
-using namespace std;
-
 class Observer {
 public:
   virtual void print(int player) = 0;
