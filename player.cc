@@ -68,9 +68,9 @@ void Player::downloadVirus() {
 // called for battle
 void Player::downloadLink(std::shared_ptr<Link> link) {
     if (link.operator*().getType() == 'V'){
-        *this->downloadVirus();
+        this->downloadVirus();
     } else {
-        *this->downloadData();
+        this->downloadData();
     }
     link.operator*().toggleDownloaded();
 }
