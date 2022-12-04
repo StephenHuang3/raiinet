@@ -78,13 +78,14 @@ void textObserver::print(int player){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      if(enemyLinks[c].getDownload) {
-      cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
+      if (enemyLinks[c].getDownload) {
+        cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
       } else {
         cout << "?  ";
       }
-
   }
+
+  cout << endl;
   
 
   // else if (player == 1){
