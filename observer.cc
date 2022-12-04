@@ -78,7 +78,7 @@ void textObserver::print(int player){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      if (enemyLinks[c].getDownload) {
+      if (enemyLinks[c].getDownloaded()) {
         cout << c << ": " << enemyLinks[c].getType(); << enemyLinks[c].getVal() << " ";
       } else {
         cout << "?  ";
