@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
     for(int i = 0; i < argc; ++i) {
         if(argv[i] == "graphical") {
-            graphicObserver *obs2 = new graphicObserver{theMap.board()};
+            graphicObserver *obs2 = new graphicObserver{&theMap};
             observers.emplace_back(obs2);
         } else if (argv[i] == "ability1") {
             string abilityorder = argv[i + 1];

@@ -23,10 +23,10 @@ class textObserver: public Observer {
 };
 
 class graphicObserver: public Observer {
-  Mapcontroller* brd;
+  Mapcontroller* theMap;
   Xwindow* w;
   public:
-    graphicObserver(Mapcontroller* brd);
+    graphicObserver(Mapcontroller* theMap);
     ~graphicObserver() override;
     void print(int player) override;
 };
