@@ -4,43 +4,40 @@
 
 using namespace std;
 
+// Decorator implementation
 Decorator::Decorator(Board* gameBoard): gB{gameBoard} {};
-
 Decorator::~Decorator() { delete gB; };
 
+// Serverport implementation
 Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {};
 
 Serverport::~Serverport() {};
 
 char Serverport::getTile(int pos) const {
-  if( position ==  3 || position == 4 || position == 59 || position == 60) {
+  if( pos ==  3 || pos == 4 || pos == 59 || pos == 60) {
     return 'S';
   }
   return gB->getTile(pos);
 };
 
 int Serverport::isFirewall(int pos) const {
-  return 0 + gB->isFirewall(pos);
+  return 0;
 }
 
-Firewall::Firewall(Board* next, int pos, int player): Decorator{next}, position{position}, player{player} {};
+// Firewall implementation
+Firewall::Firewall(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {};
 
 Firewall::~Firewall() {};
 
 char Firewall::getTile(int pos) const {
-  if(position == pos){
+  if (position == pos) {
     return 'F';
   }
-  
   return gB->getTile(pos);
 };
 
 int Firewall::isFirewall(int pos) const {
   return player;
-}
-
-int Serverport::isFirewall(int pos) const {
-  return 0;
 }
 
 DisplayLinks::DisplayLinks(Board* next): Decorator{next}, theBoard{next} {};
@@ -63,5 +60,4 @@ char DisplayLinks::getTile(int pos) const{
   } catch (...) {
     return gB->getTile(pos);
   }
-
 }
