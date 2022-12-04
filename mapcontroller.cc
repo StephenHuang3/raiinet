@@ -15,8 +15,8 @@ void Mapcontroller::render(int player) {
 }
 
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
-  std::shared_ptr p = theBoard->getPlayer(player);
-  std::shared_ptr<Link> link = p.operator*().getLinks()[id];
+  std::shared_ptr<Player> p = theBoard->getPlayer(player);
+  std::shared_ptr<Link> link = p->getLinks()[id];
 
   int moveAmt = link.operator*().getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
@@ -55,8 +55,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // battle if lands on opponent:
-  int opp = !player;
-  std::shared_ptr p2 = theBoard->getPlayer(opp);
+  std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
   for (auto const& oppLink : p2.operator*().getLinks()) {
     if (oppLink.second.operator*().getPos() == newPos) {
       // battle!
@@ -97,8 +96,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     p.operator*().downloadLink(link);
     return;
   } else if (player && (newPos == 3 || newPos == 4)) {
-    int opp = !player;
-    std::shared_ptr p2 = theBoard->getPlayer(opp);
+    std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
     p2.operator*().downloadLink(link);
     // needs removing
     return;
