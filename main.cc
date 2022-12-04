@@ -124,10 +124,10 @@ int main(int argc, char *argv[]) {
     };
 
     if( !linked1 ) {
-        theMap.randomize(1);
+        theMap.randomize(0);
     }
     if( !linked2 ) {
-        theMap.randomize(2);
+        theMap.randomize(1);
     }
 
     int playerTurn = -1;
