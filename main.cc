@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     // Player* p2 = new Player{};
 
     //creates mapcontroller and board
-    Board* theBrd = new Blank{};
+    Board* theBrd = new Blank;
     // creates player 1 and player 2
     shared_ptr<Player> p1 = theBrd->getPlayer(0);
     shared_ptr<Player> p2 = theBrd->getPlayer(1);
