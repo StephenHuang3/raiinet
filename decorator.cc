@@ -19,8 +19,8 @@ char Serverport::getTile(int pos) const {
   return gB->getTile(pos);
 };
 
-bool Serverport::isFirewall(int pos) const {
-  return false || gB->isFirewall(pos);
+int Serverport::isFirewall(int pos) const {
+  return 0 + gB->isFirewall(pos);
 }
 
 Firewall::Firewall(Board* next, int pos, int player): Decorator{next}, position{position}, player{player} {};
@@ -33,18 +33,22 @@ char Firewall::getTile(int pos) const {
   }
   
   return gB->getTile(pos);
+};
+
+int Firewall::isFirewall(int pos) const {
+  return player;
 }
 
-bool Serverport::isFirewall(int pos) const {
-  return true;
+int Serverport::isFirewall(int pos) const {
+  return 0;
 }
 
 DisplayLinks::DisplayLinks(Board* next): Decorator{next}, theBoard{next} {};
 
 DisplayLinks::~DisplayLinks() {};
 
-bool DisplayLinks::isFirewall(int pos) const {
-  return false;
+int DisplayLinks::isFirewall(int pos) const {
+  return 0;
 }
 
 char DisplayLinks::getTile(int pos) const{

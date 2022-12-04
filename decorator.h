@@ -28,7 +28,7 @@ public:
 
   char getTile(int pos) const override;
 
-  bool isFirewall(int pos) const override;
+  int isFirewall(int pos) const override;
 };
 
 class Firewall: public Decorator {
@@ -41,7 +41,7 @@ public:
 
   char getTile(int pos) const override;
 
-  bool isFirewall(int pos) const override;
+  int isFirewall(int pos) const override;
 };
 
 class DisplayLinks: public Decorator {
@@ -54,7 +54,7 @@ class DisplayLinks: public Decorator {
 
   char getTile(int pos) const override;
 
-  bool isFirewall(int pos) const override;
+  int isFirewall(int pos) const override;
 };
 
 #endif

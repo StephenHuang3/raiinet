@@ -11,7 +11,7 @@ public:
   
   char getTile(int pos) const override;
 
-  bool isFirewall(int pos) const override;  
+  int isFirewall(int pos) const override;  
 };
 
 #endif

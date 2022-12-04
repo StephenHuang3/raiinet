@@ -25,6 +25,14 @@ char LinkBoost::checkInput() {
     return 'l';
 };
 
+void Firewall::activate(Player* player, std::shared_ptr<Link> p, int pos) {
+    
+};
+
+char Firewall::checkInput() {
+    return 'c';
+};
+
 void Download::activate(Player* player, std::shared_ptr<Link> p, int pos){
     if (p->getType() == 'V'){
         player->downloadVirus();

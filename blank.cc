@@ -8,6 +8,6 @@ char Blank::getTile(int pos) const {
   return '.';
 }
 
-bool Blank::isFirewall(int pos) const {
-  return false;
+int Blank::isFirewall(int pos) const {
+  return 0;
 }

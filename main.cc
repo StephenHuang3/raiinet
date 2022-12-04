@@ -41,16 +41,16 @@ int main(int argc, char *argv[]) {
     Player* p2 = new Player{};
 
     //add serverport decorators
-    theBrd = new Serverport{theBrd, 3, 1};
+    theBrd = new Serverport{theBrd, 3, 0};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 4, 1};
+    theBrd = new Serverport{theBrd, 4, 0};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 59, 2};
+    theBrd = new Serverport{theBrd, 59, 1};
     theMap.board() = theBrd;
 
-    theBrd = new Serverport{theBrd, 60, 2};
+    theBrd = new Serverport{theBrd, 60, 1};
     theMap.board() = theBrd;
 
     //add display link decorator
@@ -279,6 +279,7 @@ int main(int argc, char *argv[]) {
                 cin >> link;
             } else {
                 cin >> x >> y;
+                theBrd = new Firewall(theBrd, x + y * 8, playerTurn%2);
             }
             theBrd->getPlayer(1).operator*().useAbility(id, link, x, y);
             // check abilities
