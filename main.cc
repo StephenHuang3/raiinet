@@ -64,22 +64,23 @@ int main(int argc, char *argv[]) {
     bool linked2 = false;
 
     for(int i = 0; i < argc; ++i) {
-        if(argv[i] == "graphical") {
+        string param(argv[i]); // This should fix the compilation error of comparison of string literals
+        if(param == "graphical") {
             // graphicObserver *obs2 = new graphicObserver{&theMap};
             // observers.emplace_back(obs2);
-        } else if (argv[i] == "ability1") {
+        } else if (param == "ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p1.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
-        } else if (argv[i] == "ability2") {
+        } else if (param == "ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p2.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
-        } else if (argv[i] == "link1") {
+        } else if (param == "link1") {
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -99,7 +100,7 @@ int main(int argc, char *argv[]) {
             ++i;
             // letting the rest of the program know that player 1 has a link file attached
             linked1 = true;
-        } else if (argv[i] == "link2") {
+        } else if (param == "link2") {
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
