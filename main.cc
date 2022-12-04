@@ -217,9 +217,9 @@ int main(int argc, char *argv[]) {
     }
 */
     int playerTurn = -1;
-    bool errorfree = true;
-    bool readfile = false;
-    bool usedAbility = false;
+    // bool errorfree = true;
+    // bool readfile = false;
+    // bool usedAbility = false;
     string command;
 
     // render board for player 1 before game
