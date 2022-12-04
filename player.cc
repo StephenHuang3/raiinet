@@ -110,7 +110,7 @@ std::map<char, std::shared_ptr<Link>> Player::getLinks() {
 int Player::getAbilityStatus() {
   int count = 0;
   for(int i = 0; i < 5; i++){
-    if (used[i] == true){
+    if (used[i] == false){
       count++;
     }
   }
