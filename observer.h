@@ -6,8 +6,6 @@
 #include "board.h"
 #include "player.h"
 
-using namespace std;
-
 class Observer {
 public:
   virtual void print(int player) = 0;
