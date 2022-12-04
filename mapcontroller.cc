@@ -66,8 +66,8 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       } else {                                                                      // win or tie
         p.operator*().downloadLink(oppLink.second);
       }
+      return;
     }
-    return;
   }
 
   // check if lands on firewall:
