@@ -40,7 +40,7 @@ int FirewallTile::isFirewall(int pos) const {
   return player;
 }
 
-DisplayLinks::DisplayLinks(Board* next): Decorator{next}, theBoard{next} {};
+DisplayLinks::DisplayLinks(Board* next): Decorator{next}{};
 
 DisplayLinks::~DisplayLinks() {};
 
@@ -54,10 +54,18 @@ char DisplayLinks::getTile(int pos) const{
   //     theBoard->board
   //   }
   // }
+  // try {
+  //   //cout << theBoard->getLink(pos).use_count() << endl;
+  //   std::shared_ptr<Link> p {theBoard->getLink(pos)};
+  //   return p->getId();
+  // } catch (...) {
+  //   return gB->getTile(pos);
+  // }
   try {
-    std::shared_ptr<Link> p {theBoard->getLink(pos)};
-    return p->getId();
-  } catch (...) {
-    return gB->getTile(pos);
+    int count = gB->getLink(pos).use_count();
+    return 'H';
+  } catch (...){
+    
   }
+  return gB->getTile(pos);
 }
