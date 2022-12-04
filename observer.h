@@ -5,6 +5,7 @@
 #include "subject.h"
 #include "board.h"
 #include "player.h"
+#include "window.h"
 
 using namespace std;
 
