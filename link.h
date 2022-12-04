@@ -26,12 +26,19 @@ public:
   ~Link();
 
   int getPos() const;
+
   char getId() const;
+
   int getPlayer() const;
+
   char getType() const;
+
   int getMoveAmount() const;
+
   int getVal() const;
+
   bool getDownloaded() const;
+  
   bool getRevealed() const;
 
   void changeType();

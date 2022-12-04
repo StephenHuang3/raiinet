@@ -130,92 +130,6 @@ int main(int argc, char *argv[]) {
         theMap.randomize(2);
     }
 
-/*
-    if (posOfString(argv[], "graphical") != -1){
-        graphicObserver *obs 2 = new graphicObserver{&theMap};
-        observers.emplace_back(obs2);
-    }
-    //creates the player 1
-    Player &p1 = theBrd->getPlayer1();
-    if (posOfString(argv[], "ability1", argc) == -1){
-        string abilityorder = "LFDSPLFDSPLFDSP";
-        for(int i = 0; i < numabilities; i++){
-            p1.setAbility(abilityorder[i], i);
-        }
-    } else {
-        string abilityorder = argv[posOfString(argv[], "ability1", argc) + 1];
-        for(int i = 0; i < numabilities; i++){
-            p1.setAbility(abilityorder[i], i);
-        }
-    }
-    if (posOfString(argv[], "link1", argc) != -1){
-        ifstream MyReadFile(argv[posOfString(argv, "link1", argc) + 1]);
-        string linkvalues;
-        getline(myReadFile, linkvalues);
-        stringstream ss(linkvalues);
-        string singleLink;
-        for(int i = 0; i < 8; i++){
-            ss >> singleLink;
-            string kind;
-            int position;
-            if (singleLink[0] == 'V'){
-                kind = "virus";
-            } else {
-                kind = "data";
-            }
-            if (i == 4 || i == 5){
-                position = i + 8;
-            } else {
-                position = i;
-            }
-            theBrd.setLink(1, char(97 + i), kind, singleLink[1] - '0', position);
-        }
-        MyReadFile.close();
-    } else { //randomize values
-    }
-    if ((posOfString(argv[], "link2") != 0) && (posOfString(argv[], "ability2") != -1)){
-    } else if (posOfString(argv[], "link2") != -1){
-    } else if (posOfString(argv[], "ability2") != -1){
-    //creates player 2
-    Player &p2 = theBrd->getPlayer2();
-    if (posOfString(argv[], "ability2", argc) == -1){
-        string abilityorder = "LFDSPLFDSPLFDSP";
-        for(int i = 0; i < numabilities; i++){
-            p2.setAbility(abilityorder[i], i);
-        }
-    } else {
-        string abilityorder = argv[posOfString(argv[], "ability2", argc) + 1];
-        for(int i = 0; i < numabilities; i++){
-            p2.setAbility(abilityorder[i], i);
-        }
-    }
-    
-    if (posOfString(argv[], "link2", argc) != -1){
-        ifstream MyReadFile(argv[posOfString(argv[], "link2", argc) + 1]);
-        string linkvalues;
-        getline(myReadFile, linkvalues);
-        stringstream ss(linkvalues);
-        string singleLink;
-        for(int i = 0; i < 8; i++){
-            ss >> singleLink;
-            string kind;
-            int position;
-            if (singleLink[0] == 'V'){
-                kind = "virus";
-            } else {
-                kind = "data";
-            }
-            if (i == 4 || i == 5){
-                position = i + 8;
-            } else {
-                position = i;
-            }
-            theBrd.setLink(1, char(97 + i), kind, singleLink[1] - '0', position);
-        }
-        MyReadFile.close();
-    } else { //randomize values
-    }
-*/
     int playerTurn = -1;
     // bool errorfree = true;
     // bool readfile = false;
@@ -293,18 +207,52 @@ int main(int argc, char *argv[]) {
                 string word;
                 while(ss >> word) {
                     if( command == "move" ) {
-                        char id, d;
-                        cin >> id >> d;
-                        // function
+                        char id;
+                        std::string dir;
+                        cin >> id >> dir;
+                        try {
+                            theMap.moveLink(playerTurn, id, dir);
+                        }
+                        catch (int errNum) {
+                            if (errNum == 1) {
+                                cout << "That link is already downloaded." << endl;
+                            } else if (errNum == 2) {
+                                cout << "The link will go out of bounds." << endl;
+                            } else if (errNum == 3) {
+                                cout << "You cannot move links onto your own links." << endl;
+                            } else if (errNum == 4) {
+                                cout << "You cannot move links onto your own server ports." << endl;
+                            } else {
+                                cout << "Default Exception - you're doing something weird.." << endl;
+                            }
+                            continue; // without changing turns
+                        }
                     } else if ( command == "abilities" ) {
-                        // display abilities
+                        if(playerTurn%2 == 0) {
+                            for(int i = 0; i < numabilities; i++){
+                                cout << p1.operator*().checkAvailable(i);
+                            }
+                        } else if (playerTurn%2 == 1) {
+                            for(int i = 0; i < numabilities; i++){
+                                cout << p2.operator*().checkAvailable(i);
+                            }
+                        }
                     } else if ( command == "ability" ) {
                         int id;
                         cin >> id;
-                        // check abilities
+                        char link = ' ';
+                        int x = 0;
+                        int y = 0;
+                        if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+                            cin >> link;
+                        } else {
+                            cin >> x >> y;
+                            theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
+                        }
+                        theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
                     } else if (command == "board" ) {
                         // displays the board depending on whose turn it is
-                        theMap.render(playerTurn);
+                        theMap.render(playerTurn%2);
 
                         //
                     } else if (command == "quit") break;
@@ -316,39 +264,8 @@ int main(int argc, char *argv[]) {
             break;
         }
     }
-
-/*        
-    ifstream myReadFile;
-
-    while(true){
-        if (!readfile){
-            cin >> command;
-            if (cin.fail()) break;
-        } else {
-            getline(myReadFile, command);
-            if (myReadFile.fail()){
-                readfile = false;
-                myReadFile.close();
-                continue;
-            }
-        }
-        if (command == "sequence"){
-            string file;
-            cin >> file;
-            myReadFile(argv[posOfString(argv[], file, argc)]);
-        } else if(command == "move"){
-            cout << "move" << endl;
-        } else if(command == "abilities"){
-            cout << "abilities" << endl;
-        } else if(command == "ability"){
-            cout << "ability" << endl;
-        } else if(command == "board"){
-            cout << "board" << endl;
-        } else if(command == "quit"){
-            cout << "quit" << endl;
-            break;
-        }
-    } // command loop
-*/
-
+    while(observers.size() > 0) {
+        delete observers.back();
+        observers.pop_back();
+    }
 }
