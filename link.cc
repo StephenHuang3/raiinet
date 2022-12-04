@@ -54,4 +54,8 @@ void Link::boost() {
 
 void Link::toggleDownloaded() {
   downloaded = true;
-}
+};
+
+void Link::reveal() {
+  revealed = true;
+};

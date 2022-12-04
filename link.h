@@ -17,6 +17,7 @@ class Link {
   int moveAmount = 1;
   int val;
   bool downloaded = false;
+  bool revealed = false;
 public:
   Link(int p, int pos, char id, char type, int val);
   
@@ -45,6 +46,8 @@ public:
   int getVal() const;
 
   void toggleDownloaded();
+
+  void reveal();
 };
 
 #endif

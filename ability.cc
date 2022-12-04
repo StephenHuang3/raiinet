@@ -47,7 +47,7 @@ char Download::checkInput() {
 };
 
 void Scan::activate(Player* player, std::shared_ptr<Link> p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver
-    std::cout << "The link " << p->getId() << " is a " << p->getType() << " power level " << p->getVal();
+    p.operator*().reveal();
 }
 
 std::string Ability::getName() {
