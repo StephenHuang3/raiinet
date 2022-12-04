@@ -4,8 +4,9 @@
 #include "mapcontroller.h"
 #include "subject.h"
 #include "board.h"
+#include "player.h"
 
-class Subject;
+using namespace std;
 
 class Observer {
 public:
@@ -14,9 +15,9 @@ public:
 };
 
 class textObserver: public Observer {
-  Mapcontroller *brd;
+  Mapcontroller *theMap;
   public:
-    textObserver(Mapcontroller* brd);
+    textObserver(Mapcontroller* theMap);
     void print(int player) override;
     ~textObserver() override;
 };

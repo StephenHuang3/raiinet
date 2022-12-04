@@ -214,7 +214,7 @@ int main(int argc, char *argv[]) {
     } else { //randomize values
     }
 */
-    int playerTurn = 0;
+    int playerTurn = -1;
     bool errorfree = true;
     bool readfile = false;
     bool usedAbility = false;
@@ -225,6 +225,7 @@ int main(int argc, char *argv[]) {
 
     while( cin >> command ) {
         ++playerTurn;
+        theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
         // render map before move
 
@@ -283,7 +284,8 @@ int main(int argc, char *argv[]) {
             // check abilities
         } else if (command == "board" ) {
             // displays the board depending on whose turn it is
-            theMap.render(playerTurn);
+            playerTurn--;
+            continue;
         } else if (command == "sequence" ) {
             string fileName;
             cin >> fileName;

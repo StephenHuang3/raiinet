@@ -36,6 +36,10 @@ void Link::changeType() {
   }
 };
 
+void Link::changePos(int newPos) {
+  pos = newPos;
+}
+
 void Link::addVal() {
   ++val;
 };
