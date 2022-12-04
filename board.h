@@ -13,7 +13,6 @@ class Board {
   std::map<int, std::shared_ptr<Link>> board;
 
 public:
-  Board(Player* p1, Player* p2);
   Board();
 
   ~Board();
