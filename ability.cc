@@ -48,7 +48,23 @@ void Scan::activate(Player* player, std::shared_ptr<Link> p, int pos) { // I thi
     p.operator*().reveal();
 };
 
-std::string Ability::getName() {
+std::string Firewall::getName() {
+    return name;
+};
+
+std::string Download::getName() {
+    return name;
+};
+
+std::string Scan::getName() {
+    return name;
+};
+
+std::string Polarize::getName() {
+    return name;
+};
+
+std::string LinkBoost::getName() {
     return name;
 };
 
