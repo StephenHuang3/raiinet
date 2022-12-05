@@ -150,6 +150,7 @@ int main(int argc, char *argv[]) {
     }
 
     int playerTurn = 0;
+    bool usedability = false;
     // bool errorfree = true;
     // bool readfile = false;
     bool usedability = false;
