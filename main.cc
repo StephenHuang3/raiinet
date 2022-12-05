@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
+                cout << abilityorder[i];
                 p1.operator*().setAbility(abilityorder[i], i);
             }
             ability1 = true;
@@ -285,10 +286,15 @@ int main(int argc, char *argv[]) {
         //     }
         } else if (command == "quit") break;
 
-        // if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
-        //     theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-        //         break;
-        // }
+        if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
+            theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
+                break;
+        }
+
+        if( theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'w' || 
+            theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'l') {
+                break;
+        }
         cout << endl;
         
         if(command == "move"){
@@ -298,6 +304,22 @@ int main(int argc, char *argv[]) {
         theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
     }
+
+    //print who won
+    if (theMap.board()->getPlayer(0).operator*().checkScore() == 'w'){
+        cout << "Player 1 has won!" << endl;
+    } else if (theMap.board()->getPlayer(0).operator*().checkScore() == 'l') {
+        cout << "Player 2 has won!" << endl;
+    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'w'){
+        cout << "Player 2 has won!" << endl;
+    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'l'){
+        cout << "Player 1 has won!" << endl;
+    } else {
+        cout << "Game unfinished" << endl;
+    }
+
+    //delete observers
+
     int size = observers.size();
     for (int i = 0; i < size; ++i) {
         delete observers[i];
