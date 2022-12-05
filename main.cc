@@ -135,6 +135,14 @@ int main(int argc, char *argv[]) {
     // bool readfile = false;
     // bool usedAbility = false;
     string command;
+    for(int i = 0; i < 64; i++){
+        try{
+            int count = theBrd->getLink(i).use_count();
+            cout << "link at " << i << ": " << count << endl;
+        } catch (...){
+            cout << "link at " << i << ": " << "failed" << endl;
+        }
+    }
 
     // render board for player 1 before game
     // cout << theMap.board() << endl;
