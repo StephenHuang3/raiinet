@@ -65,22 +65,22 @@ int main(int argc, char *argv[]) {
 
     for(int i = 0; i < argc; ++i) {
         string param(argv[i]); // This should fix the compilation error of comparison of string literals
-        if(param == "graphical") {
+        if(param == "-graphical") {
             // graphicObserver *obs2 = new graphicObserver{&theMap};
             // observers.emplace_back(obs2);
-        } else if (param == "ability1") {
+        } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p1.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
-        } else if (param == "ability2") {
+        } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p2.operator*().setAbility(abilityorder[i], i);
             }
             ++i;
-        } else if (param == "link1") {
+        } else if (param == "-link1") {
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -94,13 +94,13 @@ int main(int argc, char *argv[]) {
                 } else {
                     position = i;
                 }
-                theBrd->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
             // letting the rest of the program know that player 1 has a link file attached
             linked1 = true;
-        } else if (param == "link2") {
+        } else if (param == "-link2") {
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -114,7 +114,7 @@ int main(int argc, char *argv[]) {
                 } else {
                     position = i + 57;
                 }
-                theBrd->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
     string command;
     for(int i = 0; i < 64; i++){
         try{
-            int count = theBrd->getLink(i).use_count();
+            int count = theMap.board()->getLink(i).use_count();
             cout << "link at " << i << ": " << count << endl;
         } catch (...){
             cout << "link at " << i << ": " << "failed" << endl;
