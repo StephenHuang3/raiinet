@@ -147,7 +147,6 @@ int main(int argc, char *argv[]) {
     // }
 
     // render board for player 1 before game
-    // cout << theMap.board() << endl;
     theMap.render(0);
     cout << "Enter a command: \n";
     while( cin >> command ) {
@@ -162,13 +161,15 @@ int main(int argc, char *argv[]) {
                 if (errNum == 1) {
                     cerr << "That link is already downloaded." << endl;
                 } else if (errNum == 2) {
-                    cerr << "The link will go out of bounds." << endl;
+                    cerr << "Watch out! The Earth is flat! You don't want your link to fall off!" << endl;
                 } else if (errNum == 3) {
                     cerr << "You cannot move links onto your own links." << endl;
                 } else if (errNum == 4) {
                     cerr << "You cannot move links onto your own server ports." << endl;
                 } else if (errNum == 5) {
-                    cout << "Dumbass Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk." << endl;
+                    cerr << "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk." << endl;
+                } else if (errNum == 6) {
+                    cerr << "NewbNewb Alert: use up, right, down, or left to move the piece" << endl;
                 } else {
                     cerr << "Default Exception - you're doing something weird.." << endl;
                 }
@@ -272,18 +273,18 @@ int main(int argc, char *argv[]) {
         } else if (command == "quit") {
             break;
         } else {
-            cout << "invalid command try again";
+            cerr << "invalid command try again";
         }
 
-        if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
-            theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-                break;
-        }
+        // if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
+        //     theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
+        //         break;
+        // }
 
-        if( theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'w' || 
-            theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'l') {
-                break;
-        }
+        // if( theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'w' || 
+        //     theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'l') {
+        //         break;
+        // }
         cout << endl;
         
         if(command == "move"){
@@ -296,11 +297,11 @@ int main(int argc, char *argv[]) {
     }
 
     //print who won
-    if (theMap.board()->getPlayer(0).operator*().checkScore() == 'w'){
+    if (theMap.board()->getPlayer(0)->checkScore() == 'w'){
         cout << "Player 1 has won!" << endl;
-    } else if (theMap.board()->getPlayer(0).operator*().checkScore() == 'l') {
+    } else if (theMap.board()->getPlayer(0)->checkScore() == 'l') {
         cout << "Player 2 has won!" << endl;
-    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'w'){
+    } else if (theMap.board()->getPlayer(1)->checkScore() == 'w'){
         cout << "Player 2 has won!" << endl;
     } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'l'){
         cout << "Player 1 has won!" << endl;

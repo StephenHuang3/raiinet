@@ -21,7 +21,10 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   for( auto const& l : p->getLinks() ) {
     if( l.second->getId() == id) yourLink = true;
   }
-  if( !yourLink ) throw 5;
+  if( !yourLink ) {
+    throw 5;
+  }
+  std::cout << "got past throw 5" << std::endl;
   std::shared_ptr<Link> link = p->getLinks().find(id)->second;
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
@@ -37,6 +40,8 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     newPos -= moveAmt;
   } else if(dir == "down") {
     newPos += 8 * moveAmt;
+  } else {
+    throw 6;
   }
 
   // check if link is already downloaded:
@@ -93,12 +98,12 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     // needs removing
   }
 
-  // // check if lands on own server port:
-  // if (!player && (newPos == 3 || newPos == 4)) {
-  //   throw 4;
-  // } else if (player && (newPos == 59 || newPos == 60)) {
-  //   throw 4;
-  // }
+  // check if lands on own server port:
+  if ((player+1)%2 && (newPos == 3 || newPos == 4)) {
+    throw 4;
+  } else if ((player+1)%2 && (newPos == 59 || newPos == 60)) {
+    throw 4;
+  }
 
   // check if lands on opponent server port:
   if (!player && (newPos == 59 || newPos == 60)) {
