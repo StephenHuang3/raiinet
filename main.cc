@@ -151,6 +151,7 @@ int main(int argc, char *argv[]) {
     }
 
     int playerTurn = 0;
+    int usedability = false;
     // bool errorfree = true;
     // bool readfile = false;
     // bool usedAbility = false;
@@ -204,27 +205,30 @@ int main(int argc, char *argv[]) {
                 }
             }
         } else if ( command == "ability" ) {
-            int id;
-            cin >> id;
-            char link = ' ';
-            int x = 0;
-            int y = 0;
-            if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                cin >> link;
+            if (usedability){
+                cout << "You already used an ability. move a piece to end your turn.";
             } else {
-                cin >> x >> y;
-                theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+                int id;
+                cin >> id;
+                char link = ' ';
+                int x = 0;
+                int y = 0;
+                if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+                    cin >> link;
+                } else {
+                    cin >> x >> y;
+                    theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+                }
+                theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+                // check abilities
+                usedability = true;
             }
-            theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-            // check abilities
         } else if (command == "a") {
             cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
 
-        // } else if (command == "board" ) {
-        //     // displays the board depending on whose turn it is
-        //     playerTurn--;
-        //     continue;
-        // } else if (command == "sequence" ) {
+        } else if (command == "board" ) {
+
+        } else if (command == "sequence" ) {
         //     string fileName;
         //     cin >> fileName;
         //     ifstream f(fileName);
@@ -284,7 +288,11 @@ int main(int argc, char *argv[]) {
         //             } else if (command == "quit") break;
         //         }
         //     }
-        } else if (command == "quit") break;
+        } else if (command == "quit") {
+            break;
+        } else {
+            cout << "invalid command try again";
+        }
 
         if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
             theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
@@ -299,6 +307,7 @@ int main(int argc, char *argv[]) {
         
         if(command == "move"){
             ++playerTurn;
+            usedability = false;
         }
     
         theMap.render(playerTurn % 2);
