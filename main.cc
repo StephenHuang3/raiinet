@@ -65,10 +65,10 @@ int main(int argc, char *argv[]) {
     bool ability2 = false;
 
     for(int i = 0; i < argc; ++i) {
-        string param(argv[i]); // This should fix the compilation error of comparison of string literals
-        if(param == "-graphical") {
-            // graphicObserver *obs2 = new graphicObserver{&theMap};
-            // observers.emplace_back(obs2);
+        string param (argv[i]); // This should fix the compilation error of comparison of string literals
+        if(param == "-graphics") {
+            graphicObserver *obs2 = new graphicObserver{&theMap};
+            observers.emplace_back(obs2);
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {

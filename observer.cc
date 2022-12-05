@@ -1,5 +1,5 @@
 #include "observer.h"
-// #include "window.h"
+#include "window.h"
 #include "mapcontroller.h"
 #include "subject.h"
 #include "player.h"
@@ -41,7 +41,6 @@ void textObserver::print(int player){
 
   // Print depending on player
   if (player == 0) {
-    // cout << "if player == 0 in print, board ptr: " << theMap->board() << endl;
     for( int i = 0; i < 8; ++i) {
       for( int j = 0; j < 8; ++j) {
         cout << theMap->getTile(i*8 + j);
@@ -87,22 +86,78 @@ void textObserver::print(int player){
 
   cout << endl;  
 }
-// graphicObserver::~graphicObserver() {
-//   theMap->detach(this);
-//   delete w;
-// }
+graphicObserver::~graphicObserver() {
+  theMap->detach(this);
+  delete w;
+}
 
-// graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
-//   int width = 100 * 8 + 1;
-//   int height = 100 * 8 + 1;
-//   w = new Xwindow{width, height};
-//   this->theMap->attach(this);
-// }
+graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
+  int width = 100 * 8 + 1;
+  int height = 100 * 8 + 1;
+  w = new Xwindow{width, height};
+  this->theMap->attach(this);
+}
 
-// void graphicObserver::print(int player) {
-//   if (player == 1){
-    
-//   } else {
-    
-//   }
-// }
+void graphicObserver::print(int player) {
+  w.drawString(0, 10, "Player 1:");
+
+  w.drawString(0, 25, "Downloaded: 0D, 0V");
+
+  w.drawString(0, 40, "Abilities: 5");
+
+  w.drawString(0, 55, "a: V1 b: D4 c: V3 d: V2");
+
+  w.drawString(0, 70, "e: D3 f: V4 g: D2 h: D1");
+
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      if (i == 0) {
+        if (j == 0 || j == 2 || j == 5) {
+          w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Red);
+          continue;
+        } else if (j == 3 || j == 4) {
+          w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Black);
+          continue;
+        } else {
+          w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Green);
+          continue;
+        }
+      }
+      if (i == 1 && j == 3) {
+        w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Red);
+        continue;
+      }
+      if (i == 1 && j == 4) {
+        w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Green);
+        continue;
+      }
+      if (((i == 6) && (j == 3)) || ((i == 6) && (j == 4))) {
+        w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Brown);
+        continue;
+      }
+      if (i == 7) {
+        if ((j != 3) && (j != 4)) {
+          w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Brown);
+          continue;
+        } else {
+          w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::Black);
+          continue;
+        }
+      }
+      w.fillRectangle(10 * j, 85 + 10 * i, 10, 10, Xwindow::White);
+    }
+  }
+
+  w.drawString(0, 180, "Player 2:");
+
+  w.drawString(0, 195, "Downloaded: 0D, 0V");
+
+  w.drawString(0, 210, "Abilities: 5");
+
+  w.drawString(0, 225, "A: ? B: ? C: ? D: ?");
+
+  w.drawString(0, 240, "E: ? F: ? G: ? H: ?");
+
+  char c;
+  cin >> c;
+}
