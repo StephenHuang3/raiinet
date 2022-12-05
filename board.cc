@@ -1,5 +1,5 @@
 #include "board.h"
-
+#include <iostream>
 
 Board::Board() {
   // Player List
@@ -24,6 +24,7 @@ std::shared_ptr<Link> Board::getLink(int pos){
 }
 
 void Board::setLink(int p, char id, char type, int val, int position){
+  std::cout << "set " << id << " at position " << position << std::endl;
   this->board[position] = std::make_shared<Link>(p, position, id, type, val);
   players[p].operator*().addLink(board[position]);
 }

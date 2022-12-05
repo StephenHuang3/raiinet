@@ -127,11 +127,11 @@ void Mapcontroller::randomize(int player) {
 
     if (player == 0) {
       int position = i - 1;
-      if(i == 4 || i - 1 == 5) position += 8; 
+      if(i == 4 || i == 5) position += 8; 
       theBoard->setLink(player, (char)(i - 1 + 97), type, (int)value - 48, position);
     } else {
       int position = i - 1 + 56;
-      if(i == 4 || i - 1 == 5) position -= 8; 
+      if(i == 4 || i == 5) position -= 8;
       theBoard->setLink(player, (char)(i - 1 + 65), type, (int)value - 48, position);
     }
   }
