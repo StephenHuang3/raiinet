@@ -31,11 +31,10 @@ int main(int argc, char *argv[]) {
 
     //creates mapcontroller and board
     Board* theBrd = new Blank;
-    // creates player 1 and player 2
-    shared_ptr<Player> p1 = theBrd->getPlayer(0);
-    shared_ptr<Player> p2 = theBrd->getPlayer(1);
-
     Mapcontroller theMap{theBrd};
+    // creates player 1 and player 2
+    shared_ptr<Player> p1 = theMap.board()->getPlayer(0);
+    shared_ptr<Player> p2 = theMap.board()->getPlayer(1);
 
     //adds observers
     std::vector<Observer*> observers;
@@ -62,24 +61,27 @@ int main(int argc, char *argv[]) {
     // for checking linked files
     bool linked1 = false;
     bool linked2 = false;
+    bool ability1 = false;
+    bool ability2 = false;
 
     for(int i = 0; i < argc; ++i) {
-        string param(argv[i]); // This should fix the compilation error of comparison of string literals
-        if(param == "-graphical") {
-            // graphicObserver *obs2 = new graphicObserver{&theMap};
-            // observers.emplace_back(obs2);
+        string param (argv[i]); // This should fix the compilation error of comparison of string literals
+        if(param == "-graphics") {
+            graphicObserver *obs2 = new graphicObserver{&theMap};
+            observers.emplace_back(obs2);
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                cout << abilityorder[i];
                 p1.operator*().setAbility(abilityorder[i], i);
             }
+            ability1 = true;
             ++i;
         } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p2.operator*().setAbility(abilityorder[i], i);
             }
+            ability2 = true;
             ++i;
         } else if (param == "-link1") {
             ifstream myReadFile(argv[i + 1]);
@@ -90,18 +92,19 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 4 || i == 5){
+                if (i == 3 || i == 4){
                     position = i + 8;
                 } else {
                     position = i;
                 }
-                theMap.board()->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(0, (char)(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
             // letting the rest of the program know that player 1 has a link file attached
             linked1 = true;
         } else if (param == "-link2") {
+            
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -110,12 +113,13 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 4 || i == 5){
-                    position = i + 57 - 8;
+                if (i == 3 || i == 4){
+                    position = i + 56 - 8;
                 } else {
-                    position = i + 57;
+                    position = i + 56;
                 }
-                theMap.board()->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
+                
+                theMap.board()->setLink(1, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
@@ -130,12 +134,25 @@ int main(int argc, char *argv[]) {
     if( !linked2 ) {
         theMap.randomize(1);
     }
+    if (!ability1){
+        p1.operator*().setAbility('L', 0);
+        p1.operator*().setAbility('F', 1);
+        p1.operator*().setAbility('D', 2);
+        p1.operator*().setAbility('S', 3);
+        p1.operator*().setAbility('P', 4);
+    }
+    if(!ability2){
+        p2.operator*().setAbility('L', 0);
+        p2.operator*().setAbility('F', 1);
+        p2.operator*().setAbility('D', 2);
+        p2.operator*().setAbility('S', 3);
+        p2.operator*().setAbility('P', 4);
+    }
 
     int playerTurn = 0;
-    int usedability = false;
     // bool errorfree = true;
     // bool readfile = false;
-    // bool usedAbility = false;
+    bool usedability = false;
     string command;
     // for(int i = 0; i < 64; i++){
     //     try{
@@ -154,16 +171,17 @@ int main(int argc, char *argv[]) {
             char id;
             std::string dir;
             cin >> id >> dir;
+            cout << "command is move and program reached here" << endl;
             try {
                 theMap.moveLink(playerTurn%2, id, dir);
             }
             catch (int errNum) {
                 if (errNum == 1) {
-                    cerr << "That link is already downloaded." << endl;
+                    cout << "That link is already downloaded." << endl;
                 } else if (errNum == 2) {
                     cerr << "Watch out! The Earth is flat! You don't want your link to fall off!" << endl;
                 } else if (errNum == 3) {
-                    cerr << "You cannot move links onto your own links." << endl;
+                    cout << "You cannot move links onto your own links." << endl;
                 } else if (errNum == 4) {
                     cerr << "You cannot move links onto your own server ports." << endl;
                 } else if (errNum == 5) {
@@ -171,19 +189,20 @@ int main(int argc, char *argv[]) {
                 } else if (errNum == 6) {
                     cerr << "NewbNewb Alert: use up, right, down, or left to move the piece" << endl;
                 } else {
-                    cerr << "Default Exception - you're doing something weird.." << endl;
+                    cout << "Default Exception - you're doing something weird.." << endl;
                 }
                 --playerTurn;
             }
         } else if ( command == "abilities" ) {
             // display abilities
+
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1.operator*().checkAvailable(i);
+                    cout << p1.operator*().checkAvailable(i) << endl;
                 }
-            } else if (playerTurn%2 == 1) {
+            } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2.operator*().checkAvailable(i);
+                    cout << p2.operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
@@ -208,9 +227,11 @@ int main(int argc, char *argv[]) {
         } else if (command == "a") {
             cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
 
-        } else if (command == "board" ) {
-
-        } else if (command == "sequence" ) {
+        // } else if (command == "board" ) {
+        //     // displays the board depending on whose turn it is
+        //     playerTurn--;
+        //     continue;
+        // } else if (command == "sequence" ) {
         //     string fileName;
         //     cin >> fileName;
         //     ifstream f(fileName);
@@ -308,9 +329,6 @@ int main(int argc, char *argv[]) {
     } else {
         cout << "Game unfinished" << endl;
     }
-
-    //delete observers
-
     int size = observers.size();
     for (int i = 0; i < size; ++i) {
         delete observers[i];

@@ -1,5 +1,5 @@
 #include "observer.h"
-// #include "window.h"
+#include "window.h"
 #include "mapcontroller.h"
 #include "subject.h"
 #include "player.h"
@@ -41,7 +41,6 @@ void textObserver::print(int player){
 
   // Print depending on player
   if (player == 0) {
-    // cout << "if player == 0 in print, board ptr: " << theMap->board() << endl;
     for( int i = 0; i < 8; ++i) {
       for( int j = 0; j < 8; ++j) {
         cout << theMap->getTile(i*8 + j);
@@ -87,22 +86,84 @@ void textObserver::print(int player){
 
   cout << endl;  
 }
-// graphicObserver::~graphicObserver() {
-//   theMap->detach(this);
-//   delete w;
-// }
+graphicObserver::~graphicObserver() {
+  theMap->detach(this);
+  delete w;
+}
 
-// graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
-//   int width = 100 * 8 + 1;
-//   int height = 100 * 8 + 1;
-//   w = new Xwindow{width, height};
-//   this->theMap->attach(this);
-// }
+graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
+  int width = 200;
+  int height = 250;
+  w = new Xwindow{width, height};
+  this->theMap->attach(this);
+}
 
-// void graphicObserver::print(int player) {
-//   if (player == 1){
-    
-//   } else {
-    
-//   }
-// }
+void graphicObserver::print(int player) {
+  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
+  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+
+  w->drawString(5, 10, "Player " + std::to_string(player + 1) + ":");
+
+  w->drawString(5, 25, "Downloaded: " + std::to_string(theMap->board()->getPlayer(player)->getDataDownloaded()) + "D, " + std::to_string(theMap->board()->getPlayer(player)->getVirusesDownloaded()) + "V");
+
+  w->drawString(5, 40, "Abilities: " + std::to_string(theMap->board()->getPlayer(player)->getAbilityStatus()));
+
+  w->drawString(5, 55, "a: V1 b: D4 c: V3 d: V2");
+
+  w->drawString(5, 70, "e: D3 f: V4 g: D2 h: D1");
+
+  for (int i = 0; i < 8; ++i) {
+    for (int j = 0; j < 8; ++j) {
+      if (i == 0) {
+        if (j == 0 || j == 2 || j == 5) {
+          w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Red);
+          continue;
+        } else if (j == 3 || j == 4) {
+          w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Black);
+          continue;
+        } else {
+          w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Green);
+          continue;
+        }
+      }
+      if (i == 1 && j == 3) {
+        w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Red);
+        continue;
+      }
+      if (i == 1 && j == 4) {
+        w->fillRectangle(5 + 0 * j, 85 + 10 * i, 10, 10, Xwindow::Green);
+        continue;
+      }
+      if (((i == 6) && (j == 3)) || ((i == 6) && (j == 4))) {
+        w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Brown);
+        continue;
+      }
+      if (i == 7) {
+        if ((j != 3) && (j != 4)) {
+          w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Brown);
+          continue;
+        } else {
+          w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::Black);
+          continue;
+        }
+      }
+      w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, Xwindow::White);
+    }
+  }
+
+  if (player == 0) {
+    w->drawString(5, 180, "Player 2:");
+  } else {
+    w->drawString(5, 180, "Player 1:");
+  }
+  w->drawString(5, 195, "Downloaded: " + std::to_string(theMap->board()->getPlayer(!player)->getDataDownloaded()) + "D, " + std::to_string(theMap->board()->getPlayer(!player)->getVirusesDownloaded()) + "V");
+
+  w->drawString(5, 40, "Abilities: " + std::to_string(theMap->board()->getPlayer(!player)->getAbilityStatus()));
+
+  w->drawString(5, 225, "A: ? B: ? C: ? D: ?");
+
+  w->drawString(5, 240, "E: ? F: ? G: ? H: ?");
+
+  // char c;
+  // cin >> c;
+}
