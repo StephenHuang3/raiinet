@@ -283,20 +283,43 @@ int main(int argc, char *argv[]) {
         //             } else if (command == "quit") break;
         //         }
         //     }
-        } else if (command == "quit") break;
+        } else if (command == "quit") {
+            break;
+        } else {
+            cout << "invalid command try again";
+        }
 
-        // if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
-        //     theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-        //         break;
-        // }
+        if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
+            theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
+                break;
+        }
+
+        if( theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'w' || 
+            theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'l') {
+                break;
+        }
         cout << endl;
         
         if(command == "move"){
             ++playerTurn;
+            usedability = false;
         }
     
         theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
+    }
+
+    //print who won
+    if (theMap.board()->getPlayer(0).operator*().checkScore() == 'w'){
+        cout << "Player 1 has won!" << endl;
+    } else if (theMap.board()->getPlayer(0).operator*().checkScore() == 'l') {
+        cout << "Player 2 has won!" << endl;
+    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'w'){
+        cout << "Player 2 has won!" << endl;
+    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'l'){
+        cout << "Player 1 has won!" << endl;
+    } else {
+        cout << "Game unfinished" << endl;
     }
     int size = observers.size();
     for (int i = 0; i < size; ++i) {
