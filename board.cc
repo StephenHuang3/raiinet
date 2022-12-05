@@ -34,4 +34,9 @@ void Board::setLink(int p, char id, char type, int val, int position){
   board[position] = std::make_shared<Link>(p, position, id, type, val);
   // std::cout << "set " << board.at(position).operator*().getId() << ": " << board.at(position).operator*().getType() << board.at(position).operator*().getVal() << " at position " << position << std::endl;
   players[p].operator*().addLink(board[position]);
+};
+
+void Board::moveLink(int oldPos, int newPos) {
+  board[newPos] = board[oldPos];
+  board[oldPos] = nullptr;
 }

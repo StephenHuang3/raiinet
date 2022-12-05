@@ -26,6 +26,8 @@ public:
   std::shared_ptr<Link> getLink(int pos) const;
 
   void setLink(int p, char id, char type, int val, int position);
+
+  void moveLink(int oldPos, int newPos);
   
 };
 

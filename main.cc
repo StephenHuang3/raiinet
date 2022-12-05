@@ -154,26 +154,25 @@ int main(int argc, char *argv[]) {
     // bool readfile = false;
     // bool usedAbility = false;
     string command;
-    for(int i = 0; i < 64; i++){
-        try{
-            int count = theMap.board()->getLink(i).use_count();
-            cout << "link at " << i << ": " << count << endl;
-        } catch (...){
-            cout << "link at " << i << ": " << "failed" << endl;
-        }
-    }
+    // for(int i = 0; i < 64; i++){
+    //     try{
+    //         int count = theMap.board()->getLink(i).use_count();
+    //         cout << "link at " << i << ": " << count << endl;
+    //     } catch (...){
+    //         cout << "link at " << i << ": " << "failed" << endl;
+    //     }
+    // }
 
     // render board for player 1 before game
     // cout << theMap.board() << endl;
     theMap.render(0);
     cout << "Enter a command: \n";
     while( cin >> command ) {
-
-
         if( command == "move" ) {
             char id;
             std::string dir;
             cin >> id >> dir;
+            cout << "command is move and program reached here" << endl;
             try {
                 theMap.moveLink(playerTurn%2, id, dir);
             }
@@ -217,6 +216,8 @@ int main(int argc, char *argv[]) {
             }
             theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
             // check abilities
+        } else if (command == "a") {
+            cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
 
         // } else if (command == "board" ) {
         //     // displays the board depending on whose turn it is
@@ -284,15 +285,16 @@ int main(int argc, char *argv[]) {
         //     }
         } else if (command == "quit") break;
 
-        if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
-            theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-                break;
-        }
+        // if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
+        //     theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
+        //         break;
+        // }
         cout << endl;
         
         if(command == "move"){
             ++playerTurn;
         }
+    
         theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
     }

@@ -1,4 +1,5 @@
 #include "link.h"
+#include <iostream>
 
 Link::Link(int p, int pos, char id, char type, int val): player{p}, pos{pos}, id{id}, type{type}, val{val} {};
 
@@ -45,6 +46,7 @@ void Link::changeType() {
 }
 
 void Link::changePos(int newPos) {
+  std::cout << id << " goes from " << pos << " to " << newPos << std::endl;
   pos = newPos;
 }
 

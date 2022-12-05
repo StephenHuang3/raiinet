@@ -16,13 +16,12 @@ void Mapcontroller::render(int player) {
 }
 
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
-  std::shared_ptr<Player> p = theBoard->getPlayer(player);
-  std::shared_ptr<Link> link = p->getLinks()[id];
-
-  int moveAmt = link.operator*().getMoveAmount();
+  std::shared_ptr<Player> p{theBoard->getPlayer(player)};
+  std::shared_ptr<Link> link = p->getLinks().find(id)->second;
+  int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
 
-  int pos = link.operator*().getPos();
+  int pos = link->getPos();
   // calculate new position based on direction
   int newPos = pos;
   if (dir == "up") {
@@ -36,7 +35,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // check if link is already downloaded:
-  if (link.operator*().getDownloaded() == true) {
+  if (link->getDownloaded() == true) {
     throw 1;
   }
 
@@ -49,24 +48,24 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // refuse if lands on own piece:
-  for (auto const& ownLink : p.operator*().getLinks()) {
-    if (ownLink.second.operator*().getPos() == newPos) {
+  for (auto const& ownLink : p->getLinks()) {
+    if (ownLink.second->getPos() == newPos) {
       throw 3;
     }
   }
 
   // battle if lands on opponent:
   std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
-  for (auto const& oppLink : p2.operator*().getLinks()) {
-    if (oppLink.second.operator*().getPos() == newPos) {
+  for (auto const& oppLink : p2->getLinks()) {
+    if (oppLink.second->getPos() == newPos) {
       // battle!
       // Needs revealing and removing piece from board (possibly in download)
-      if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
-        p2.operator*().downloadLink(link);
-      } else {                                                                      // win or tie
-        p.operator*().downloadLink(oppLink.second);
+      if (oppLink.second->getVal() > link->getVal()) {        // lose
+        p2->downloadLink(link);
+      } else {                                                // win or tie
+        p->downloadLink(oppLink.second);
       }
-      return;
+      break; //not supposed to break, need to change this later
     }
   }
 
@@ -85,12 +84,12 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     // needs removing
   }
 
-  // check if lands on own server port:
-  if (!player && (newPos == 3 || newPos == 4)) {
-    throw 4;
-  } else if (player && (newPos == 59 || newPos == 60)) {
-    throw 4;
-  }
+  // // check if lands on own server port:
+  // if (!player && (newPos == 3 || newPos == 4)) {
+  //   throw 4;
+  // } else if (player && (newPos == 59 || newPos == 60)) {
+  //   throw 4;
+  // }
 
   // check if lands on opponent server port:
   if (!player && (newPos == 59 || newPos == 60)) {
@@ -104,11 +103,12 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // otherwise, normal move: 
-  link.operator*().changePos(newPos);
+  std::cout << "failing to change pos" << std::endl;
+  link->changePos(newPos);
+  theBoard->moveLink(pos, newPos);
 }
 
 char Mapcontroller::getTile(int pos) const {
-  // std::cout << "in getTile, board ptr: " << theBoard << std::endl;
   return theBoard->getTile(pos);
 }
 
