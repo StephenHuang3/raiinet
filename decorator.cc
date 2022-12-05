@@ -1,6 +1,7 @@
 #include "decorator.h"
 #include "link.h"
 #include <map>
+#include <memory>
 
 using namespace std;
 
