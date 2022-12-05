@@ -203,19 +203,24 @@ int main(int argc, char *argv[]) {
                 }
             }
         } else if ( command == "ability" ) {
-            int id;
-            cin >> id;
-            char link = ' ';
-            int x = 0;
-            int y = 0;
-            if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                cin >> link;
+            if (usedability){
+                cout << "You already used an ability. move a piece to end your turn.";
             } else {
-                cin >> x >> y;
-                theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+                int id;
+                cin >> id;
+                char link = ' ';
+                int x = 0;
+                int y = 0;
+                if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+                    cin >> link;
+                } else {
+                    cin >> x >> y;
+                    theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+                }
+                theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+                // check abilities
+                usedability = true;
             }
-            theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-            // check abilities
         } else if (command == "a") {
             cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
 
