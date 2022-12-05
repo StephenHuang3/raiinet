@@ -35,18 +35,18 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     newPos += 8 * moveAmt;
   }
 
-  // // check if link is already downloaded:
-  // if (link.operator*().getDownloaded() == true) {
-  //   throw 1;
-  // }
+  // check if link is already downloaded:
+  if (link.operator*().getDownloaded() == true) {
+    throw 1;
+  }
 
-  // // check if link will go out-of-bounds:
-  // int row = pos / 8;
-  // if ((dir == "up" || dir == "down") && (newPos < 0 || newPos > 63)) {
-  //   throw 2;
-  // } else if ((dir == "right" || dir == "left") && (newPos < row * 8 || newPos > row * 8 + 7)) {
-  //   throw 2;
-  // }
+  // check if link will go out-of-bounds:
+  int row = pos / 8;
+  if ((dir == "up" || dir == "down") && (newPos < 0 || newPos > 63)) {
+    throw 2;
+  } else if ((dir == "right" || dir == "left") && (newPos < row * 8 || newPos > row * 8 + 7)) {
+    throw 2;
+  }
 
   // refuse if lands on own piece:
   for (auto const& ownLink : p.operator*().getLinks()) {
@@ -55,56 +55,56 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     }
   }
 
-  // // battle if lands on opponent:
-  // std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
-  // for (auto const& oppLink : p2.operator*().getLinks()) {
-  //   if (oppLink.second.operator*().getPos() == newPos) {
-  //     // battle!
-  //     // Needs revealing and removing piece from board (possibly in download)
-  //     if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
-  //       p2.operator*().downloadLink(link);
-  //     } else {                                                                      // win or tie
-  //       p.operator*().downloadLink(oppLink.second);
-  //     }
-  //     return;
-  //   }
-  // }
+  // battle if lands on opponent:
+  std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
+  for (auto const& oppLink : p2.operator*().getLinks()) {
+    if (oppLink.second.operator*().getPos() == newPos) {
+      // battle!
+      // Needs revealing and removing piece from board (possibly in download)
+      if (oppLink.second.operator*().getVal() > link.operator*().getVal()) {        // lose
+        p2.operator*().downloadLink(link);
+      } else {                                                                      // win or tie
+        p.operator*().downloadLink(oppLink.second);
+      }
+      return;
+    }
+  }
 
-  // // check if lands on firewall:
-  // if (theBoard->isFirewall(newPos)) {
-  //   if( theBoard->isFirewall(newPos) != player) {
+  // check if lands on firewall:
+  if (theBoard->isFirewall(newPos)) {
+    if( theBoard->isFirewall(newPos) != player) {
       
-  //     if(link.operator*().getType() == 'V') {
-  //       link.operator*().toggleDownloaded();
-  //       theBoard->getPlayer(player).operator*().downloadVirus();
-  //     } else {
-  //       link.operator*().reveal();
-  //     }
-  //   }
-  //   // activate firewall
-  //   // needs removing
-  // }
+      if(link.operator*().getType() == 'V') {
+        link.operator*().toggleDownloaded();
+        theBoard->getPlayer(player).operator*().downloadVirus();
+      } else {
+        link.operator*().reveal();
+      }
+    }
+    // activate firewall
+    // needs removing
+  }
 
-  // // check if lands on own server port:
-  // if (!player && (newPos == 3 || newPos == 4)) {
-  //   throw 4;
-  // } else if (player && (newPos == 59 || newPos == 60)) {
-  //   throw 4;
-  // }
+  // check if lands on own server port:
+  if (!player && (newPos == 3 || newPos == 4)) {
+    throw 4;
+  } else if (player && (newPos == 59 || newPos == 60)) {
+    throw 4;
+  }
 
-  // // check if lands on opponent server port:
-  // if (!player && (newPos == 59 || newPos == 60)) {
-  //   p.operator*().downloadLink(link);
-  //   return;
-  // } else if (player && (newPos == 3 || newPos == 4)) {
-  //   std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
-  //   p2.operator*().downloadLink(link);
-  //   // needs removing
-  //   return;
-  // }
+  // check if lands on opponent server port:
+  if (!player && (newPos == 59 || newPos == 60)) {
+    p.operator*().downloadLink(link);
+    return;
+  } else if (player && (newPos == 3 || newPos == 4)) {
+    std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
+    p2.operator*().downloadLink(link);
+    // needs removing
+    return;
+  }
 
-  // // otherwise, normal move: 
-  // link.operator*().changePos(newPos);
+  // otherwise, normal move: 
+  link.operator*().changePos(newPos);
 }
 
 char Mapcontroller::getTile(int pos) const {

@@ -142,8 +142,6 @@ int main(int argc, char *argv[]) {
     cout << "Enter a command: \n";
     while( cin >> command ) {
         ++playerTurn;
-        theMap.render(playerTurn % 2);
-        cout << "Enter a command: \n";
         // render map before move
 
         if( command == "move" ) {
@@ -151,7 +149,7 @@ int main(int argc, char *argv[]) {
             std::string dir;
             cin >> id >> dir;
             try {
-                theMap.moveLink(playerTurn, id, dir);
+                theMap.moveLink(playerTurn%2, id, dir);
             }
             catch (int errNum) {
                 if (errNum == 1) {
@@ -165,10 +163,8 @@ int main(int argc, char *argv[]) {
                 } else {
                     cout << "Default Exception - you're doing something weird.." << endl;
                 }
-                continue; // without changing turns
+                --playerTurn;
             }
-            // change playerTurn
-            playerTurn = !playerTurn;
         // } else if ( command == "abilities" ) {
         //     // display abilities
         //     if(playerTurn%2 == 0) {
@@ -264,6 +260,9 @@ int main(int argc, char *argv[]) {
         if( theBrd->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || theBrd->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
             break;
         }
+        cout << endl;
+        theMap.render(playerTurn % 2);
+        cout << "Enter a command: \n";
     }
     int size = observers.size();
     for (int i = 0; i < size; ++i) {
