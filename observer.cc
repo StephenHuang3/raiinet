@@ -37,7 +37,11 @@ void textObserver::print(int player){
       cout << c << ": " << yourLinks[c]->getType() << yourLinks[c]->getVal() << " ";
   }
 
+<<<<<<< HEAD
   cout << "\n========" << endl;
+=======
+  cout << endl << "========" << endl;
+>>>>>>> 3799e7c29f888bd2d12f020e6da0d78cd0eefcde
 
   // Print depending on player
   if (player == 0) {
