@@ -17,11 +17,6 @@ void Mapcontroller::render(int player) {
 
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
   std::shared_ptr<Player> p{theBoard->getPlayer(player)};
-  bool yourLink = false;
-  for( auto const& l : p->getLinks() ) {
-    if( l.second->getId() == id) yourLink = true;
-  }
-  if( !yourLink ) throw 5;
   std::shared_ptr<Link> link = p->getLinks().find(id)->second;
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
@@ -60,21 +55,17 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // battle if lands on opponent:
-  bool captured = false;
-  std::shared_ptr<Player> p2 = theBoard->getPlayer((player+1)%2);
+  std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
   for (auto const& oppLink : p2->getLinks()) {
     if (oppLink.second->getPos() == newPos) {
       // battle!
       // Needs revealing and removing piece from board (possibly in download)
-      if ( oppLink.second->getVal() > link->getVal() ) {        // lose
-        std::cout << "player 2 won" << std::endl;
+      if (oppLink.second->getVal() > link->getVal()) {        // lose
         p2->downloadLink(link);
-        link = nullptr;
-        captured = true;
       } else {                                                // win or tie
         p->downloadLink(oppLink.second);
       }
-      break;
+      break; //not supposed to break, need to change this later
     }
   }
 
@@ -84,7 +75,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       
       if(link.operator*().getType() == 'V') {
         link.operator*().toggleDownloaded();
-        theBoard->getPlayer(player)->downloadVirus();
+        theBoard->getPlayer(player).operator*().downloadVirus();
       } else {
         link.operator*().reveal();
       }
@@ -111,11 +102,10 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     return;
   }
 
-  // otherwise, normal move:
-  if( !captured ) {
-    link->changePos(newPos);
-    theBoard->moveLink(pos, newPos);
-  }
+  // otherwise, normal move: 
+  std::cout << "failing to change pos" << std::endl;
+  link->changePos(newPos);
+  theBoard->moveLink(pos, newPos);
 }
 
 char Mapcontroller::getTile(int pos) const {
