@@ -92,18 +92,21 @@ graphicObserver::~graphicObserver() {
 }
 
 graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
-  int width = 100 * 8 + 1;
-  int height = 100 * 8 + 1;
+  int width = 300;
+  int height = 300;
   w = new Xwindow{width, height};
   this->theMap->attach(this);
 }
 
 void graphicObserver::print(int player) {
-  w->drawString(0, 10, "Player 1:");
+  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
+  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
 
-  w->drawString(0, 25, "Downloaded: 0D, 0V");
+  w->drawString(0, 10, "Player " + std::to_string(player + 1) + "1:");
 
-  w->drawString(0, 40, "Abilities: 5");
+  w->drawString(0, 25, "Downloaded: " + std::to_string(theMap->board()->getPlayer(player)->getDataDownloaded()) + "D, " + std::to_string(theMap->board()->getPlayer(player)->getVirusesDownloaded()) + "V");
+
+  w->drawString(0, 40, "Abilities: " + std::to_string(theMap->board()->getPlayer(player)->getAbilityStatus()));
 
   w->drawString(0, 55, "a: V1 b: D4 c: V3 d: V2");
 
