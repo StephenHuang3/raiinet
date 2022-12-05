@@ -285,7 +285,12 @@ int main(int argc, char *argv[]) {
                 break;
         }
         cout << endl;
-        ++playerTurn;
+        
+        if(command == "move"){
+            ++playerTurn;
+            usedability = false;
+        }
+    
         theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
     }
