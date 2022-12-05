@@ -31,11 +31,10 @@ int main(int argc, char *argv[]) {
 
     //creates mapcontroller and board
     Board* theBrd = new Blank;
-    // creates player 1 and player 2
-    shared_ptr<Player> p1 = theBrd->getPlayer(0);
-    shared_ptr<Player> p2 = theBrd->getPlayer(1);
-
     Mapcontroller theMap{theBrd};
+    // creates player 1 and player 2
+    shared_ptr<Player> p1 = theMap.board()->getPlayer(0);
+    shared_ptr<Player> p2 = theMap.board()->getPlayer(1);
 
     //adds observers
     std::vector<Observer*> observers;
@@ -62,6 +61,8 @@ int main(int argc, char *argv[]) {
     // for checking linked files
     bool linked1 = false;
     bool linked2 = false;
+    bool ability1 = false;
+    bool ability2 = false;
 
     for(int i = 0; i < argc; ++i) {
         string param(argv[i]); // This should fix the compilation error of comparison of string literals
@@ -73,12 +74,14 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < numabilities; ++i) {
                 p1.operator*().setAbility(abilityorder[i], i);
             }
+            ability1 = true;
             ++i;
         } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p2.operator*().setAbility(abilityorder[i], i);
             }
+            ability2 = true;
             ++i;
         } else if (param == "-link1") {
             ifstream myReadFile(argv[i + 1]);
@@ -131,8 +134,22 @@ int main(int argc, char *argv[]) {
     if( !linked2 ) {
         theMap.randomize(1);
     }
+    if (!ability1){
+        p1.operator*().setAbility('L', 0);
+        p1.operator*().setAbility('F', 1);
+        p1.operator*().setAbility('D', 2);
+        p1.operator*().setAbility('S', 3);
+        p1.operator*().setAbility('P', 4);
+    }
+    if(!ability2){
+        p2.operator*().setAbility('L', 0);
+        p2.operator*().setAbility('F', 1);
+        p2.operator*().setAbility('D', 2);
+        p2.operator*().setAbility('S', 3);
+        p2.operator*().setAbility('P', 4);
+    }
 
-    int playerTurn = -1;
+    int playerTurn = 0;
     // bool errorfree = true;
     // bool readfile = false;
     // bool usedAbility = false;
@@ -176,13 +193,14 @@ int main(int argc, char *argv[]) {
             }
         } else if ( command == "abilities" ) {
             // display abilities
+
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1.operator*().checkAvailable(i);
+                    cout << p1.operator*().checkAvailable(i) << endl;
                 }
-            } else if (playerTurn%2 == 1) {
+            } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2.operator*().checkAvailable(i);
+                    cout << p2.operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
@@ -271,8 +289,11 @@ int main(int argc, char *argv[]) {
                 break;
         }
         cout << endl;
+        
+        if(command == "move"){
+            ++playerTurn;
+        }
         theMap.render(playerTurn % 2);
-        ++playerTurn;
         cout << "Enter a command: \n";
     }
     int size = observers.size();
