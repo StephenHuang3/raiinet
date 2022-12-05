@@ -67,12 +67,12 @@ void Player::downloadVirus() {
 
 // called for battle
 void Player::downloadLink(std::shared_ptr<Link> link) {
-    if (link.operator*().getType() == 'V'){
+    if (link->getType() == 'V'){
         this->downloadVirus();
     } else {
         this->downloadData();
     }
-    link.operator*().toggleDownloaded();
+    link->toggleDownloaded();
 }
 
 // run to check if game ends

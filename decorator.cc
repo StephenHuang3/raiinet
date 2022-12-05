@@ -74,7 +74,14 @@ char DisplayLinks::getTile(int pos) const{
   // cout << pos << endl;
   // cout << this->getLink(0).operator*().getId();
   try {
-    return this->getLink(pos).operator*().getId();
+    shared_ptr<Link> p = this->getLink(pos);
+    if(p == nullptr) {
+      throw 1;
+    }
+    if(p->getDownloaded() == true) {
+      throw 2;
+    }
+    return p->getId();
   } catch (...) {
     return gB->getTile(pos);
   }
