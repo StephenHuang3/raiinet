@@ -89,18 +89,19 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 4 || i == 5){
+                if (i == 3 || i == 4){
                     position = i + 8;
                 } else {
                     position = i;
                 }
-                theMap.board()->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(0, (char)(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
             // letting the rest of the program know that player 1 has a link file attached
             linked1 = true;
         } else if (param == "-link2") {
+            
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -109,12 +110,13 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 4 || i == 5){
-                    position = i + 57 - 8;
+                if (i == 3 || i == 4){
+                    position = i + 56 - 8;
                 } else {
-                    position = i + 57;
+                    position = i + 56;
                 }
-                theMap.board()->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
+                
+                theMap.board()->setLink(1, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
