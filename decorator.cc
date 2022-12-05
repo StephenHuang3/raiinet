@@ -2,12 +2,13 @@
 #include "link.h"
 #include <map>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
 // Decorator implementation
 Decorator::Decorator(Board* gameBoard): gB{gameBoard} {}
-Decorator::~Decorator() { delete gB; }
+Decorator::~Decorator() { delete gB; };
 
 // Serverport implementation
 Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {}
@@ -62,11 +63,19 @@ char DisplayLinks::getTile(int pos) const{
   // } catch (...) {
   //   return gB->getTile(pos);
   // }
-  try {
-    int count = gB->getLink(pos).use_count();
-    return 'H';
-  } catch (...){
+  // try {
+  //   int count = gB->getLink(pos).use_count();
+  //   return 'H';
+  // } catch (...){
     
+  // }
+  // return gB->getTile(pos);
+  // cout << "in decorator displaylinks, board ptr: " << this << endl;
+  // cout << pos << endl;
+  // cout << this->getLink(0).operator*().getId();
+  try {
+    return this->getLink(pos).operator*().getId();
+  } catch (...) {
+    return gB->getTile(pos);
   }
-  return gB->getTile(pos);
 }

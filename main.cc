@@ -43,22 +43,21 @@ int main(int argc, char *argv[]) {
     observers.emplace_back(obs1);
 
     //add serverport decorators
-    theBrd = new Serverport{theBrd, 3, 0};
-    theMap.board() = theBrd;
-
-    theBrd = new Serverport{theBrd, 4, 0};
-    theMap.board() = theBrd;
-
-    theBrd = new Serverport{theBrd, 59, 1};
-    theMap.board() = theBrd;
-
-    theBrd = new Serverport{theBrd, 60, 1};
-    theMap.board() = theBrd;
+    theMap.board() = new Serverport{theMap.board(), 3, 0};
+    // cout << "after 1 serverport, board ptr: " << theMap.board() << endl;
+    theMap.board() = new Serverport{theMap.board(), 4, 0};
+    // cout << "after 2 serverport, board ptr: " << theMap.board() << endl;
+    theMap.board() = new Serverport{theMap.board(), 59, 1};
+    // cout << "after 3 serverport, board ptr: " << theMap.board() << endl;
+    theMap.board() = new Serverport{theMap.board(), 60, 1};
+    // cout << "after 4 serverport, board ptr: " << theMap.board() << endl;
 
     //add display link decorator
+    theMap.board() = new DisplayLinks{theMap.board()};
+    // cout << "after displaylinks, board ptr: " << theMap.board() << endl;
 
-    theBrd = new DisplayLinks{theBrd};
-    theMap.board() = theBrd;
+    // theMap.board()->setLink(0, 'a', 'V', 2, 0);
+    // cout << theMap.board()->getLink(0)->getId() << endl;
 
     // for checking linked files
     bool linked1 = false;
@@ -123,7 +122,7 @@ int main(int argc, char *argv[]) {
             linked2 = true;
         }
     };
-
+    // cout << theMap.board() << endl;
     if( !linked1 ) {
         theMap.randomize(0);
     }
@@ -138,11 +137,11 @@ int main(int argc, char *argv[]) {
     string command;
 
     // render board for player 1 before game
+    // cout << theMap.board() << endl;
     theMap.render(0);
     cout << "Enter a command: \n";
     while( cin >> command ) {
-        ++playerTurn;
-        // render map before move
+
 
         if( command == "move" ) {
             char id;
@@ -165,31 +164,32 @@ int main(int argc, char *argv[]) {
                 }
                 --playerTurn;
             }
-        // } else if ( command == "abilities" ) {
-        //     // display abilities
-        //     if(playerTurn%2 == 0) {
-        //         for(int i = 0; i < numabilities; i++){
-        //             cout << p1.operator*().checkAvailable(i);
-        //         }
-        //     } else if (playerTurn%2 == 1) {
-        //         for(int i = 0; i < numabilities; i++){
-        //             cout << p2.operator*().checkAvailable(i);
-        //         }
-        //     }
-        // } else if ( command == "ability" ) {
-        //     int id;
-        //     cin >> id;
-        //     char link = ' ';
-        //     int x = 0;
-        //     int y = 0;
-        //     if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-        //         cin >> link;
-        //     } else {
-        //         cin >> x >> y;
-        //         theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-        //     }
-        //     theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-        //     // check abilities
+        } else if ( command == "abilities" ) {
+            // display abilities
+            if(playerTurn%2 == 0) {
+                for(int i = 0; i < numabilities; i++){
+                    cout << p1.operator*().checkAvailable(i);
+                }
+            } else if (playerTurn%2 == 1) {
+                for(int i = 0; i < numabilities; i++){
+                    cout << p2.operator*().checkAvailable(i);
+                }
+            }
+        } else if ( command == "ability" ) {
+            int id;
+            cin >> id;
+            char link = ' ';
+            int x = 0;
+            int y = 0;
+            if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+                cin >> link;
+            } else {
+                cin >> x >> y;
+                theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+            }
+            theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+            // check abilities
+
         // } else if (command == "board" ) {
         //     // displays the board depending on whose turn it is
         //     playerTurn--;
@@ -224,44 +224,45 @@ int main(int argc, char *argv[]) {
         //                     }
         //                     continue; // without changing turns
         //                 }
-            //         } else if ( command == "abilities" ) {
-            //             if(playerTurn%2 == 0) {
-            //                 for(int i = 0; i < numabilities; i++){
-            //                     cout << p1.operator*().checkAvailable(i);
-            //                 }
-            //             } else if (playerTurn%2 == 1) {
-            //                 for(int i = 0; i < numabilities; i++){
-            //                     cout << p2.operator*().checkAvailable(i);
-            //                 }
-            //             }
-            //         } else if ( command == "ability" ) {
-            //             int id;
-            //             cin >> id;
-            //             char link = ' ';
-            //             int x = 0;
-            //             int y = 0;
-            //             if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-            //                 cin >> link;
-            //             } else {
-            //                 cin >> x >> y;
-            //                 theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-            //             }
-            //             theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-            //         } else if (command == "board" ) {
-            //             // displays the board depending on whose turn it is
-            //             theMap.render(playerTurn%2);
-
-            //             //
-            //         } else if (command == "quit") break;
-            //     }
-            // }
+        //             } else if ( command == "abilities" ) {
+        //                 if(playerTurn%2 == 0) {
+        //                     for(int i = 0; i < numabilities; i++){
+        //                         cout << p1.operator*().checkAvailable(i);
+        //                     }
+        //                 } else if (playerTurn%2 == 1) {
+        //                     for(int i = 0; i < numabilities; i++){
+        //                         cout << p2.operator*().checkAvailable(i);
+        //                     }
+        //                 }
+        //             } else if ( command == "ability" ) {
+        //                 int id;
+        //                 cin >> id;
+        //                 char link = ' ';
+        //                 int x = 0;
+        //                 int y = 0;
+        //                 if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+        //                     cin >> link;
+        //                 } else {
+        //                     cin >> x >> y;
+        //                     theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
+        //                 }
+        //                 theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+        //             } else if (command == "board" ) {
+        //                 // displays the board depending on whose turn it is
+        //                 theMap.render(playerTurn%2);
+        //                 //
+        //             } else if (command == "quit") break;
+        //         }
+        //     }
         } else if (command == "quit") break;
 
-        if( theBrd->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || theBrd->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-            break;
+        if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
+            theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
+                break;
         }
         cout << endl;
         theMap.render(playerTurn % 2);
+        ++playerTurn;
         cout << "Enter a command: \n";
     }
     int size = observers.size();

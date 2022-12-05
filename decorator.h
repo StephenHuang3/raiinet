@@ -8,15 +8,9 @@ class Decorator: public Board {
     Board* gB;
   public:
     Decorator(Board* gameBoard);
-    virtual ~Decorator() = 0;
+    virtual ~Decorator();
 };
 
-
-/*
-How important is serverport? We can probably implement this into blank
-if we wanted to cause it's not going to change ever, but what kind of functionality
-are we giving it?
-*/
 class Serverport: public Decorator {
   int position;
   int player;

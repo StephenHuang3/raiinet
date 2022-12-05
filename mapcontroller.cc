@@ -108,10 +108,12 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 }
 
 char Mapcontroller::getTile(int pos) const {
+  // std::cout << "in getTile, board ptr: " << theBoard << std::endl;
   return theBoard->getTile(pos);
 }
 
 void Mapcontroller::randomize(int player) {
+  // std::cout << theBoard << std::endl;
   std::map<int, std::string> m = {{0, "D1"}, {1, "D2"}, {2, "D3"}, {3, "D4"}, 
                                   {4, "V1"}, {5, "V2"}, {6, "V3"}, {7, "V4"}};
   for(int i = 8; i > 0; --i) {

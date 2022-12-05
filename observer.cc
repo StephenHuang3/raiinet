@@ -41,6 +41,7 @@ void textObserver::print(int player){
 
   // Print depending on player
   if (player == 0) {
+    // cout << "if player == 0 in print, board ptr: " << theMap->board() << endl;
     for( int i = 0; i < 8; ++i) {
       for( int j = 0; j < 8; ++j) {
         cout << theMap->getTile(i*8 + j);
