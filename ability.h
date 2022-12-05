@@ -22,48 +22,38 @@ class Ability {
     virtual char checkInput() = 0;
 
     int getUses();
-    virtual std::string getName() = 0;
+    std::string getName();
   };
 
   class LinkBoost: public Ability {
-    std::string name = "Linkboost";
     public:
       void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
-      std::string getName() override;
   };
 
   class Firewall: public Ability {
-    std::string name = "Firewall";
     public:
       void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
-      std::string getName() override;
   }; //tbd
 
 
   class Download: public Ability {
-    std::string name = "Download";
     public:
       void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
-      std::string getName() override;
   };
 
   class Polarize: public Ability {
-    std::string name = "Polarize";
     public:
       void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
-      std::string getName() override;
   };
 
   class Scan: public Ability {
-    std::string name = "Scan";
     public:
       void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
-      std::string getName() override;
   };
 
 /*

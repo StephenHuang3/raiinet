@@ -31,10 +31,11 @@ int main(int argc, char *argv[]) {
 
     //creates mapcontroller and board
     Board* theBrd = new Blank;
-    Mapcontroller theMap{theBrd};
     // creates player 1 and player 2
-    shared_ptr<Player> p1 = theMap.board()->getPlayer(0);
-    shared_ptr<Player> p2 = theMap.board()->getPlayer(1);
+    shared_ptr<Player> p1 = theBrd->getPlayer(0);
+    shared_ptr<Player> p2 = theBrd->getPlayer(1);
+
+    Mapcontroller theMap{theBrd};
 
     //adds observers
     std::vector<Observer*> observers;
@@ -61,27 +62,23 @@ int main(int argc, char *argv[]) {
     // for checking linked files
     bool linked1 = false;
     bool linked2 = false;
-    bool ability1 = false;
-    bool ability2 = false;
 
     for(int i = 0; i < argc; ++i) {
-        string param (argv[i]); // This should fix the compilation error of comparison of string literals
-        if(param == "-graphics") {
-            graphicObserver *obs2 = new graphicObserver{&theMap};
-            observers.emplace_back(obs2);
+        string param(argv[i]); // This should fix the compilation error of comparison of string literals
+        if(param == "-graphical") {
+            // graphicObserver *obs2 = new graphicObserver{&theMap};
+            // observers.emplace_back(obs2);
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p1.operator*().setAbility(abilityorder[i], i);
             }
-            ability1 = true;
             ++i;
         } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
                 p2.operator*().setAbility(abilityorder[i], i);
             }
-            ability2 = true;
             ++i;
         } else if (param == "-link1") {
             ifstream myReadFile(argv[i + 1]);
@@ -92,19 +89,18 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 3 || i == 4){
+                if (i == 4 || i == 5){
                     position = i + 8;
                 } else {
                     position = i;
                 }
-                theMap.board()->setLink(0, (char)(97 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(1, char(97 + i), singleLink[0], singleLink[1] - '0', position);
             }
             myReadFile.close();
             ++i;
             // letting the rest of the program know that player 1 has a link file attached
             linked1 = true;
         } else if (param == "-link2") {
-            
             ifstream myReadFile(argv[i + 1]);
             string linkvalues;
             getline(myReadFile, linkvalues);
@@ -113,13 +109,12 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 8; i++){
                 ss >> singleLink;
                 int position;
-                if (i == 3 || i == 4){
-                    position = i + 56 - 8;
+                if (i == 4 || i == 5){
+                    position = i + 57 - 8;
                 } else {
-                    position = i + 56;
+                    position = i + 57;
                 }
-                
-                theMap.board()->setLink(1, char(65 + i), singleLink[0], singleLink[1] - '0', position);
+                theMap.board()->setLink(2, char(65 + i), singleLink[0], singleLink[1] - '0', position);
                 }
             myReadFile.close();
             ++i;
@@ -133,20 +128,6 @@ int main(int argc, char *argv[]) {
     }
     if( !linked2 ) {
         theMap.randomize(1);
-    }
-    if (!ability1){
-        p1.operator*().setAbility('L', 0);
-        p1.operator*().setAbility('F', 1);
-        p1.operator*().setAbility('D', 2);
-        p1.operator*().setAbility('S', 3);
-        p1.operator*().setAbility('P', 4);
-    }
-    if(!ability2){
-        p2.operator*().setAbility('L', 0);
-        p2.operator*().setAbility('F', 1);
-        p2.operator*().setAbility('D', 2);
-        p2.operator*().setAbility('S', 3);
-        p2.operator*().setAbility('P', 4);
     }
 
     int playerTurn = 0;
@@ -172,34 +153,34 @@ int main(int argc, char *argv[]) {
             char id;
             std::string dir;
             cin >> id >> dir;
-            cout << "command is move and program reached here" << endl;
             try {
                 theMap.moveLink(playerTurn%2, id, dir);
             }
             catch (int errNum) {
                 if (errNum == 1) {
-                    cout << "That link is already downloaded." << endl;
+                    cerr << "That link is already downloaded." << endl;
                 } else if (errNum == 2) {
-                    cout << "The link will go out of bounds." << endl;
+                    cerr << "The link will go out of bounds." << endl;
                 } else if (errNum == 3) {
-                    cout << "You cannot move links onto your own links." << endl;
+                    cerr << "You cannot move links onto your own links." << endl;
                 } else if (errNum == 4) {
-                    cout << "You cannot move links onto your own server ports." << endl;
+                    cerr << "You cannot move links onto your own server ports." << endl;
+                } else if (errNum == 5) {
+                    cout << "Dumbass Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk." << endl;
                 } else {
-                    cout << "Default Exception - you're doing something weird.." << endl;
+                    cerr << "Default Exception - you're doing something weird.." << endl;
                 }
                 --playerTurn;
             }
         } else if ( command == "abilities" ) {
             // display abilities
-
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1.operator*().checkAvailable(i) << endl;
+                    cout << p1.operator*().checkAvailable(i);
                 }
-            } else { // player 2
+            } else if (playerTurn%2 == 1) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2.operator*().checkAvailable(i) << endl;
+                    cout << p2.operator*().checkAvailable(i);
                 }
             }
         } else if ( command == "ability" ) {
@@ -290,11 +271,7 @@ int main(int argc, char *argv[]) {
         //         break;
         // }
         cout << endl;
-        
-        if(command == "move"){
-            ++playerTurn;
-        }
-    
+        ++playerTurn;
         theMap.render(playerTurn % 2);
         cout << "Enter a command: \n";
     }
