@@ -136,7 +136,7 @@ int main(int argc, char *argv[]) {
     // bool readfile = false;
     // bool usedAbility = false;
     string command;
-    for(int i = 0; i < 63; i++){
+    for(int i = 0; i < 64; i++){
         try{
             int count = theBrd->getLink(i).use_count();
             cout << "link at " << i << ": " << count << endl;
