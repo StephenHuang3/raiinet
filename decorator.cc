@@ -34,10 +34,6 @@ int Serverport::isFirewall(int pos) const {
 FirewallTile::FirewallTile(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {
   setBoard(next->getBoard());
   setPlayers(next->getPlayers());
-  cout << "Position of links for player 1: ";
-  for( auto l : getPlayer(0)->getLinks()) {
-    cout << l.second->getId() << ":" << l.second->getPos() << ", ";
-  }
 };
 
 FirewallTile::~FirewallTile() {};
