@@ -14,14 +14,16 @@ void Mapcontroller::render(int player) {
 void Mapcontroller::moveLink(int turn, char id, std::string dir) {
   int player = turn%2;
   std::shared_ptr<Player> p = theBoard->getPlayer(turn);
+  
   bool yourLink = false;
   for( auto const& l : p->getLinks() ) {
     if( l.second->getId() == id) yourLink = true;
   }
-  if( !yourLink ) {
-    throw 5;
-  }
-  std::shared_ptr<Link> link = p->getLinks().find(id)->second;
+  if( !yourLink ) throw "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk.";
+  std::shared_ptr<Link> link = p->getLinks().at(id);
+  // if( turn - link->getFrozen() < 11) {
+  //   throw "Brrrr, strap out, it's really cold here. Looks like this link is going to be waiting here a while";
+  // }
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
 
@@ -37,12 +39,12 @@ void Mapcontroller::moveLink(int turn, char id, std::string dir) {
   } else if(dir == "down") {
     newPos += 8 * moveAmt;
   } else {
-    throw 6;
+    throw "NewbNewb Alert: use up, right, down, or left to move the piece";
   }
 
   // check if link is already downloaded:
   if (link->getDownloaded() == true) {
-    throw 1;
+    throw "That link is already downloaded.";
   }
 
   // check if link will go out-of-bounds:
@@ -53,16 +55,16 @@ void Mapcontroller::moveLink(int turn, char id, std::string dir) {
     } else if (newPos < 0 && player == 1) {
       p->downloadLink(link);
     } else {
-      throw 2;
+      throw "Watch out! The Earth is flat! You don't want your link to fall off the edge!";
     }
   } else if ((dir == "right" || dir == "left") && (newPos < row * 8 || newPos > row * 8 + 7)) {
-    throw 2;
+    throw "Watch out! The Earth is flat! You don't want your link to fall off the edge!";
   }
 
   // refuse if lands on own piece:
   for (auto const& ownLink : p->getLinks()) {
     if (ownLink.second->getPos() == newPos && ownLink.second->getDownloaded() == false) {
-      throw 3;
+      throw "You cannot move links onto your own links.";
     }
   }
 
@@ -102,9 +104,9 @@ void Mapcontroller::moveLink(int turn, char id, std::string dir) {
 
   // check if lands on own server port:
   if ((player+1)%2 && (newPos == 3 || newPos == 4)) {
-    throw 4;
+    throw "You cannot move links onto your own server ports.";
   } else if ((player+1)%2 && (newPos == 59 || newPos == 60)) {
-    throw 4;
+    throw "You cannot move links onto your own server ports.";
   }
 
   // check if lands on opponent server port:

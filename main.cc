@@ -161,25 +161,10 @@ int main(int argc, char *argv[]) {
             std::string dir;
             cin >> id >> dir;
             try {
-                theMap.moveLink(playerTurn%2, id, dir);
-                theMap.render(playerTurn % 2);
+                theMap.moveLink(playerTurn, id, dir);
             }
-            catch (int errNum) {
-                if (errNum == 1) {
-                    cout << "That link is already downloaded." << endl;
-                } else if (errNum == 2) {
-                    cerr << "Watch out! The Earth is flat! You don't want your link to fall off the edge!" << endl;
-                } else if (errNum == 3) {
-                    cout << "You cannot move links onto your own links." << endl;
-                } else if (errNum == 4) {
-                    cerr << "You cannot move links onto your own server ports." << endl;
-                } else if (errNum == 5) {
-                    cerr << "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk." << endl;
-                } else if (errNum == 6) {
-                    cerr << "NewbNewb Alert: use up, right, down, or left to move the piece" << endl;
-                } else {
-                    cout << "Default Exception - you're doing something weird.." << endl;
-                }
+            catch (char const* err) {
+                cerr << err << endl;
             }
         } else if ( command == "abilities" ) {
             // display abilities
@@ -333,7 +318,10 @@ int main(int argc, char *argv[]) {
         }
         cout << endl;
         if(command == "move") {
+            cout << "get here" << endl;
             ++playerTurn;
+            theMap.render(playerTurn % 2);
+            usedability = false;
         }
         cout << "Enter a command: \n";
     }
