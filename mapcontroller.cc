@@ -16,7 +16,7 @@ void Mapcontroller::render(int player) {
 }
 
 void Mapcontroller::moveLink(int player, char id, std::string dir) {
-  std::shared_ptr<Player> p{theBoard->getPlayer(player)};
+  std::shared_ptr<Player> p = theBoard->getPlayer(player);
   bool yourLink = false;
   for( auto const& l : p->getLinks() ) {
     if( l.second->getId() == id) yourLink = true;
@@ -50,11 +50,11 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // check if link will go out-of-bounds:
   int row = pos / 8;
-  if ((dir == "up" || dir == "down") && ((newPos < 0 && player == 0)|| (newPos > 63 && player == 1))) {
+  if ((dir == "up" || dir == "down") && ((newPos < 0)|| (newPos > 63))) {
     if(newPos > 63 && player == 0) {
-      link->toggleDownloaded();
+      p->downloadLink(link);
     } else if (newPos < 0 && player == 1) {
-      link->toggleDownloaded();
+      p->downloadLink(link);
     } else {
       throw 2;
     }
@@ -70,6 +70,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // battle if lands on opponent:
+  bool captured = false;
   std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
   for (auto const& oppLink : p2->getLinks()) {
     if (oppLink.second->getPos() == newPos && oppLink.second->getDownloaded() == false) {
@@ -77,29 +78,18 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       // Needs revealing and removing piece from board (possibly in download)
       if (oppLink.second->getVal() > link->getVal()) {        // lose
         p2->downloadLink(link);
+        captured = true;
       } else {                                                // win or tie
         p->downloadLink(oppLink.second);
       }
-      break; //not supposed to break, need to change this later
-    }
-  }
-
-  // testing firewall
-  if (1) {
-    if( 1 != player) {   
-      if(link->getType() == 'V') {
-        link->toggleDownloaded();
-        theBoard->getPlayer(player)->downloadVirus();
-      } else {
-        link->reveal();
-      }
+      break;
     }
   }
 
   // check if lands on firewall:
-  if (theBoard->isFirewall(newPos) >= 0) {
-    if( theBoard->isFirewall(newPos) != player) {
-      
+  if (theBoard->isFirewall(newPos) > 0) {
+    std::cout << newPos << "is a firewall " << theBoard->isFirewall(newPos) << std::endl;
+    if( theBoard->isFirewall(newPos) != player + 1) {
       if(link->getType() == 'V') {
         link->toggleDownloaded();
         theBoard->getPlayer(player)->downloadVirus();
@@ -119,19 +109,21 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // check if lands on opponent server port:
-  if (!player && (newPos == 59 || newPos == 60)) {
-    p.operator*().downloadLink(link);
+  if ((player+1)%2 && (newPos == 59 || newPos == 60)) {
+    p->downloadLink(link);
     return;
   } else if (player && (newPos == 3 || newPos == 4)) {
     std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
-    p2.operator*().downloadLink(link);
+    p2->downloadLink(link);
     // needs removing
     return;
   }
 
   // otherwise, normal move: 
-  link->changePos(newPos);
-  theBoard->moveLink(pos, newPos);
+  if(!captured) {
+    link->changePos(newPos);
+    theBoard->moveLink(pos, newPos);
+  }
 }
 
 char Mapcontroller::getTile(int pos) const {

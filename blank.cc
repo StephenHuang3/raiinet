@@ -1,4 +1,5 @@
 #include "blank.h"
+#include <iostream>
 
 Blank::Blank() {};
 

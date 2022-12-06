@@ -46,7 +46,6 @@ void Link::changeType() {
 }
 
 void Link::changePos(int newPos) {
-  std::cout << id << " goes from " << pos << " to " << newPos << std::endl;
   pos = newPos;
 }
 

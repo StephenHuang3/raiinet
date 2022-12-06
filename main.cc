@@ -234,17 +234,31 @@ int main(int argc, char *argv[]) {
                         cin >> link;
                         ab_p1->getAbility(idx)->activate(&ab_p1.operator*(), ab_p2->getLinks().at(link), 0);
                     } else if ( abilityName == "Firewall" ) {
-                        //cout << "reached ability Firewall" << endl;
                         cin >> x >> y;
-                        theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, playerTurn % 2);
+                        theMap.firewalls.push_back(x+8*y);
+                        theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
+                        theMap.board() = new DisplayLinks{theMap.board()};
                     }
                     ab_p1->setUsed(idx);
                     usedability = true;
                 }
             }
-        } else if (command == "a") {
-            cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
-
+        } else if (command == "link") {
+            char c;
+            cin >> c;
+            shared_ptr<Link> l = theMap.board()->getPlayer(0)->getLinks().at(c);
+            cout << c << ": " << l->getPos() << endl;
+            cout << "is downloaded: " << l->getDownloaded() << endl;
+        } else if (command == "position") {
+            int position;
+            cin >> position;
+            cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
+        } else if (command == "firewalls") {
+            cout << "firewalls at: ";
+            for( auto i : theMap.firewalls ){
+                cout << i << ", ";
+            }
+            cout << endl;
         // } else if (command == "board" ) {
         //     // displays the board depending on whose turn it is
         //     playerTurn--;
