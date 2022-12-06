@@ -7,6 +7,9 @@
 
 Mapcontroller::~Mapcontroller() { delete theBoard; };
 
+void Mapcontroller::reset() {
+  
+}
 
 void Mapcontroller::render(int player) {
   notifyObservers(player);
