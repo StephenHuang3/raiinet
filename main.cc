@@ -317,15 +317,13 @@ int main(int argc, char *argv[]) {
             cerr << "invalid command try again";
         }
 
-        // if( theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'w' || 
-        //     theMap.board()->getPlayer(playerTurn%2).operator*().checkScore() == 'l') {
-        //         break;
-        // }
+        if( p1->checkScore() == 'w' || p2->checkScore() == 'l') {
+            break;
+        }
 
-        // if( theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'w' || 
-        //     theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().checkScore() == 'l') {
-        //         break;
-        // }
+        if( p2->checkScore() == 'w' || p2->checkScore() == 'l') {
+            break;
+        }
         cout << endl;
         
         if(command == "move"){
