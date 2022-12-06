@@ -4,17 +4,11 @@
 #include <iostream>
 
 Player::Player() {
-  // abilities[0] = new LinkBoost;
-  // abilities[1] = new Firewall;
-  // abilities[2] = new Download;
-  // abilities[3] = new Polarize;
-  // abilities[4] = new Scan;
-  // other abilities can be added there
   data = 0;
   viruses = 0;
 };
 
-Player::~Player() {};
+Player::~Player() {}
 
 void Player::setAbility(char ability, int pos) {
   if (ability == 'L'){
@@ -38,6 +32,11 @@ void Player::setAbility(char ability, int pos) {
   }
 }
 
+void Player::setUsed(int idx){
+  used[idx] = true;
+}
+
+
 void Player::useAbility(int idx, char l, int x, int y) {
   if( abilities.at(idx)->getUses() > 0 ) { 
     if(l != ' ' && abilities.find(l) != abilities.end()) {
@@ -52,7 +51,7 @@ void Player::useAbility(int idx, char l, int x, int y) {
 };
 
 Ability* Player::getAbility(int idx) {
-  return abilities.at(idx);
+  return abilities[idx];
 }
 
 // called when player downloads a data
@@ -84,6 +83,10 @@ char Player::checkScore() {
   }
   return 'c'; // continue
 };
+
+bool Player::abilityStatusAtPos(int idx){
+  return used[idx];
+}
 
 std::string Player::checkAvailable(int pos){
   std::string isused;

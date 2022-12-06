@@ -13,6 +13,11 @@ class Board {
   std::map<int, std::shared_ptr<Link>> board;
 
 public:
+  std::map<int, std::shared_ptr<Link>> getBoard();
+  std::map<int, std::shared_ptr<Player>> getPlayers();
+  void setBoard( std::map<int, std::shared_ptr<Link>> b );
+  void setPlayers( std::map<int, std::shared_ptr<Player>> p );
+
   Board();
 
   virtual ~Board();

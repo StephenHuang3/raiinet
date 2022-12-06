@@ -15,8 +15,8 @@ textObserver::~textObserver() {
 }
 
 void textObserver::print(int player){
-  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
-  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
+  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
   int asciivalue;
   if (player == 0) {
@@ -77,7 +77,7 @@ void textObserver::print(int player){
       cout << endl;
     }
       char c = static_cast<char> (asciivalue + i);
-      if (enemyLinks[c]->getDownloaded()) {
+      if (enemyLinks[c]->getDownloaded() || enemyLinks[c]->getRevealed()) {
         cout << c << ": " << enemyLinks[c]->getType() << enemyLinks[c]->getVal() << " ";
       } else {
         cout << c << ": ?  ";

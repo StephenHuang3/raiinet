@@ -24,7 +24,6 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   if( !yourLink ) {
     throw 5;
   }
-  std::cout << "got past throw 5" << std::endl;
   std::shared_ptr<Link> link = p->getLinks().find(id)->second;
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
@@ -51,15 +50,21 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // check if link will go out-of-bounds:
   int row = pos / 8;
-  if ((dir == "up" || dir == "down") && (newPos < 0 || newPos > 63)) {
-    throw 2;
+  if ((dir == "up" || dir == "down") && ((newPos < 0 && player == 0)|| (newPos > 63 && player == 1))) {
+    if(newPos > 63 && player == 0) {
+      link->toggleDownloaded();
+    } else if (newPos < 0 && player == 1) {
+      link->toggleDownloaded();
+    } else {
+      throw 2;
+    }
   } else if ((dir == "right" || dir == "left") && (newPos < row * 8 || newPos > row * 8 + 7)) {
     throw 2;
   }
 
   // refuse if lands on own piece:
   for (auto const& ownLink : p->getLinks()) {
-    if (ownLink.second->getPos() == newPos) {
+    if (ownLink.second->getPos() == newPos && ownLink.second->getDownloaded() == false) {
       throw 3;
     }
   }
@@ -67,7 +72,7 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   // battle if lands on opponent:
   std::shared_ptr<Player> p2 = theBoard->getPlayer(!player);
   for (auto const& oppLink : p2->getLinks()) {
-    if (oppLink.second->getPos() == newPos) {
+    if (oppLink.second->getPos() == newPos && oppLink.second->getDownloaded() == false) {
       // battle!
       // Needs revealing and removing piece from board (possibly in download)
       if (oppLink.second->getVal() > link->getVal()) {        // lose
@@ -92,14 +97,14 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // check if lands on firewall:
-  if (theBoard->isFirewall(newPos)) {
+  if (theBoard->isFirewall(newPos) >= 0) {
     if( theBoard->isFirewall(newPos) != player) {
       
-      if(link.operator*().getType() == 'V') {
-        link.operator*().toggleDownloaded();
-        theBoard->getPlayer(player).operator*().downloadVirus();
+      if(link->getType() == 'V') {
+        link->toggleDownloaded();
+        theBoard->getPlayer(player)->downloadVirus();
       } else {
-        link.operator*().reveal();
+        link->reveal();
       }
     }
     // activate firewall
@@ -125,7 +130,6 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // otherwise, normal move: 
-  std::cout << "failing to change pos" << std::endl;
   link->changePos(newPos);
   theBoard->moveLink(pos, newPos);
 }
