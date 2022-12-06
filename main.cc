@@ -167,7 +167,7 @@ int main(int argc, char *argv[]) {
                 if (errNum == 1) {
                     cout << "That link is already downloaded." << endl;
                 } else if (errNum == 2) {
-                    cerr << "Watch out! The Earth is flat! You don't want your link to fall off!" << endl;
+                    cerr << "Watch out! The Earth is flat! You don't want your link to fall off the edge!" << endl;
                 } else if (errNum == 3) {
                     cout << "You cannot move links onto your own links." << endl;
                 } else if (errNum == 4) {
@@ -186,11 +186,11 @@ int main(int argc, char *argv[]) {
 
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
                 }
             } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
