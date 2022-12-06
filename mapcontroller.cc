@@ -75,8 +75,10 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
       if (oppLink.second->getVal() > link->getVal()) {        // lose
         p2->downloadLink(link);
         captured = true;
+        oppLink.second->reveal();
       } else {                                                // win or tie
         p->downloadLink(oppLink.second);
+        link->reveal();
       }
       break;
     }
