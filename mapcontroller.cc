@@ -50,11 +50,12 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
 
   // check if link will go out-of-bounds:
   int row = pos / 8;
-  if ((dir == "up" || dir == "down") && ((newPos < 0 && player == 0)|| (newPos > 63 && player == 1))) {
+  if ((dir == "up" || dir == "down") && ((newPos > 63 && player == 0)|| (newPos < 0 && player == 1))) {
     if(newPos > 63 && player == 0) {
-      link->toggleDownloaded();
+      p->downloadLink(link);
     } else if (newPos < 0 && player == 1) {
-      link->toggleDownloaded();
+      std::shared_ptr<Player> p2 = theBoard->getPlayer(1);
+      p2->downloadLink(link);
     } else {
       throw 2;
     }
