@@ -24,7 +24,13 @@ class textObserver: public Observer {
 class graphicObserver: public Observer {
   Mapcontroller* theMap;
   Xwindow* w;
+  // int turn = 1;
   public:
+    int turn = 1;
+    int brdX = 204;
+    int brdY = 187;
+    // void incrementTurn();
+    // void nextTurn();
     graphicObserver(Mapcontroller* theMap);
     ~graphicObserver() override;
     void print(int player) override;
