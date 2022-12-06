@@ -186,11 +186,11 @@ int main(int argc, char *argv[]) {
 
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
                 }
             } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]) {
                         cin >> link;
                         ab_p1->getAbility(idx)->activate(&ab_p1.operator*(), ab_p2->getLinks().at(link), 0);
                     } else if ( abilityName == "Firewall" ) {
-                        cout << "reached ability Firewall" << endl;
+                        //cout << "reached ability Firewall" << endl;
                         cin >> x >> y;
                         theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, playerTurn % 2);
                     }

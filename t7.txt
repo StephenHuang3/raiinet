@@ -1,0 +1,11 @@
+move d down
+move H down
+move d down
+move H down
+move d left
+move H up
+move d up
+move H down
+move d right
+move H up
+move d up
