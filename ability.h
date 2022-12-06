@@ -11,8 +11,6 @@
 // may need to change to #include Link if we're using functions of Link
 
 class Ability {
-  std::string name;
-  int uses;
 
   public:
     // activates ability, if needed, we can pass a pointer to the board
@@ -21,7 +19,6 @@ class Ability {
     // checks what kind and how much information we need to read in;
     virtual char checkInput() = 0;
 
-    int getUses();
     virtual std::string getName() = 0;
   };
 
