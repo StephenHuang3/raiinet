@@ -33,12 +33,11 @@ public:
 
   // for when link or add virus is downloaded
   void downloadData();
-  
   void downloadVirus();
+  void downloadLink(std::shared_ptr<Link> link);
 
   int getDataDownloaded();
   int getVirusesDownloaded();
-  void downloadLink(std::shared_ptr<Link> link);
 
   // check for win/lose
   char checkScore();
@@ -47,6 +46,7 @@ public:
   void addLink(std::shared_ptr<Link>);
 
   std::map<char, std::shared_ptr<Link>> getLinks();
+
   int getAbilityStatus();
 };
 

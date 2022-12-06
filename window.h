@@ -18,7 +18,7 @@ class Xwindow {
   Xwindow &operator=(const Xwindow&) = delete;
 
   // Available colours.
-  enum {White=0, Black, Red, Green, Blue, Cyan, Yellow, Magenta, Orange, Brown};
+  enum {White=0, Black, Red, Green, Blue, Cyan, Yellow, Magenta, Orange, Brown, Gray, Navy};
 
   // Draws a rectangle
   void fillRectangle(int x, int y, int width, int height, int colour=Black);
@@ -26,6 +26,8 @@ class Xwindow {
   // Draws a string
   void drawString(int x, int y, std::string msg);
 
+  // Draws a larger font string
+  void drawLargeString(int x, int y, std::string msg);
 };
 
 #endif
