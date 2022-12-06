@@ -186,11 +186,11 @@ int main(int argc, char *argv[]) {
 
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
                 }
             } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
