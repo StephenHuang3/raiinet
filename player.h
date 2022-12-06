@@ -22,9 +22,6 @@ public:
   
   // sets the number of uses an ability has. I plan on having it stored in ability, but we can change that
   void setAbility(char ability, int pos);
-  
-  // Uses an ability
-  void useAbility(int idx, char l, int x, int y);
 
   void setUsed(int idx);
 

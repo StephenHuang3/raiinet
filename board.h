@@ -34,6 +34,7 @@ public:
 
   void moveLink(int oldPos, int newPos);
   
+  std::shared_ptr<Link> findLink(char id);
 };
 
 #endif

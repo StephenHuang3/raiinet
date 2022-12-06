@@ -36,20 +36,6 @@ void Player::setUsed(int idx){
   used[idx] = true;
 }
 
-
-void Player::useAbility(int idx, char l, int x, int y) {
-  if( abilities.at(idx)->getUses() > 0 ) { 
-    if(l != ' ' && abilities.find(l) != abilities.end()) {
-      abilities.at(idx)->activate(this, links.at('l'), 0);
-    } else {
-      abilities.at(idx)->activate(this, nullptr, x+8*y);
-    }// we need to get pointer p and the pos if we need it somehow
-
-  } else {
-    throw "You have no more available";
-  }
-};
-
 Ability* Player::getAbility(int idx) {
   return abilities[idx];
 }

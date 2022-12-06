@@ -21,7 +21,6 @@ class Ability {
     // checks what kind and how much information we need to read in;
     virtual char checkInput() = 0;
 
-    int getUses();
     virtual std::string getName() = 0;
   };
 

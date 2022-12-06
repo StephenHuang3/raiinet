@@ -47,3 +47,17 @@ void Board::setLink(int p, char id, char type, int val, int position) {
 void Board::moveLink(int oldPos, int newPos) {
   swap(board[newPos], board[oldPos]);
 }
+
+std::shared_ptr<Link> Board::findLink(char id) {
+  for(auto l : getPlayer(0)->getLinks()) {
+    if(l.second->getId() == id) {
+      return l.second;
+    }
+  }
+  for(auto l : getPlayer(1)->getLinks()) {
+    if(l.second->getId() == id) {
+      return l.second;
+    }
+  }
+  return nullptr;
+}

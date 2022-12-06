@@ -19,7 +19,6 @@ class Mapcontroller: public Subject {
   // potential extra: round number?
 
 public:
-  std::vector<int> firewalls;
 
   explicit Mapcontroller(Board* b): theBoard{b} {};
 
