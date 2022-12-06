@@ -11,6 +11,9 @@
 // may need to change to #include Link if we're using functions of Link
 
 class Ability {
+  std::string name;
+  int uses;
+
   public:
     // activates ability, if needed, we can pass a pointer to the board
     virtual void activate(Player* player, std::shared_ptr<Link> p, int pos) = 0; // --uses
@@ -18,6 +21,7 @@ class Ability {
     // checks what kind and how much information we need to read in;
     virtual char checkInput() = 0;
 
+    int getUses();
     virtual std::string getName() = 0;
   };
 

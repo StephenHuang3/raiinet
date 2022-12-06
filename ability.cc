@@ -2,6 +2,10 @@
 #include <string>
 #include <iostream>
 
+int Ability::getUses() {
+    return uses;
+};
+
 void Polarize::activate(Player* player, std::shared_ptr<Link> p, int pos){
     p->changeType();
 };
