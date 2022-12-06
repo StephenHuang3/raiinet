@@ -79,6 +79,18 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
     }
   }
 
+  // testing firewall
+  if (1) {
+    if( 1 != player) {   
+      if(link->getType() == 'V') {
+        link->toggleDownloaded();
+        theBoard->getPlayer(player)->downloadVirus();
+      } else {
+        link->reveal();
+      }
+    }
+  }
+
   // check if lands on firewall:
   if (theBoard->isFirewall(newPos)) {
     if( theBoard->isFirewall(newPos) != player) {
