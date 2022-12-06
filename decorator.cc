@@ -11,7 +11,10 @@ Decorator::Decorator(Board* gameBoard): gB{gameBoard} {}
 Decorator::~Decorator() { delete gB; };
 
 // Serverport implementation
-Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {}
+Serverport::Serverport(Board* next, int position, int player): Decorator{next}, position{position}, player{player} {
+  setBoard(next->getBoard());
+  setPlayers(next->getPlayers());
+}
 
 Serverport::~Serverport() {}
 
@@ -23,17 +26,24 @@ char Serverport::getTile(int pos) const {
 };
 
 int Serverport::isFirewall(int pos) const {
-  return 0;
+  return -1;
 }
 
 // FirewallTile implementation
-FirewallTile::FirewallTile(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {};
+FirewallTile::FirewallTile(Board* next, int pos, int player): Decorator{next}, position{pos}, player{player} {
+  setBoard(next->getBoard());
+  setPlayers(next->getPlayers());
+};
 
 FirewallTile::~FirewallTile() {};
 
 char FirewallTile::getTile(int pos) const {
   if (position == pos) {
-    return 'F';
+    if( player == 0 ) {
+      return 'm';
+    } else if ( player == 1 ) {
+      return 'w';
+    }
   }
   return gB->getTile(pos);
 };
@@ -42,37 +52,19 @@ int FirewallTile::isFirewall(int pos) const {
   return player;
 }
 
-DisplayLinks::DisplayLinks(Board* next): Decorator{next}{};
+DisplayLinks::DisplayLinks(Board* next): Decorator{next}{
+  setBoard(next->getBoard());
+  setPlayers(next->getPlayers());
+};
 
 DisplayLinks::~DisplayLinks() {};
 
 int DisplayLinks::isFirewall(int pos) const {
-  return 0;
+  return -1;
 }
 
 char DisplayLinks::getTile(int pos) const{
-  // if(theBoard->getTile(pos) == '.'){
-  //   for(int i = 0; i < 8; i++){
-  //     theBoard->board
-  //   }
-  // }
-  // try {
-  //   //cout << theBoard->getLink(pos).use_count() << endl;
-  //   std::shared_ptr<Link> p {theBoard->getLink(pos)};
-  //   return p->getId();
-  // } catch (...) {
-  //   return gB->getTile(pos);
-  // }
-  // try {
-  //   int count = gB->getLink(pos).use_count();
-  //   return 'H';
-  // } catch (...){
-    
-  // }
-  // return gB->getTile(pos);
-  // cout << "in decorator displaylinks, board ptr: " << this << endl;
-  // cout << pos << endl;
-  // cout << this->getLink(0).operator*().getId();
+
   try {
     shared_ptr<Link> p = this->getLink(pos);
     if(p == nullptr) {

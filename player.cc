@@ -4,12 +4,6 @@
 #include <iostream>
 
 Player::Player() {
-  // abilities[0] = new LinkBoost;
-  // abilities[1] = new Firewall;
-  // abilities[2] = new Download;
-  // abilities[3] = new Polarize;
-  // abilities[4] = new Scan;
-  // other abilities can be added there
   data = 0;
   viruses = 0;
 };

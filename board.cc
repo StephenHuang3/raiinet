@@ -15,19 +15,29 @@ Board::Board() {
 // everything is deleted because of shared_ptrs
 Board::~Board() {};
 
+void Board::setBoard(std::map<int, std::shared_ptr<Link>> b) {
+  board = b;
+};
+
+void Board::setPlayers(std::map<int, std::shared_ptr<Player>> p) {
+  players = p;
+};
+
+std::map<int, std::shared_ptr<Link>> Board::getBoard() {
+  return board;
+};
+
+std::map<int, std::shared_ptr<Player>> Board::getPlayers() {
+  return players;
+};
+
 std::shared_ptr<Player> Board::getPlayer(int p) const {
   return players.at(p);
 };
 
 std::shared_ptr<Link> Board::getLink(int pos) const {
-  // std::cout << this << std::endl;
-  // std::cout << "getLink position: " << pos << std::endl;
-  // bool c = board.find(0) == board.end();
-  // std::cout << c << std::endl;
-  // std::cout << "wtf " << board.find(pos)->second->getId() << std::endl;
   return board.at(pos);
-  
-}
+};
 
 void Board::setLink(int p, char id, char type, int val, int position){
   // std::cout << "set " << id << ": " << type << val << " at position " << position << std::endl;

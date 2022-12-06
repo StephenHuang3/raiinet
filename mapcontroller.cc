@@ -24,7 +24,6 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   if( !yourLink ) {
     throw 5;
   }
-  std::cout << "got past throw 5" << std::endl;
   std::shared_ptr<Link> link = p->getLinks().find(id)->second;
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
@@ -80,14 +79,14 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // check if lands on firewall:
-  if (theBoard->isFirewall(newPos)) {
+  if (theBoard->isFirewall(newPos) >= 0) {
     if( theBoard->isFirewall(newPos) != player) {
       
-      if(link.operator*().getType() == 'V') {
-        link.operator*().toggleDownloaded();
-        theBoard->getPlayer(player).operator*().downloadVirus();
+      if(link->getType() == 'V') {
+        link->toggleDownloaded();
+        theBoard->getPlayer(player)->downloadVirus();
       } else {
-        link.operator*().reveal();
+        link->reveal();
       }
     }
     // activate firewall
@@ -113,7 +112,6 @@ void Mapcontroller::moveLink(int player, char id, std::string dir) {
   }
 
   // otherwise, normal move: 
-  std::cout << "failing to change pos" << std::endl;
   link->changePos(newPos);
   theBoard->moveLink(pos, newPos);
 }

@@ -15,8 +15,8 @@ textObserver::~textObserver() {
 }
 
 void textObserver::print(int player){
-  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
-  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
+  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
   int asciivalue;
   if (player == 0) {

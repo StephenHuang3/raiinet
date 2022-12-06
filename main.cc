@@ -24,23 +24,16 @@ int main(int argc, char *argv[]) {
     // set number of abilities players have
     int numabilities = 5;
 
-    // // creates player 1
-    // Player* p1 = new Player{};
-    // // creates player2
-    // Player* p2 = new Player{};
-
     //creates mapcontroller and board
     Board* theBrd = new Blank;
     Mapcontroller theMap{theBrd};
     // creates player 1 and player 2
     shared_ptr<Player> p1 = theMap.board()->getPlayer(0);
     shared_ptr<Player> p2 = theMap.board()->getPlayer(1);
-
     //adds observers
     std::vector<Observer*> observers;
     textObserver *obs1 = new textObserver{&theMap};
     observers.emplace_back(obs1);
-
     //add serverport decorators
     theMap.board() = new Serverport{theMap.board(), 3, 0};
     // cout << "after 1 serverport, board ptr: " << theMap.board() << endl;
@@ -53,10 +46,6 @@ int main(int argc, char *argv[]) {
 
     //add display link decorator
     theMap.board() = new DisplayLinks{theMap.board()};
-    // cout << "after displaylinks, board ptr: " << theMap.board() << endl;
-
-    // theMap.board()->setLink(0, 'a', 'V', 2, 0);
-    // cout << theMap.board()->getLink(0)->getId() << endl;
 
     // for checking linked files
     bool linked1 = false;
@@ -171,7 +160,6 @@ int main(int argc, char *argv[]) {
             char id;
             std::string dir;
             cin >> id >> dir;
-            cout << "command is move and program reached here" << endl;
             try {
                 theMap.moveLink(playerTurn%2, id, dir);
             }
@@ -207,9 +195,8 @@ int main(int argc, char *argv[]) {
             }
         } else if ( command == "ability" ) {
             if (usedability){
-                string blank;
-                cin >> blank;
-                cin >> blank;
+                char filler[256];
+                std::cin.getline(filler, 256);
                 cout << "You already used an ability. move a piece to end your turn.";
             } else {
                 // int id;
@@ -228,28 +215,30 @@ int main(int argc, char *argv[]) {
                 // usedability = true;
                 // check ability already used
                 int idx;
+                char link = ' ';
+                int x = 0;
+                int y = 0;
                 cin >> idx;
-                if(theMap.board()->getPlayer(playerTurn % 2).operator*().abilityStatusAtPos(idx)){
+                --idx;
+                shared_ptr<Player> ab_p1 = theMap.board()->getPlayer( playerTurn % 2 );
+                shared_ptr<Player> ab_p2 = theMap.board()->getPlayer( ( playerTurn + 1 ) % 2 );
+                if(ab_p1->abilityStatusAtPos(idx)) {
                     cout << "Ability has already been used." << endl;
                 } else {
-    
-                    if((theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Polarize") ||
-                    (theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Linkboost")){
-                        char link;
+                    string abilityName = ab_p1->getAbility(idx)->getName();
+                    if( (abilityName == "Polarize") || (abilityName == "Linkboost") ) {
                         cin >> link;
-                        theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->activate(&theMap.board()->getPlayer(playerTurn % 2).operator*(), 
-                        theMap.board()->getPlayer(playerTurn % 2).operator*().getLinks().at(link), 0);
-                        
+                        ab_p1->getAbility(idx)->activate(&ab_p1.operator*(), ab_p1->getLinks().at(link), 0);
                     }
-                    else if((theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Scan") ||
-                    (theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Download")){
-                        char link;
+                    else if((abilityName == "Scan") || (abilityName == "Download")){
                         cin >> link;
-                        theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->activate(&theMap.board()->getPlayer(playerTurn % 2).operator*(), 
-                        theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().getLinks().at(link), 0);
-                        
+                        ab_p1->getAbility(idx)->activate(&ab_p1.operator*(), ab_p2->getLinks().at(link), 0);
+                    } else if ( abilityName == "Firewall" ) {
+                        cout << "reached ability Firewall" << endl;
+                        cin >> x >> y;
+                        theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, playerTurn % 2);
                     }
-                    theMap.board()->getPlayer(playerTurn % 2).operator*().setUsed(idx);
+                    ab_p1->setUsed(idx);
                     usedability = true;
                 }
             }
@@ -300,19 +289,19 @@ int main(int argc, char *argv[]) {
         //                         cout << p2.operator*().checkAvailable(i);
         //                     }
         //                 }
-        //             } else if ( command == "ability" ) {
-        //                 int id;
-        //                 cin >> id;
-        //                 char link = ' ';
-        //                 int x = 0;
-        //                 int y = 0;
-        //                 if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-        //                     cin >> link;
-        //                 } else {
-        //                     cin >> x >> y;
-        //                     theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-        //                 }
-        //                 theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+        // } else if ( command == "ability" ) {
+        //     int id;
+        //     cin >> id;
+        //     char link = ' ';
+        //     int x = 0;
+        //     int y = 0;
+        //     if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+        //         cin >> link;
+        //     } else {
+        //         cin >> x >> y;
+        //         theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
+        //     }
+        //     theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
         //             } else if (command == "board" ) {
         //                 // displays the board depending on whose turn it is
         //                 theMap.render(playerTurn%2);
@@ -323,6 +312,8 @@ int main(int argc, char *argv[]) {
         } else if (command == "quit") {
             break;
         } else {
+            char filler[256];
+            cin.getline(filler, 256);
             cerr << "invalid command try again";
         }
 

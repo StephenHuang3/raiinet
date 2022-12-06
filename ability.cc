@@ -28,7 +28,7 @@ char LinkBoost::checkInput() {
 void Firewall::activate(Player* player, std::shared_ptr<Link> p, int pos) {};
 
 char Firewall::checkInput() {
-    return 'c';
+    return 'f';
 };
 
 void Download::activate(Player* player, std::shared_ptr<Link> p, int pos){
@@ -45,7 +45,7 @@ char Download::checkInput() {
 };
 
 void Scan::activate(Player* player, std::shared_ptr<Link> p, int pos) { // I think we have to print this in main, because idk how this will affect the graphicobserver
-    p.operator*().reveal();
+    p->reveal();
 };
 
 std::string Firewall::getName() {
