@@ -180,6 +180,7 @@ int main(int argc, char *argv[]) {
                 } else {
                     cout << "Default Exception - you're doing something weird.." << endl;
                 }
+                --playerTurn;
             }
         } else if ( command == "abilities" ) {
             // display abilities
