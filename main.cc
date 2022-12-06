@@ -162,7 +162,6 @@ int main(int argc, char *argv[]) {
             cin >> id >> dir;
             try {
                 theMap.moveLink(playerTurn%2, id, dir);
-                ++playerTurn;
                 theMap.render(playerTurn % 2);
             }
             catch (int errNum) {
@@ -181,7 +180,6 @@ int main(int argc, char *argv[]) {
                 } else {
                     cout << "Default Exception - you're doing something weird.." << endl;
                 }
-                --playerTurn;
             }
         } else if ( command == "abilities" ) {
             // display abilities
@@ -230,7 +228,7 @@ int main(int argc, char *argv[]) {
                         cin >> link;
                         shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
                         try {
-                            p1->getAbility(idx)->activate(&currentP.operator*(), theMap.board()->findLink(link), 0);
+                            p1->getAbility(idx)->activate(currentP, theMap.board()->findLink(link), 0);
                             usedability = true;
                         } catch(char const* err) {
                             cerr << err;
@@ -317,26 +315,7 @@ int main(int argc, char *argv[]) {
         //                         cout << p2.operator*().checkAvailable(i);
         //                     }
         //                 }
-        // } else if ( command == "ability" ) {
-        //     int id;
-        //     cin >> id;
-        //     char link = ' ';
-        //     int x = 0;
-        //     int y = 0;
-        //     if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-        //         cin >> link;
-        //     } else {
-        //         cin >> x >> y;
-        //         theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-        //     }
-        //     theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-        //             } else if (command == "board" ) {
-        //                 // displays the board depending on whose turn it is
-        //                 theMap.render(playerTurn%2);
-        //                 //
-        //             } else if (command == "quit") break;
-        //         }
-        //     }
+
         } else if (command == "quit") {
             break;
         } else {
@@ -353,12 +332,9 @@ int main(int argc, char *argv[]) {
             break;
         }
         cout << endl;
-        
-        if(command == "move"){
+        if(command == "move") {
             ++playerTurn;
-            usedability = false;
         }
-    
         cout << "Enter a command: \n";
     }
 

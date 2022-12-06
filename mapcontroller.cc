@@ -11,8 +11,9 @@ void Mapcontroller::render(int player) {
   notifyObservers(player);
 }
 
-void Mapcontroller::moveLink(int player, char id, std::string dir) {
-  std::shared_ptr<Player> p = theBoard->getPlayer(player);
+void Mapcontroller::moveLink(int turn, char id, std::string dir) {
+  int player = turn%2;
+  std::shared_ptr<Player> p = theBoard->getPlayer(turn);
   bool yourLink = false;
   for( auto const& l : p->getLinks() ) {
     if( l.second->getId() == id) yourLink = true;

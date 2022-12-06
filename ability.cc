@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-void Polarize::activate(Player* player, std::shared_ptr<Link> p, int pos){
+void Polarize::activate(std::shared_ptr<Player>, std::shared_ptr<Link> p, int pos){
     if ( p == nullptr ) {
         throw "You're trying to polarize nothing? interesting... \n"
         "Looks like you get another polarize! Very cool. Maybe try something new this time?";
@@ -15,7 +15,7 @@ char Polarize::checkInput() {
     return 'l';
 };
 
-void LinkBoost::activate(Player* player, std::shared_ptr<Link> p, int pos = 0) {
+void LinkBoost::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos = 0) {
     try { 
         player->getLinks().at(p->getId());
     } catch (...) {
@@ -33,13 +33,13 @@ char LinkBoost::checkInput() {
     return 'l';
 };
 
-void Firewall::activate(Player* player, std::shared_ptr<Link> p, int pos) {};
+void Firewall::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) {};
 
 char Firewall::checkInput() {
     return 'f';
 };
 
-void Download::activate(Player* player, std::shared_ptr<Link> p, int pos){
+void Download::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos){
     if( player->getLinks().find(p->getId()) != player->getLinks().end()) {
         throw "You can't download your own link, silly!";
     }
@@ -53,7 +53,7 @@ char Download::checkInput() {
     return 'l';
 };
 
-void Scan::activate(Player* player, std::shared_ptr<Link> p, int pos) {
+void Scan::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) {
     try { 
         player->getLinks().at(p->getId());
     } catch (...) {
@@ -66,6 +66,10 @@ void Scan::activate(Player* player, std::shared_ptr<Link> p, int pos) {
         throw "You can already see the information on link...";
     }
     
+};
+
+char Scan::checkInput() {
+    return 'l';
 };
 
 std::string Firewall::getName() {
@@ -88,6 +92,6 @@ std::string LinkBoost::getName() {
     return name;
 };
 
-char Scan::checkInput() {
-    return 'l';
+void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int pos) {
+    
 };
