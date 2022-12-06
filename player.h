@@ -26,7 +26,11 @@ public:
   // Uses an ability
   void useAbility(int idx, char l, int x, int y);
 
+  void setUsed(int idx);
+
   Ability* getAbility(int idx);
+
+  bool abilityStatusAtPos(int idx);
 
   std::string checkAvailable(int pos);
 

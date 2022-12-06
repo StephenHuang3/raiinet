@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <map>
+#include <vector>
 #include <string>
 #include "subject.h"
 #include "link.h"
@@ -18,13 +19,13 @@ class Mapcontroller: public Subject {
   // potential extra: round number?
 
 public:
+  std::vector<int> firewalls;
+
   explicit Mapcontroller(Board* b): theBoard{b} {};
 
   ~Mapcontroller(); 
 
   Board *&board() { return theBoard; };
-  
-  void reset();
   
   void render(int player);
 
