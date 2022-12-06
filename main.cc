@@ -72,14 +72,14 @@ int main(int argc, char *argv[]) {
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                p1.operator*().setAbility(abilityorder[i], i);
+                theMap.board()->getPlayer(0).operator*().setAbility(abilityorder[i], i);
             }
             ability1 = true;
             ++i;
         } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                p2.operator*().setAbility(abilityorder[i], i);
+                theMap.board()->getPlayer(1).operator*().setAbility(abilityorder[i], i);
             }
             ability2 = true;
             ++i;
@@ -135,25 +135,24 @@ int main(int argc, char *argv[]) {
         theMap.randomize(1);
     }
     if (!ability1){
-        p1.operator*().setAbility('L', 0);
-        p1.operator*().setAbility('F', 1);
-        p1.operator*().setAbility('D', 2);
-        p1.operator*().setAbility('S', 3);
-        p1.operator*().setAbility('P', 4);
+        theMap.board()->getPlayer(0).operator*().setAbility('L', 0);
+        theMap.board()->getPlayer(0).operator*().setAbility('F', 1);
+        theMap.board()->getPlayer(0).operator*().setAbility('D', 2);
+        theMap.board()->getPlayer(0).operator*().setAbility('S', 3);
+        theMap.board()->getPlayer(0).operator*().setAbility('P', 4);
     }
     if(!ability2){
-        p2.operator*().setAbility('L', 0);
-        p2.operator*().setAbility('F', 1);
-        p2.operator*().setAbility('D', 2);
-        p2.operator*().setAbility('S', 3);
-        p2.operator*().setAbility('P', 4);
+        theMap.board()->getPlayer(1).operator*().setAbility('L', 0);
+        theMap.board()->getPlayer(1).operator*().setAbility('F', 1);
+        theMap.board()->getPlayer(1).operator*().setAbility('D', 2);
+        theMap.board()->getPlayer(1).operator*().setAbility('S', 3);
+        theMap.board()->getPlayer(1).operator*().setAbility('P', 4);
     }
 
     int playerTurn = 0;
     bool usedability = false;
     // bool errorfree = true;
     // bool readfile = false;
-    bool usedability = false;
     string command;
     // for(int i = 0; i < 64; i++){
     //     try{
@@ -199,31 +198,60 @@ int main(int argc, char *argv[]) {
 
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << p1.operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
                 }
             } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << p2.operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
             if (usedability){
+                string blank;
+                cin >> blank;
+                cin >> blank;
                 cout << "You already used an ability. move a piece to end your turn.";
             } else {
-                int id;
-                cin >> id;
-                char link = ' ';
-                int x = 0;
-                int y = 0;
-                if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                    cin >> link;
+                // int id;
+                // cin >> id;
+                // char link = ' ';
+                // int x = 0;
+                // int y = 0;
+                // if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
+                //     cin >> link;
+                // } else {
+                //     cin >> x >> y;
+                //     theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+                // }
+                // theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
+                // // check abilities
+                // usedability = true;
+                // check ability already used
+                int idx;
+                cin >> idx;
+                if(theMap.board()->getPlayer(playerTurn % 2).operator*().abilityStatusAtPos(idx)){
+                    cout << "Ability has already been used." << endl;
                 } else {
-                    cin >> x >> y;
-                    theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
+    
+                    if((theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Polarize") ||
+                    (theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Linkboost")){
+                        char link;
+                        cin >> link;
+                        theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->activate(&theMap.board()->getPlayer(playerTurn % 2).operator*(), 
+                        theMap.board()->getPlayer(playerTurn % 2).operator*().getLinks().at(link), 0);
+                        
+                    }
+                    else if((theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Scan") ||
+                    (theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->getName() == "Download")){
+                        char link;
+                        cin >> link;
+                        theMap.board()->getPlayer(playerTurn % 2).operator*().getAbility(idx)->activate(&theMap.board()->getPlayer(playerTurn % 2).operator*(), 
+                        theMap.board()->getPlayer((1 + playerTurn) % 2).operator*().getLinks().at(link), 0);
+                        
+                    }
+                    theMap.board()->getPlayer(playerTurn % 2).operator*().setUsed(idx);
+                    usedability = true;
                 }
-                theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-                // check abilities
-                usedability = true;
             }
         } else if (command == "a") {
             cout << "a: " << theMap.board()->getPlayer(0)->getLinks().at('a')->getPos() << endl;
