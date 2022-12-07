@@ -26,6 +26,9 @@ void Player::setAbility(char ability, int pos) {
   } else if (ability == 'P'){
     abilities[pos] = new Polarize;
     used[pos] = false;
+  } else if (ability == 'T'){
+    abilities[pos] = new Teleport;
+    used[pos] = false;
   } else {
     abilities[pos] = new LinkBoost;
     used[pos] = false;

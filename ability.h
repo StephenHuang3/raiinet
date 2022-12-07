@@ -21,6 +21,13 @@ class Ability {
 
     virtual std::string getName() = 0;
   };
+  class Teleport: public Ability {
+    std::string name = "Teleport";
+    public:
+      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
+      std::string getName() override;
+  };
 
   class LinkBoost: public Ability {
     std::string name = "Linkboost";

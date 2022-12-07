@@ -2,6 +2,19 @@
 #include <string>
 #include <iostream>
 
+void Teleport::activate(Player* player, std::shared_ptr<Link> p, int pos){
+    
+}
+
+char Teleport::checkInput(){
+    return 't';
+}
+
+std::string Teleport::getName(){
+    return name;
+}
+
+
 void Polarize::activate(Player* player, std::shared_ptr<Link> p, int pos){
     if ( p == nullptr ) {
         throw "You're trying to polarize nothing? interesting... \n"
