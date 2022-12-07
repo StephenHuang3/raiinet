@@ -9,7 +9,7 @@
 
 class Observer {
 public:
-  virtual void print(int player) = 0;
+  virtual void print(int player, int endResult) = 0;
   virtual ~Observer() = default;
 };
 
@@ -17,7 +17,7 @@ class textObserver: public Observer {
   Mapcontroller *theMap;
   public:
     textObserver(Mapcontroller* theMap);
-    void print(int player) override;
+    void print(int player, int endResult) override;
     ~textObserver() override;
 };
 
@@ -33,7 +33,7 @@ class graphicObserver: public Observer {
     // void nextTurn();
     graphicObserver(Mapcontroller* theMap);
     ~graphicObserver() override;
-    void print(int player) override;
+    void print(int player, int endResult) override;
 };
 
 #endif

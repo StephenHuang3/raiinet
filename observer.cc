@@ -15,7 +15,7 @@ textObserver::~textObserver() {
   theMap->detach(this);
 }
 
-void textObserver::print(int player){
+void textObserver::print(int player, int endResult){
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
@@ -99,9 +99,21 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   this->theMap->attach(this);
 }
 
-void graphicObserver::print(int player) {
+void graphicObserver::print(int player, int endResult) {
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+
+  // Print end screen
+  if (endResult > 0) {
+    if (endResult == 1) {
+      w->fillRectangle(13, 13, 574, 474, 4); // bgcolor
+      w->drawString(258, 200, "Player 1 wins!");
+    } else {
+      w->fillRectangle(13, 13, 574, 474, 2); // bgcolor
+      w->drawString(258, 200, "Player 2 wins!");
+    }
+    return;
+  }
 
   // Initial print for Player 1:
   if (turn == 1) {

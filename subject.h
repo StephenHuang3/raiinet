@@ -9,7 +9,7 @@ class Subject {
  public:
   void attach(Observer *o);
   void detach(Observer *o);
-  void notifyObservers(int player);
+  void notifyObservers(int player, int endResult);
   virtual char getTile(int pos) const = 0;
   virtual ~Subject() = default;
 };
