@@ -19,7 +19,7 @@ class Link {
   int val;
   bool downloaded = false;
   bool revealed = false;
-  int frozen;
+  int frozen = -11;
 
 public:
   Link(int p, int pos, char id, char type, int val);

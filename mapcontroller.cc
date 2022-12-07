@@ -21,9 +21,9 @@ void Mapcontroller::moveLink(int turn, char id, std::string dir) {
   }
   if( !yourLink ) throw "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk.";
   std::shared_ptr<Link> link = p->getLinks().at(id);
-  // if( turn - link->getFrozen() < 11) {
-  //   throw "Brrrr, strap out, it's really cold here. Looks like this link is going to be waiting here a while";
-  // }
+  if( turn - link->getFrozen() < 11) {
+    throw "Brrrr, strap out, it's really cold here. Looks like this link is going to be waiting here a while";
+  }
   int moveAmt = link->getMoveAmount();
   if (player == 1) { moveAmt *= -1; } // multiply for -1 for Player 2 because inverted moves
 

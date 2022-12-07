@@ -92,6 +92,14 @@ std::string LinkBoost::getName() {
     return name;
 };
 
-void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int pos) {
-    
+void Freeze::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int time) {
+    link->freeze(time);
 };
+
+char Freeze::checkInput() {
+    return 'l';
+}
+
+std::string Freeze::getName() {
+    return name;
+}
