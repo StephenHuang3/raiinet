@@ -254,40 +254,40 @@ void graphicObserver::print(int player) {
   } else {
 
     // Reprint after resetting
-    if (player == 0) {
-      w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
-      w->fillRectangle(brdX - 2, brdY - 80, 187, 64, 6);
-      w->drawString(brdX + 15, brdY - 60, "Player 1:");
-      w->drawString(brdX + 15, brdY - 44, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(0)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(0)->getVirusesDownloaded()));
-      w->fillRectangle(brdX + 102, brdY - 53, 10, 10, 1);
-      w->fillRectangle(brdX + 103, brdY - 52, 8, 8, 3);
-      w->fillRectangle(brdX + 132, brdY - 53, 10, 10, 1);
-      w->fillRectangle(brdX + 133, brdY - 52, 8, 8, 2);
-      w->drawString(brdX + 15, brdY - 28, "Abilities: " + std::to_string(theMap->board()->getPlayer(0)->getAbilityStatus()));
+    if (turn % 2 == 1) {
+    w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
+    w->fillRectangle(brdX - 2, brdY - 80, 187, 64, 6);
+    w->drawString(brdX + 15, brdY - 60, "Player 1:");
+    w->drawString(brdX + 15, brdY - 44, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(0)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(0)->getVirusesDownloaded()));
+    w->fillRectangle(brdX + 102, brdY - 53, 10, 10, 1);
+    w->fillRectangle(brdX + 103, brdY - 52, 8, 8, 3);
+    w->fillRectangle(brdX + 132, brdY - 53, 10, 10, 1);
+    w->fillRectangle(brdX + 133, brdY - 52, 8, 8, 2);
+    w->drawString(brdX + 15, brdY - 28, "Abilities: " + std::to_string(theMap->board()->getPlayer(0)->getAbilityStatus()));
     
     // Other player
-      w->fillRectangle(brdX - 4, brdY + 202, 191, 68, 2);
-      w->fillRectangle(brdX - 2, brdY + 204, 187, 64, 6);
-      w->drawString(brdX + 15, brdY + 224, "Player 2:");
-      w->drawString(brdX + 15, brdY + 240, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(1)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(1)->getVirusesDownloaded()));
-      w->fillRectangle(brdX + 102, brdY + 231, 10, 10, 1);
-      w->fillRectangle(brdX + 103, brdY + 232, 8, 8, 3);
-      w->fillRectangle(brdX + 132, brdY + 231, 10, 10, 1);
-      w->fillRectangle(brdX + 133, brdY + 232, 8, 8, 2);
-      w->drawString(brdX + 15, brdY + 256, "Abilities: " + std::to_string(theMap->board()->getPlayer(1)->getAbilityStatus()));
+    w->fillRectangle(brdX - 4, brdY + 202, 191, 68, 2);
+    w->fillRectangle(brdX - 2, brdY + 204, 187, 64, 6);
+    w->drawString(brdX + 15, brdY + 224, "Player 2:");
+    w->drawString(brdX + 15, brdY + 240, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(1)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(1)->getVirusesDownloaded()));
+    w->fillRectangle(brdX + 102, brdY + 231, 10, 10, 1);
+    w->fillRectangle(brdX + 103, brdY + 232, 8, 8, 3);
+    w->fillRectangle(brdX + 132, brdY + 231, 10, 10, 1);
+    w->fillRectangle(brdX + 133, brdY + 232, 8, 8, 2);
+    w->drawString(brdX + 15, brdY + 256, "Abilities: " + std::to_string(theMap->board()->getPlayer(1)->getAbilityStatus()));
     
     } else {
-      w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 2);
-      w->fillRectangle(brdX - 2, brdY - 80, 187, 64, 6);
-      w->drawString(brdX + 15, brdY - 60, "Player 2:");
-      w->drawString(brdX + 15, brdY - 44, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(1)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(1)->getVirusesDownloaded()));
-      w->fillRectangle(brdX + 102, brdY - 53, 10, 10, 1);
-      w->fillRectangle(brdX + 103, brdY - 52, 8, 8, 3);
-      w->fillRectangle(brdX + 132, brdY - 53, 10, 10, 1);
-      w->fillRectangle(brdX + 133, brdY - 52, 8, 8, 2);
-      w->drawString(brdX + 15, brdY - 28, "Abilities: " + std::to_string(theMap->board()->getPlayer(1)->getAbilityStatus()));
+    w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 2);
+    w->fillRectangle(brdX - 2, brdY - 80, 187, 64, 6);
+    w->drawString(brdX + 15, brdY - 60, "Player 2:");
+    w->drawString(brdX + 15, brdY - 44, "Downloaded:  " + std::to_string(theMap->board()->getPlayer(1)->getDataDownloaded()) + "    " + std::to_string(theMap->board()->getPlayer(1)->getVirusesDownloaded()));
+    w->fillRectangle(brdX + 102, brdY - 53, 10, 10, 1);
+    w->fillRectangle(brdX + 103, brdY - 52, 8, 8, 3);
+    w->fillRectangle(brdX + 132, brdY - 53, 10, 10, 1);
+    w->fillRectangle(brdX + 133, brdY - 52, 8, 8, 2);
+    w->drawString(brdX + 15, brdY - 28, "Abilities: " + std::to_string(theMap->board()->getPlayer(1)->getAbilityStatus()));
     
-    // Other player
+      // Other player
       w->fillRectangle(brdX - 4, brdY + 202, 191, 68, 4);
       w->fillRectangle(brdX - 2, brdY + 204, 187, 64, 6);
       w->drawString(brdX + 15, brdY + 224, "Player 1:");
@@ -325,7 +325,6 @@ void graphicObserver::print(int player) {
               } else {
                 w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 6); // yellow
               }
-              w->drawString(brdX + 23 * j + 6, brdY + 23 * i + 2 + 15, std::string(1, c) + std::to_string(theMap->board()->getPlayer(0)->getLinks().at(c)->getVal()));
             } else {
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 7); // magenta
               w->drawString(brdX + 23 * j + 9, brdY + 23 * i + 2 + 15, std::string(1, c));
@@ -347,7 +346,6 @@ void graphicObserver::print(int player) {
               } else {
                 w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 6); // yellow
               }
-              w->drawString(brdX + 23 * j + 6, brdY + 23 * i + 2 + 15, std::string(1, c) + std::to_string(theMap->board()->getPlayer(1)->getLinks().at(c)->getVal()));
             } else {
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 7); // magenta
               w->drawString(brdX + 23 * j + 9, brdY + 23 * i + 2 + 15, std::string(1, c));
