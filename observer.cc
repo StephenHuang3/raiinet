@@ -1,5 +1,6 @@
 #include "observer.h"
 #include "window.h"
+#include "ability.h"
 #include "mapcontroller.h"
 #include "subject.h"
 #include "player.h"
@@ -167,29 +168,6 @@ void graphicObserver::print(int player) {
 
     // int brdX = 170;
     // int brdY = 187;
-
-    // Print legend
-    int legOffset = 18;
-    int legX = 435;
-    int legY = 205;
-    w->fillRectangle(legX + 20, 194, 35, 2, 1);
-    w->drawString(legX + 20, 192, "Legend");
-
-    w->fillRectangle(legX, legY, 10, 10, 3);
-    w->drawString(legX + 20, legY + 10, "Data");
-    w->fillRectangle(legX, legY + legOffset, 10, 10, 2);
-    w->drawString(legX + 20, legY + 10 + legOffset, "Virus");
-    w->fillRectangle(legX, legY + 2 * legOffset, 10, 10, 1);
-    w->drawString(legX + 20, legY + 10 + 2 * legOffset, "Server Port");
-    w->fillRectangle(legX, legY + 3 * legOffset, 10, 10, 4);
-    w->drawString(legX + 20, legY + 10 + 3 * legOffset, "Firewall");
-    w->fillRectangle(legX, legY + 4 * legOffset, 10, 10, 7);
-    w->drawString(legX + 20, legY + 10 + 4 * legOffset, "Enemy Unknown");
-    w->fillRectangle(legX, legY + 5 * legOffset, 10, 10, 6);
-    w->drawString(legX + 20, legY + 10 + 5 * legOffset, "Enemy Data");
-    w->fillRectangle(legX, legY + 6 * legOffset, 10, 10, 8);
-    w->drawString(legX + 20, legY + 10 + 6 * legOffset, "Enemy Virus");
-    
 
     // Current player background
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);

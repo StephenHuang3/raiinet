@@ -205,12 +205,18 @@ int main(int argc, char *argv[]) {
                         }
                     } else if (c == 'f' ) {
                         cin >> x >> y;
-                        theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
-                        theMap.board() = new DisplayLinks{theMap.board()};
+                          if( x < 0 || y < 0 || x > 7 || y > 7) {
+                            cerr << "Uh oh, you don't want to add fuel to fire." << endl;
+                            cout << "That's out of bounds!" << endl;
+                            continue;
+                          } else {
+                            theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
+                            theMap.board() = new DisplayLinks{theMap.board()};
+                          }
                         usedability = true;
                     } else if (c == 't'){
                         cin >> link >> x >> y;
-                        if((x + y * 8) > 63 || (x + y * 8) < 0 || x < 0 || x > 8 || y < 0){
+                        if(x < 0 || x > 7 || y < 0 || y > 7){
                             cout << "must be on a square in range" << endl;
                             continue;
                         }
@@ -224,7 +230,7 @@ int main(int argc, char *argv[]) {
                             
                         }
                     }
-                    p1->setUsed(idx);
+                    currentP->setUsed(idx);
                 }
             }
         } else if (command == "link") {

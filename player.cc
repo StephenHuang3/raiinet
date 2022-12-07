@@ -29,6 +29,12 @@ void Player::setAbility(char ability, int pos) {
   } else if (ability == 'T'){
     abilities[pos] = new Teleport;
     used[pos] = false;
+  } else if (ability == 'Z'){
+    abilities[pos] = new Freeze;
+    used[pos] = false;
+  } else if (ability == 'R'){
+    abilities[pos] = new Stimi;
+    used[pos] = false;
   } else {
     abilities[pos] = new LinkBoost;
     used[pos] = false;
