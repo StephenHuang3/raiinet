@@ -248,7 +248,7 @@ void graphicObserver::print(int player) {
 
     for (int i = 0; i < 5; ++i) {
       string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
-      w->drawString(61, 239 + i * 28, c);
+      w->drawString(61, 239 + i * 28, to_string(i + 1) + ". " + c);
     }
 
   } else {
@@ -371,7 +371,7 @@ void graphicObserver::print(int player) {
       for (int i = 0; i < 5; ++i) {
         if (theMap->board()->getPlayer(0)->abilityStatusAtPos(i) == false) {
           string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
-          w->drawString(61, 239 + count * 28, c);
+          w->drawString(61, 239 + count * 28, to_string(i + 1) + ". " + c);
           count++;
         }
       }
@@ -380,7 +380,7 @@ void graphicObserver::print(int player) {
       for (int i = 0; i < 5; ++i) {
         if (theMap->board()->getPlayer(1)->abilityStatusAtPos(i) == false) {
           string c = theMap->board()->getPlayer(1)->getAbility(i)->getName();
-          w->drawString(61, 239 + count * 28, c);
+          w->drawString(61, 239 + count * 28, to_string(i + 1) + ". " + c);
           count++;
         }
       }
