@@ -41,7 +41,7 @@ std::shared_ptr<Link> Board::getLink(int pos) const {
 
 void Board::setLink(int p, char id, char type, int val, int position) {
   board[position] = std::make_shared<Link>(p, position, id, type, val);
-  players[p].operator*().addLink(board[position]);
+  players[p]->addLink(board[position]);
 };
 
 void Board::moveLink(int oldPos, int newPos) {

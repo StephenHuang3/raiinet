@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
     // }
 
     // render board for player 1 before game
-    theMap.render(0, 0);
+    theMap.render(0);
     cout << "Enter a command: \n";
     while( cin >> command ) {
         if( command == "move" ) {
@@ -171,11 +171,11 @@ int main(int argc, char *argv[]) {
 
             if(playerTurn%2 == 0) {
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0)->checkAvailable(i) << endl;
                 }
             } else { // player 2
                 for(int i = 0; i < numabilities; i++){
-                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                    cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1)->checkAvailable(i) << endl;
                 }
             }
         } else if ( command == "ability" ) {
@@ -205,12 +205,18 @@ int main(int argc, char *argv[]) {
                         }
                     } else if (c == 'f' ) {
                         cin >> x >> y;
-                        theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
-                        theMap.board() = new DisplayLinks{theMap.board()};
+                          if( x < 0 || y < 0 || x > 7 || y > 7) {
+                            cerr << "Uh oh, you don't want to add fuel to fire." << endl;
+                            cout << "That's out of bounds!" << endl;
+                            continue;
+                          } else {
+                            theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
+                            theMap.board() = new DisplayLinks{theMap.board()};
+                          }
                         usedability = true;
                     } else if (c == 't'){
                         cin >> link >> x >> y;
-                        if((x + y * 8) > 63 || (x + y * 8) < 0 || x < 0 || x > 8 || y < 0){
+                        if(x < 0 || x > 7 || y < 0 || y > 7){
                             cout << "must be on a square in range" << endl;
                             continue;
                         }
@@ -218,13 +224,13 @@ int main(int argc, char *argv[]) {
                             cout << "Must move onto empty square" << endl;
                             continue;
                         } else {
-                            theMap.board()->moveLink(theMap.board()->findLink(link).operator*().getPos(),x + y * 8);
+                            theMap.board()->moveLink(theMap.board()->findLink(link)->getPos(),x + y * 8);
                             theMap.board()->findLink(link)->changePos(x + y * 8);
                             usedability = true;
                             
                         }
                     }
-                    p1->setUsed(idx);
+                    currentP->setUsed(idx);
                 }
             }
         } else if (command == "link") {
@@ -239,7 +245,7 @@ int main(int argc, char *argv[]) {
             cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
             cout << endl;
         } else if (command == "board" ) {
-            theMap.render(playerTurn % 2, 0);
+            theMap.render(playerTurn % 2);
         } else if (command == "sequence" ) {
             string fileName;
             cin >> fileName;
@@ -263,11 +269,11 @@ int main(int argc, char *argv[]) {
                         // display abilities
                         if(playerTurn%2 == 0) {
                             for(int i = 0; i < numabilities; i++){
-                                cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                                cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0)->checkAvailable(i) << endl;
                             }
                         } else { // player 2
                             for(int i = 0; i < numabilities; i++){
-                                cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                                cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1)->checkAvailable(i) << endl;
                             }
                         }
                     } else if ( word == "ability" ) {
@@ -310,7 +316,7 @@ int main(int argc, char *argv[]) {
                                         cout << "Must move onto empty square" << endl;
                                         continue;
                                     } else {
-                                        theMap.board()->moveLink(theMap.board()->findLink(link).operator*().getPos(),x + y * 8);
+                                        theMap.board()->moveLink(theMap.board()->findLink(link)->getPos(),x + y * 8);
                                         theMap.board()->findLink(link)->changePos(x + y * 8);
                                         usedability = true;
                                         
@@ -331,7 +337,7 @@ int main(int argc, char *argv[]) {
                         cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
                         cout << endl;
                     } else if (word == "board" ) {
-                        theMap.render(playerTurn % 2, 0);
+                        theMap.render(playerTurn % 2);
                     } else if (word == "quit") {
                         break;
                     }
@@ -356,7 +362,7 @@ int main(int argc, char *argv[]) {
         cout << endl;
         if(command == "move") {
             ++playerTurn;
-            theMap.render(playerTurn % 2, 0);
+            theMap.render(playerTurn % 2);
             usedability = false;
         }
         cout << "Enter a command: \n";
@@ -369,7 +375,7 @@ int main(int argc, char *argv[]) {
         cout << "Player 2 has won!" << endl;
     } else if (theMap.board()->getPlayer(1)->checkScore() == 'w'){
         cout << "Player 2 has won!" << endl;
-    } else if (theMap.board()->getPlayer(1).operator*().checkScore() == 'l'){
+    } else if (theMap.board()->getPlayer(1)->checkScore() == 'l'){
         cout << "Player 1 has won!" << endl;
     } else {
         cout << "Game unfinished" << endl;

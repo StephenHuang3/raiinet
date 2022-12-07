@@ -17,22 +17,23 @@ class textObserver: public Observer {
   Mapcontroller *theMap;
   public:
     textObserver(Mapcontroller* theMap);
-    void print(int player, int endGame) override;
+    void print(int player) override;
     ~textObserver() override;
 };
 
 class graphicObserver: public Observer {
   Mapcontroller* theMap;
   Xwindow* w;
-  int turn = 1;
+  // int turn = 1;
   public:
+    int turn = 1;
     int brdX = 204;
     int brdY = 187;
     // void incrementTurn();
-    // int getTurn();
+    // void nextTurn();
     graphicObserver(Mapcontroller* theMap);
     ~graphicObserver() override;
-    void print(int player, int endGame) override;
+    void print(int player) override;
 };
 
 #endif

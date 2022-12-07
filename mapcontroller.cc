@@ -7,8 +7,8 @@
 
 Mapcontroller::~Mapcontroller() { delete theBoard; };
 
-void Mapcontroller::render(int player, int endGame) {
-  notifyObservers(player, endGame);
+void Mapcontroller::render(int player) {
+  notifyObservers(player);
 }
 
 void Mapcontroller::moveLink(int turn, char id, std::string dir) {

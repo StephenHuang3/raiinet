@@ -125,7 +125,7 @@ std::string Freeze::getName() {
     return name;
 }
 
-void Stimi::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int roids) {
+void Stimi::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int pos) {
     try { 
         player->getLinks().at(link->getId());
     } catch (...) {
@@ -136,7 +136,7 @@ void Stimi::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link,
         std::string s = "You throw the stimulus into the void. Nothing happens. What did you expect?";
         throw s;
     } else {
-        link->addVal(roids);
+        link->addVal(2);
     }
 };
 

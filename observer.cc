@@ -1,5 +1,6 @@
 #include "observer.h"
 #include "window.h"
+#include "ability.h"
 #include "mapcontroller.h"
 #include "subject.h"
 #include "player.h"
@@ -14,7 +15,7 @@ textObserver::~textObserver() {
   theMap->detach(this);
 }
 
-void textObserver::print(int player, int endGame){
+void textObserver::print(int player){
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
@@ -98,19 +99,9 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   this->theMap->attach(this);
 }
 
-// void incrementTurn() {
-//   turn++;
-// }
-
-void graphicObserver::print(int player, int endGame) {
+void graphicObserver::print(int player) {
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
-
-  if (endGame == true) {
-    w->fillRectangle(13, 13, 574, 474, 5); // bgcolor
-    w->drawString(264, 200, "Game Over!");
-    return;
-  }
 
   // Initial print for Player 1:
   if (turn == 1) {
@@ -175,8 +166,8 @@ void graphicObserver::print(int player, int endGame) {
     w->fillRectangle(lX + 153, lY + 3, 18, 3, c);
     w->fillRectangle(lX + 159, lY, 6, 33, c);
 
-    int brdX = 204;
-    int brdY = 187;
+    // int brdX = 170;
+    // int brdY = 187;
 
     // Current player background
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
@@ -261,8 +252,6 @@ void graphicObserver::print(int player, int endGame) {
     }
 
   } else {
-    int brdX = 204;
-    int brdY = 187;
 
     // Reprint after resetting
     if (turn % 2 == 1) {
@@ -396,5 +385,38 @@ void graphicObserver::print(int player, int endGame) {
     }
     
   }
+  // for (int i = 0; i < 8; ++i) {
+  //   for (int j = 0; j < 8; ++j) {
+  //     char c = theMap->board()->getTile(j + 8 * i);
+  //     if (c == '.') {
+  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 0); // white
+  //     } else if (c == 'S') {
+  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 1); // black
+  //     } else if (c <= 'h' && c >= 'a') {
+  //       if (player == 0) {
+  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
+  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
+  //         } else { // data
+  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
+  //         }
+  //       } else { // needs if reveal
+  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
+  //       }
+  //     } else if (c >= 'A' && c <= 'H') {
+  //       if (player == 1) {
+  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
+  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
+  //         } else { // data
+  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
+  //         }
+  //       } else { // needs if reveal
+  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
+  //       }
+  //     } else { // firewall
+  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 8); // black
+  //     }
+  //   }
+  // }
+
   ++turn;
 }
