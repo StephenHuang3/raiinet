@@ -14,7 +14,7 @@ textObserver::~textObserver() {
   theMap->detach(this);
 }
 
-void textObserver::print(int player){
+void textObserver::print(int player, int endGame){
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
@@ -98,9 +98,19 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   this->theMap->attach(this);
 }
 
-void graphicObserver::print(int player) {
+// void incrementTurn() {
+//   turn++;
+// }
+
+void graphicObserver::print(int player, int endGame) {
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+
+  if (endGame == true) {
+    w->fillRectangle(13, 13, 574, 474, 5); // bgcolor
+    w->drawString(264, 200, "Game Over!");
+    return;
+  }
 
   // Initial print for Player 1:
   if (turn == 1) {
@@ -165,31 +175,8 @@ void graphicObserver::print(int player) {
     w->fillRectangle(lX + 153, lY + 3, 18, 3, c);
     w->fillRectangle(lX + 159, lY, 6, 33, c);
 
-    // int brdX = 170;
-    // int brdY = 187;
-
-    // Print legend
-    int legOffset = 18;
-    int legX = 435;
-    int legY = 205;
-    w->fillRectangle(legX + 20, 194, 35, 2, 1);
-    w->drawString(legX + 20, 192, "Legend");
-
-    w->fillRectangle(legX, legY, 10, 10, 3);
-    w->drawString(legX + 20, legY + 10, "Data");
-    w->fillRectangle(legX, legY + legOffset, 10, 10, 2);
-    w->drawString(legX + 20, legY + 10 + legOffset, "Virus");
-    w->fillRectangle(legX, legY + 2 * legOffset, 10, 10, 1);
-    w->drawString(legX + 20, legY + 10 + 2 * legOffset, "Server Port");
-    w->fillRectangle(legX, legY + 3 * legOffset, 10, 10, 4);
-    w->drawString(legX + 20, legY + 10 + 3 * legOffset, "Firewall");
-    w->fillRectangle(legX, legY + 4 * legOffset, 10, 10, 7);
-    w->drawString(legX + 20, legY + 10 + 4 * legOffset, "Enemy Unknown");
-    w->fillRectangle(legX, legY + 5 * legOffset, 10, 10, 6);
-    w->drawString(legX + 20, legY + 10 + 5 * legOffset, "Enemy Data");
-    w->fillRectangle(legX, legY + 6 * legOffset, 10, 10, 8);
-    w->drawString(legX + 20, legY + 10 + 6 * legOffset, "Enemy Virus");
-    
+    int brdX = 204;
+    int brdY = 187;
 
     // Current player background
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
@@ -274,6 +261,8 @@ void graphicObserver::print(int player) {
     }
 
   } else {
+    int brdX = 204;
+    int brdY = 187;
 
     // Reprint after resetting
     if (turn % 2 == 1) {
@@ -407,38 +396,5 @@ void graphicObserver::print(int player) {
     }
     
   }
-  // for (int i = 0; i < 8; ++i) {
-  //   for (int j = 0; j < 8; ++j) {
-  //     char c = theMap->board()->getTile(j + 8 * i);
-  //     if (c == '.') {
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 0); // white
-  //     } else if (c == 'S') {
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 1); // black
-  //     } else if (c <= 'h' && c >= 'a') {
-  //       if (player == 0) {
-  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
-  //         } else { // data
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
-  //         }
-  //       } else { // needs if reveal
-  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
-  //       }
-  //     } else if (c >= 'A' && c <= 'H') {
-  //       if (player == 1) {
-  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
-  //         } else { // data
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
-  //         }
-  //       } else { // needs if reveal
-  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
-  //       }
-  //     } else { // firewall
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 8); // black
-  //     }
-  //   }
-  // }
-
   ++turn;
 }
