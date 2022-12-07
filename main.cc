@@ -208,6 +208,28 @@ int main(int argc, char *argv[]) {
                         theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
                         theMap.board() = new DisplayLinks{theMap.board()};
                         usedability = true;
+                    } else if (c == 't'){
+                        cin >> link >> x >> y;
+                        // shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
+                        // try {
+                        //     p1->getAbility(idx)->activate(&currentP.operator*(), theMap.board()->findLink(link), x + y * 8);
+                        //     usedability = true;
+                        // } catch(char const* err) {
+                        //     cerr << err;
+                        // }
+                        if((x + y * 8) > 63 || (x + y * 8) < 0 || x < 0 || x > 8 || y < 0){
+                            cout << "must be on a square in range" << endl;
+                            continue;
+                        }
+                        else if (theMap.getTile(x + y * 8) != '.'){
+                            cout << "Must move onto empty square" << endl;
+                            continue;
+                        } else {
+                            theMap.board()->moveLink(theMap.board()->findLink(link).operator*().getPos(),x + y * 8);
+                            theMap.board()->findLink(link)->changePos(x + y * 8);
+                            usedability = true;
+                            
+                        }
                     }
                     p1->setUsed(idx);
                 }
