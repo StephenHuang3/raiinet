@@ -14,7 +14,7 @@ class Ability {
 
   public:
     // activates ability, if needed, we can pass a pointer to the board
-    virtual void activate(Player* player, std::shared_ptr<Link> p, int pos) = 0; // --uses
+    virtual void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) = 0; // --uses
 
     // checks what kind and how much information we need to read in;
     virtual char checkInput() = 0;
@@ -32,7 +32,7 @@ class Ability {
   class LinkBoost: public Ability {
     std::string name = "Linkboost";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   };
@@ -40,7 +40,7 @@ class Ability {
   class Firewall: public Ability {
     std::string name = "Firewall";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   }; //tbd
@@ -49,7 +49,7 @@ class Ability {
   class Download: public Ability {
     std::string name = "Download";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   };
@@ -57,7 +57,7 @@ class Ability {
   class Polarize: public Ability {
     std::string name = "Polarize";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   };
@@ -65,7 +65,7 @@ class Ability {
   class Scan: public Ability {
     std::string name = "Scan";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   };
@@ -81,5 +81,13 @@ Extra Turn - Allows user to take two turns in a row (2 abilities, 2 moves)
 - or some similar random targetting system
 - another Field ability e.g. 
 */
+
+  class Freeze: public Ability {
+    std::string name = "Freeze";
+    public:
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
+      char checkInput() override;
+      std::string getName() override;
+  };
 
 #endif

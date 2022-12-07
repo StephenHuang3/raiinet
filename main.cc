@@ -161,27 +161,10 @@ int main(int argc, char *argv[]) {
             std::string dir;
             cin >> id >> dir;
             try {
-                theMap.moveLink(playerTurn%2, id, dir);
-                ++playerTurn;
-                theMap.render(playerTurn % 2);
+                theMap.moveLink(playerTurn, id, dir);
             }
-            catch (int errNum) {
-                if (errNum == 1) {
-                    cout << "That link is already downloaded." << endl;
-                } else if (errNum == 2) {
-                    cerr << "Watch out! The Earth is flat! You don't want your link to fall off the edge!" << endl;
-                } else if (errNum == 3) {
-                    cout << "You cannot move links onto your own links." << endl;
-                } else if (errNum == 4) {
-                    cerr << "You cannot move links onto your own server ports." << endl;
-                } else if (errNum == 5) {
-                    cerr << "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk." << endl;
-                } else if (errNum == 6) {
-                    cerr << "NewbNewb Alert: use up, right, down, or left to move the piece" << endl;
-                } else {
-                    cout << "Default Exception - you're doing something weird.." << endl;
-                }
-                --playerTurn;
+            catch (char const* err) {
+                cerr << err << endl;
             }
         } else if ( command == "abilities" ) {
             // display abilities
@@ -201,21 +184,6 @@ int main(int argc, char *argv[]) {
                 std::cin.getline(filler, 256);
                 cout << "You already used an ability. move a piece to end your turn.";
             } else {
-                // int id;
-                // cin >> id;
-                // char link = ' ';
-                // int x = 0;
-                // int y = 0;
-                // if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-                //     cin >> link;
-                // } else {
-                //     cin >> x >> y;
-                //     theMap.board() = new FirewallTile(theMap.board(), x + y * 8, playerTurn % 2);
-                // }
-                // theMap.board()->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-                // // check abilities
-                // usedability = true;
-                // check ability already used
                 int idx;
                 char link = ' ';
                 int x = 0;
@@ -230,7 +198,7 @@ int main(int argc, char *argv[]) {
                         cin >> link;
                         shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
                         try {
-                            p1->getAbility(idx)->activate(&currentP.operator*(), theMap.board()->findLink(link), 0);
+                            p1->getAbility(idx)->activate(currentP, theMap.board()->findLink(link), playerTurn);
                             usedability = true;
                         } catch(char const* err) {
                             cerr << err;
@@ -263,24 +231,6 @@ int main(int argc, char *argv[]) {
                             
                         }
                     }
-                    // string abilityName = p1->getAbility(idx)->getName();
-                    // if( (abilityName == "Polarize") || (abilityName == "Linkboost") ) {
-                    //     cin >> link;
-                    //     p1->getAbility(idx)->activate(&p1.operator*(), p1->getLinks().at(link), 0);
-                    // }
-                    // else if((abilityName == "Scan") || (abilityName == "Download")){
-                    //     cin >> link;
-                    //     try {
-                    //         p1->getAbility(idx)->activate(&p1.operator*(), p2->getLinks().at(link), 0);
-                    //     } catch(char const* err) {
-                    //         cerr << err;
-                    //     }
-                    // } else if ( abilityName == "Firewall" ) {
-                    //     cin >> x >> y;
-                    //     theMap.firewalls.push_back(x+8*y);
-                    //     theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
-                    //     theMap.board() = new DisplayLinks{theMap.board()};
-                    // }
                     p1->setUsed(idx);
                 }
             }
@@ -295,70 +245,91 @@ int main(int argc, char *argv[]) {
             cin >> position;
             cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
             cout << endl;
-        // } else if (command == "board" ) {
-        //     // displays the board depending on whose turn it is
-        //     playerTurn--;
-        //     continue;
-        // } else if (command == "sequence" ) {
-        //     string fileName;
-        //     cin >> fileName;
-        //     ifstream f(fileName);
-        //     string fLine;
-        //     while(getline(f, fLine)) {
-        //         stringstream ss(fLine);
-        //         string word;
-        //         while(ss >> word) {
-        //             if( command == "move" ) {
-        //                 char id;
-        //                 std::string dir;
-        //                 cin >> id >> dir;
-        //                 try {
-        //                     theMap.moveLink(playerTurn, id, dir);
-        //                 }
-        //                 catch (int errNum) {
-        //                     if (errNum == 1) {
-        //                         cout << "That link is already downloaded." << endl;
-        //                     } else if (errNum == 2) {
-        //                         cout << "The link will go out of bounds." << endl;
-        //                     } else if (errNum == 3) {
-        //                         cout << "You cannot move links onto your own links." << endl;
-        //                     } else if (errNum == 4) {
-        //                         cout << "You cannot move links onto your own server ports." << endl;
-        //                     } else {
-        //                         cout << "Default Exception - you're doing something weird.." << endl;
-        //                     }
-        //                     continue; // without changing turns
-        //                 }
-        //             } else if ( command == "abilities" ) {
-        //                 if(playerTurn%2 == 0) {
-        //                     for(int i = 0; i < numabilities; i++){
-        //                         cout << p1.operator*().checkAvailable(i);
-        //                     }
-        //                 } else if (playerTurn%2 == 1) {
-        //                     for(int i = 0; i < numabilities; i++){
-        //                         cout << p2.operator*().checkAvailable(i);
-        //                     }
-        //                 }
-        // } else if ( command == "ability" ) {
-        //     int id;
-        //     cin >> id;
-        //     char link = ' ';
-        //     int x = 0;
-        //     int y = 0;
-        //     if( theBrd->getPlayer(playerTurn%2).operator*().getAbility(id)->checkInput() == 'l') {
-        //         cin >> link;
-        //     } else {
-        //         cin >> x >> y;
-        //         theBrd = new FirewallTile(theBrd, x + y * 8, playerTurn % 2);
-        //     }
-        //     theBrd->getPlayer(playerTurn%2).operator*().useAbility(id, link, x, y);
-        //             } else if (command == "board" ) {
-        //                 // displays the board depending on whose turn it is
-        //                 theMap.render(playerTurn%2);
-        //                 //
-        //             } else if (command == "quit") break;
-        //         }
-        //     }
+        } else if (command == "board" ) {
+            theMap.render(playerTurn % 2);
+        } else if (command == "sequence" ) {
+            string fileName;
+            cin >> fileName;
+            ifstream f(fileName);
+            string fLine;
+            while(getline(f, fLine)) {
+                stringstream ss(fLine);
+                string word;
+                while(ss >> word) {
+                    if( word == "move" ) {
+                        char id;
+                        std::string dir;
+                        ss >> id >> dir;
+                        try {
+                            theMap.moveLink(playerTurn, id, dir);
+                        }
+                        catch (char const* err) {
+                            cerr << err << endl;
+                        }
+                    } else if ( word == "abilities" ) {
+                        // display abilities
+                        if(playerTurn%2 == 0) {
+                            for(int i = 0; i < numabilities; i++){
+                                cout << "Position "<< i + 1<< ": " <<theMap.board()->getPlayer(0).operator*().checkAvailable(i) << endl;
+                            }
+                        } else { // player 2
+                            for(int i = 0; i < numabilities; i++){
+                                cout << "Position "<< i + 1 << ": " <<theMap.board()->getPlayer(1).operator*().checkAvailable(i) << endl;
+                            }
+                        }
+                    } else if ( word == "ability" ) {
+                        if (usedability) {
+                            char filler[256];
+                            ss.getline(filler, 256);
+                            cout << "You already used an ability. move a piece to end your turn.";
+                        } else {
+                            int idx;
+                            char link = ' ';
+                            int x = 0;
+                            int y = 0;
+                            ss >> idx;
+                            --idx;
+                            if(p1->abilityStatusAtPos(idx)) {
+                                cout << "Ability has already been used." << endl;
+                            } else {
+                                char c = p1->getAbility(idx)->checkInput();
+                                if ( c == 'l') {
+                                    ss >> link;
+                                    shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
+                                    try {
+                                        p1->getAbility(idx)->activate(currentP, theMap.board()->findLink(link), playerTurn);
+                                        usedability = true;
+                                    } catch(char const* err) {
+                                        cerr << err;
+                                    }
+                                } else if (c == 'f' ) {
+                                    ss >> x >> y;
+                                    theMap.board() = new FirewallTile(theMap.board(), x + 8 * y, (playerTurn % 2) + 1);
+                                    theMap.board() = new DisplayLinks{theMap.board()};
+                                    usedability = true;
+                                }
+                                p1->setUsed(idx);
+                            }
+                        }
+                    } else if (word == "link") {
+                        char c;
+                        cin >> c;
+                        shared_ptr<Link> l = theMap.board()->getPlayer(0)->getLinks().at(c);
+                        cout << c << l->getType() << ": " << l->getPos() << endl;
+                        cout << "is downloaded: " << l->getDownloaded() << endl;
+                    } else if (word == "position") {
+                        int position;
+                        cin >> position;
+                        cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
+                        cout << endl;
+                    } else if (word == "board" ) {
+                        theMap.render(playerTurn % 2);
+                    } else if (word == "quit") {
+                        break;
+                    }
+                }
+            }
+
         } else if (command == "quit") {
             break;
         } else {
@@ -375,12 +346,12 @@ int main(int argc, char *argv[]) {
             break;
         }
         cout << endl;
-        
-        if(command == "move"){
+        if(command == "move") {
+            cout << "get here" << endl;
             ++playerTurn;
+            theMap.render(playerTurn % 2);
             usedability = false;
         }
-    
         cout << "Enter a command: \n";
     }
 

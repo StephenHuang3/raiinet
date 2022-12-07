@@ -64,3 +64,11 @@ void Link::toggleDownloaded() {
 void Link::reveal() {
   revealed = true;
 }
+
+void Link::freeze(int time) {
+  frozen = time;
+}
+
+int Link::getFrozen() {
+  return frozen;
+}
