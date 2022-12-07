@@ -347,7 +347,6 @@ int main(int argc, char *argv[]) {
         }
         cout << endl;
         if(command == "move") {
-            cout << "get here" << endl;
             ++playerTurn;
             theMap.render(playerTurn % 2);
             usedability = false;
