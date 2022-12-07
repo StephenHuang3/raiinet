@@ -244,7 +244,7 @@ void graphicObserver::print(int player, int endResult) {
     w->fillRectangle(legX, legY + 2 * legOffset, 10, 10, 1);
     w->drawString(legX + 20, legY + 10 + 2 * legOffset, "Server Port");
     w->fillRectangle(legX, legY + 3 * legOffset, 10, 10, 4);
-    w->drawString(legX + 20, legY + 10 + 3 * legOffset, "Firewall");
+    w->drawString(legX + 20, legY + 10 + 3 * legOffset, "Frozen Link");
     w->fillRectangle(legX, legY + 4 * legOffset, 10, 10, 7);
     w->drawString(legX + 20, legY + 10 + 4 * legOffset, "Enemy Unknown");
     w->fillRectangle(legX, legY + 5 * legOffset, 10, 10, 6);
@@ -253,8 +253,8 @@ void graphicObserver::print(int player, int endResult) {
     w->drawString(legX + 20, legY + 10 + 6 * legOffset, "Enemy Virus");
     
     // Print abilities
-    w->fillRectangle(40, 186, 135, 189, 4);
-    w->fillRectangle(42, 188, 131, 185, 3);
+    w->fillRectangle(45, 186, 124, 189, 4);
+    w->fillRectangle(47, 188, 120, 185, 8);
     w->fillRectangle(60, 212, 89, 2, 1);
     w->drawString(61, 210, "Abilities Left:");
 
@@ -266,7 +266,7 @@ void graphicObserver::print(int player, int endResult) {
   } else {
 
     // Reprint after resetting
-    if (turn % 2 == 1) {
+    if (player == 0) {
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
     w->fillRectangle(brdX - 2, brdY - 80, 187, 64, 6);
     w->drawString(brdX + 15, brdY - 60, "Player 1:");
@@ -366,15 +366,16 @@ void graphicObserver::print(int player, int endResult) {
             }
           }
 
-        } else { // firewall
-          w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 4); // blue
+        } else if (c == 'w' || c == 'm') { // firewall
+          w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 0);
+          w->drawString(brdX + 23 * j + 9, brdY + 23 * i + 2 + 15, std::string(1, c));
         }
       }
     }
 
     // Print abilities
-    (player == 0) ? w->fillRectangle(40, 186, 135, 189, 4) : w->fillRectangle(40, 186, 135, 189, 2);
-    w->fillRectangle(42, 188, 131, 185, 3);
+    (player == 0) ? w->fillRectangle(45, 186, 124, 189, 4) : w->fillRectangle(45, 186, 124, 189, 2);
+    w->fillRectangle(47, 188, 120, 185, 8);
     w->fillRectangle(60, 212, 89, 2, 1);
     w->drawString(61, 210, "Abilities Left:");
 
@@ -399,38 +400,6 @@ void graphicObserver::print(int player, int endResult) {
     }
     
   }
-  // for (int i = 0; i < 8; ++i) {
-  //   for (int j = 0; j < 8; ++j) {
-  //     char c = theMap->board()->getTile(j + 8 * i);
-  //     if (c == '.') {
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 0); // white
-  //     } else if (c == 'S') {
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 1); // black
-  //     } else if (c <= 'h' && c >= 'a') {
-  //       if (player == 0) {
-  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
-  //         } else { // data
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
-  //         }
-  //       } else { // needs if reveal
-  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
-  //       }
-  //     } else if (c >= 'A' && c <= 'H') {
-  //       if (player == 1) {
-  //         if (theMap->board()->getPlayer(player)->getLinks().at(c)->getType() == 'V') { // virus
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 2); // red
-  //         } else { // data
-  //           w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 3); // green
-  //         }
-  //       } else { // needs if reveal
-  //         w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 4); // black
-  //       }
-  //     } else { // firewall
-  //       w->fillRectangle(5 + 10 * j, 85 + 10 * i, 10, 10, 8); // black
-  //     }
-  //   }
-  // }
 
   ++turn;
 }
