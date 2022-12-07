@@ -240,6 +240,39 @@ void graphicObserver::print(int player) {
     w->fillRectangle(brdX + 133, brdY + 232, 8, 8, 2);
     w->drawString(brdX + 15, brdY + 256, "Abilities: " + std::to_string(theMap->board()->getPlayer(1)->getAbilityStatus()));
     
+    // Print legend
+    int legOffset = 20;
+    int legX = 435;
+    int legY = 224;
+    w->fillRectangle(legX + 20, legY - 11, 35, 2, 1);
+    w->drawString(legX + 20, legY - 13, "Legend");
+
+    w->fillRectangle(legX, legY, 10, 10, 3);
+    w->drawString(legX + 20, legY + 10, "Data");
+    w->fillRectangle(legX, legY + legOffset, 10, 10, 2);
+    w->drawString(legX + 20, legY + 10 + legOffset, "Virus");
+    w->fillRectangle(legX, legY + 2 * legOffset, 10, 10, 1);
+    w->drawString(legX + 20, legY + 10 + 2 * legOffset, "Server Port");
+    w->fillRectangle(legX, legY + 3 * legOffset, 10, 10, 4);
+    w->drawString(legX + 20, legY + 10 + 3 * legOffset, "Firewall");
+    w->fillRectangle(legX, legY + 4 * legOffset, 10, 10, 7);
+    w->drawString(legX + 20, legY + 10 + 4 * legOffset, "Enemy Unknown");
+    w->fillRectangle(legX, legY + 5 * legOffset, 10, 10, 6);
+    w->drawString(legX + 20, legY + 10 + 5 * legOffset, "Enemy Data");
+    w->fillRectangle(legX, legY + 6 * legOffset, 10, 10, 8);
+    w->drawString(legX + 20, legY + 10 + 6 * legOffset, "Enemy Virus");
+    
+    // Print abilities
+    w->fillRectangle(40, 186, 135, 189, 4);
+    w->fillRectangle(42, 188, 131, 185, 3);
+    w->fillRectangle(60, 212, 89, 2, 1);
+    w->drawString(61, 210, "Abilities Left:");
+
+    for (int i = 0; i < 5; ++i) {
+      string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
+      w->drawString(61, 239 + i * 28, to_string(i + 1) + ". " + c);
+    }
+
   } else {
 
     // Reprint after resetting
@@ -346,6 +379,33 @@ void graphicObserver::print(int player) {
         }
       }
     }
+
+    // Print abilities
+    (player == 0) ? w->fillRectangle(40, 186, 135, 189, 4) : w->fillRectangle(40, 186, 135, 189, 2);
+    w->fillRectangle(42, 188, 131, 185, 3);
+    w->fillRectangle(60, 212, 89, 2, 1);
+    w->drawString(61, 210, "Abilities Left:");
+
+    if (player == 0) {
+      int count = 0;
+      for (int i = 0; i < 5; ++i) {
+        if (theMap->board()->getPlayer(0)->abilityStatusAtPos(i) == false) {
+          string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
+          w->drawString(61, 239 + count * 28, to_string(i + 1) + ". " + c);
+          count++;
+        }
+      }
+    } else {
+      int count = 0;
+      for (int i = 0; i < 5; ++i) {
+        if (theMap->board()->getPlayer(1)->abilityStatusAtPos(i) == false) {
+          string c = theMap->board()->getPlayer(1)->getAbility(i)->getName();
+          w->drawString(61, 239 + count * 28, to_string(i + 1) + ". " + c);
+          count++;
+        }
+      }
+    }
+    
   }
   // for (int i = 0; i < 8; ++i) {
   //   for (int j = 0; j < 8; ++j) {
