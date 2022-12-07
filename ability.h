@@ -24,7 +24,7 @@ class Ability {
   class Teleport: public Ability {
     std::string name = "Teleport";
     public:
-      void activate(Player* player, std::shared_ptr<Link> p, int pos) override;
+      void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
       char checkInput() override;
       std::string getName() override;
   };
