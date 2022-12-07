@@ -14,9 +14,9 @@ void Subject::detach(Observer *o){
     }
 }  
 
-void Subject::notifyObservers(int player, int endResult){
+void Subject::notifyObservers(int player){
     int z = observers.size();
     for (int i = 0; i < z; i++){
-        observers[i]->print(player, endResult);
+        observers[i]->print(player);
     }
 }
