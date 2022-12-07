@@ -13,13 +13,18 @@ void Mapcontroller::render(int player) {
 
 void Mapcontroller::moveLink(int turn, char id, std::string dir) {
   int player = turn%2;
-  std::shared_ptr<Player> p = theBoard->getPlayer(turn);
+  std::shared_ptr<Player> p = theBoard->getPlayer(player);
   
   bool yourLink = false;
   for( auto const& l : p->getLinks() ) {
     if( l.second->getId() == id) yourLink = true;
   }
   if( !yourLink ) throw "Dumdum Alert: Ayo tf you doin?? You can't move a piece that aint yours, or something, idk.";
+  try {
+    std::shared_ptr<Link> link = p->getLinks().at(id);
+  } catch (...) {
+    throw "This isn't on the ";
+  }
   std::shared_ptr<Link> link = p->getLinks().at(id);
   if( turn - link->getFrozen() < 11) {
     throw "Brrrr, strap out, it's really cold here. Looks like this link is going to be waiting here a while";
