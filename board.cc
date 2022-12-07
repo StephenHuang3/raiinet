@@ -49,15 +49,12 @@ void Board::moveLink(int oldPos, int newPos) {
 }
 
 std::shared_ptr<Link> Board::findLink(char id) {
-  std::cout << "board: get here: "<< id << std::endl;
   for(auto l : players[0]->getLinks()) {
-    std::cout << "board: get here: " << l.second->getId() << std::endl;
     if(l.second->getId() == id) {
       return l.second;
     }
   }
   for(auto l : players[1]->getLinks()) {
-    std::cout << "board: get here: " << l.second->getId() << std::endl;
     if(l.second->getId() == id) {
       return l.second;
     }
