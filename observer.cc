@@ -325,6 +325,7 @@ void graphicObserver::print(int player) {
               } else {
                 w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 6); // yellow
               }
+              w->drawString(brdX + 23 * j + 6, brdY + 23 * i + 2 + 15, std::string(1, c) + std::to_string(theMap->board()->getPlayer(0)->getLinks().at(c)->getVal()));
             } else {
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 7); // magenta
               w->drawString(brdX + 23 * j + 9, brdY + 23 * i + 2 + 15, std::string(1, c));
@@ -346,6 +347,7 @@ void graphicObserver::print(int player) {
               } else {
                 w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 6); // yellow
               }
+              w->drawString(brdX + 23 * j + 6, brdY + 23 * i + 2 + 15, std::string(1, c) + std::to_string(theMap->board()->getPlayer(1)->getLinks().at(c)->getVal()));
             } else {
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 7); // magenta
               w->drawString(brdX + 23 * j + 9, brdY + 23 * i + 2 + 15, std::string(1, c));

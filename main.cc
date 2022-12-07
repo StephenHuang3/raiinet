@@ -165,6 +165,7 @@ int main(int argc, char *argv[]) {
             }
             catch (char const* err) {
                 cerr << err << endl;
+                --playerTurn;
             }
         } else if ( command == "abilities" ) {
             // display abilities
@@ -253,6 +254,7 @@ int main(int argc, char *argv[]) {
                         }
                         catch (char const* err) {
                             cerr << err << endl;
+                            --playerTurn;
                         }
                     } else if ( word == "abilities" ) {
                         // display abilities
