@@ -301,7 +301,7 @@ int main(int argc, char *argv[]) {
                                     theMap.board() = new DisplayLinks{theMap.board()};
                                     usedability = true;
                                 } else if (c == 't'){
-                                    cin >> link >> x >> y;
+                                    ss >> link >> x >> y;
                                     if((x + y * 8) > 63 || (x + y * 8) < 0 || x < 0 || x > 8 || y < 0){
                                         cout << "must be on a square in range" << endl;
                                         continue;
