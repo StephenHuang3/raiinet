@@ -367,14 +367,22 @@ void graphicObserver::print(int player) {
     w->drawString(61, 210, "Abilities Left:");
 
     if (player == 0) {
-      for (int i = 0; i < theMap->board()->getPlayer(0)->getAbilityStatus(); ++i) {
-        string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
-        w->drawString(61, 239 + i * 28, c);
+      int count = 0;
+      for (int i = 0; i < 5; ++i) {
+        if (theMap->board()->getPlayer(0)->abilityStatusAtPos(i) == false) {
+          string c = theMap->board()->getPlayer(0)->getAbility(i)->getName();
+          w->drawString(61, 239 + count * 28, c);
+          count++;
+        }
       }
     } else {
-      for (int i = 0; i < theMap->board()->getPlayer(1)->getAbilityStatus(); ++i) {
-        string c = theMap->board()->getPlayer(1)->getAbility(i)->getName();
-        w->drawString(61, 239 + i * 28, c);
+      int count = 0;
+      for (int i = 0; i < 5; ++i) {
+        if (theMap->board()->getPlayer(1)->abilityStatusAtPos(i) == false) {
+          string c = theMap->board()->getPlayer(1)->getAbility(i)->getName();
+          w->drawString(61, 239 + count * 28, c);
+          count++;
+        }
       }
     }
     
