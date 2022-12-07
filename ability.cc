@@ -93,6 +93,14 @@ std::string LinkBoost::getName() {
 };
 
 void Freeze::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int time) {
+    if( player->getLinks().find(link->getId()) != player->getLinks().end()) {
+        std::string s = "Everybody freeze! Oh wait, it's just " + std::to_string(link->getId()) + ". Maybe that's not what you intended.";
+        throw s;
+    }
+    if( link == nullptr ) {
+        std::string s = "Player " + std::to_string(time%2 +1) + " uses ice beam. It missed.";
+        throw s;
+    }
     link->freeze(time);
 };
 
@@ -101,5 +109,28 @@ char Freeze::checkInput() {
 }
 
 std::string Freeze::getName() {
+    return name;
+}
+
+void Stimi::activate(std::shared_ptr<Player> player, std::shared_ptr<Link> link, int roids) {
+    try { 
+        player->getLinks().at(link->getId());
+    } catch (...) {
+        throw "Woah, don't make your opponent any stronger!";
+        return;
+    } 
+    if( link == nullptr ) {
+        std::string s = "You throw the stimulus into the void. Nothing happens. What did you expect?";
+        throw s;
+    } else {
+        link->addVal(roids);
+    }
+};
+
+char Stimi::checkInput() {
+    return 'l';
+}
+
+std::string Stimi::getName() {
     return name;
 }

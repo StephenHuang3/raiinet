@@ -83,4 +83,12 @@ Extra Turn - Allows user to take two turns in a row (2 abilities, 2 moves)
       std::string getName() override;
   };
 
+  class Stimi: public Ability {
+    std::string name = "Stimulus";
+  public:
+    void activate(std::shared_ptr<Player> player, std::shared_ptr<Link> p, int pos) override;
+    char checkInput() override;
+    std::string getName() override;
+  };
+
 #endif

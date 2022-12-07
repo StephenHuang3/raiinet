@@ -49,8 +49,8 @@ void Link::changePos(int newPos) {
   pos = newPos;
 }
 
-void Link::addVal() {
-  ++val;
+void Link::addVal(int roids) {
+  val += roids;
 }
 
 void Link::boost() {

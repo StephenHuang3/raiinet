@@ -61,14 +61,14 @@ int main(int argc, char *argv[]) {
         } else if (param == "-ability1") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                theMap.board()->getPlayer(0).operator*().setAbility(abilityorder[i], i);
+                theMap.board()->getPlayer(0)->setAbility(abilityorder[i], i);
             }
             ability1 = true;
             ++i;
         } else if (param == "-ability2") {
             string abilityorder = argv[i + 1];
             for(int i = 0; i < numabilities; ++i) {
-                theMap.board()->getPlayer(1).operator*().setAbility(abilityorder[i], i);
+                theMap.board()->getPlayer(1)->setAbility(abilityorder[i], i);
             }
             ability2 = true;
             ++i;
@@ -190,13 +190,13 @@ int main(int argc, char *argv[]) {
                 int y = 0;
                 cin >> idx;
                 --idx;
-                if(p1->abilityStatusAtPos(idx)) {
+                shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
+                if(currentP->abilityStatusAtPos(idx)) {
                     cout << "Ability has already been used." << endl;
                 } else {
-                    char c = p1->getAbility(idx)->checkInput();
+                    char c = currentP->getAbility(idx)->checkInput();
                     if ( c == 'l') {
                         cin >> link;
-                        shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
                         try {
                             p1->getAbility(idx)->activate(currentP, theMap.board()->findLink(link), playerTurn);
                             usedability = true;
@@ -267,13 +267,13 @@ int main(int argc, char *argv[]) {
                             int y = 0;
                             ss >> idx;
                             --idx;
-                            if(p1->abilityStatusAtPos(idx)) {
+                            shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
+                            if(currentP->abilityStatusAtPos(idx)) {
                                 cout << "Ability has already been used." << endl;
                             } else {
-                                char c = p1->getAbility(idx)->checkInput();
+                                char c = currentP->getAbility(idx)->checkInput();
                                 if ( c == 'l') {
                                     ss >> link;
-                                    shared_ptr<Player> currentP = theMap.board()->getPlayer(playerTurn%2);
                                     try {
                                         p1->getAbility(idx)->activate(currentP, theMap.board()->findLink(link), playerTurn);
                                         usedability = true;

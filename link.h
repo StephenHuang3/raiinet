@@ -46,7 +46,7 @@ public:
 
   void changePos(int newPos);
 
-  void addVal();
+  void addVal(int roids);
   
   void boost();
 
