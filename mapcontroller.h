@@ -26,7 +26,7 @@ public:
 
   Board *&board() { return theBoard; };
   
-  void render(int player);
+  void render(int turn, int endResult);
 
   void moveLink(int turn, char id, std::string dir);
   

@@ -153,7 +153,7 @@ int main(int argc, char *argv[]) {
     // }
 
     // render board for player 1 before game
-    theMap.render(0);
+    theMap.render(0, 0);
     cout << "Enter a command: \n";
     while( cin >> command ) {
         if( command == "move" ) {
@@ -235,7 +235,7 @@ int main(int argc, char *argv[]) {
                 }
             }
         } else if (command == "board" ) {
-            theMap.render(playerTurn % 2);
+            theMap.render(playerTurn, 0);
         } else if (command == "sequence" ) {
             string fileName;
             cin >> fileName;
@@ -328,7 +328,7 @@ int main(int argc, char *argv[]) {
                         cout << "at position " << position << " the tile is " << theMap.board()->getTile(position) << endl;
                         cout << endl;
                     } else if (word == "board" ) {
-                        theMap.render(playerTurn % 2);
+                        theMap.render(playerTurn, 0);
                     } else if (word == "quit") {
                         break;
                     }
@@ -347,13 +347,13 @@ int main(int argc, char *argv[]) {
             break;
         }
 
-        if( p2->checkScore() == 'w' || p2->checkScore() == 'l') {
+        if( p2->checkScore() == 'w' || p1->checkScore() == 'l') {
             break;
         }
         cout << endl;
         if(command == "move") {
             ++playerTurn;
-            theMap.render(playerTurn % 2);
+            theMap.render(playerTurn, 0);
             usedability = false;
         }
         cout << "Enter a command: \n";
@@ -361,12 +361,16 @@ int main(int argc, char *argv[]) {
 
     //print who won
     if (theMap.board()->getPlayer(0)->checkScore() == 'w'){
+        theMap.render(0, 1);
         cout << "Player 1 has won!" << endl;
     } else if (theMap.board()->getPlayer(0)->checkScore() == 'l') {
+        theMap.render(0, 2);
         cout << "Player 2 has won!" << endl;
     } else if (theMap.board()->getPlayer(1)->checkScore() == 'w'){
+        theMap.render(0, 2);
         cout << "Player 2 has won!" << endl;
     } else if (theMap.board()->getPlayer(1)->checkScore() == 'l'){
+        theMap.render(0, 1);
         cout << "Player 1 has won!" << endl;
     } else {
         cout << "Game unfinished" << endl;

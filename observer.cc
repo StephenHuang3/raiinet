@@ -15,7 +15,10 @@ textObserver::~textObserver() {
   theMap->detach(this);
 }
 
-void textObserver::print(int player){
+void textObserver::print(int turn, int endResult) {
+
+  int player = turn % 2;
+
   map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer( player % 2 )->getLinks();
   map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer( (player + 1) % 2 )->getLinks();
   
@@ -99,12 +102,21 @@ graphicObserver::graphicObserver(Mapcontroller* theMap): theMap{theMap} {
   this->theMap->attach(this);
 }
 
-void graphicObserver::print(int player) {
-  map<char, shared_ptr<Link>> yourLinks = theMap->board()->getPlayer(player)->getLinks();
-  map<char, shared_ptr<Link>> enemyLinks = theMap->board()->getPlayer(!player)->getLinks();
+void graphicObserver::print(int turn, int endResult) {
+  int player = turn % 2;
+
+  if (endResult > 0) {
+    w->fillRectangle(13, 13, 574, 474, 5); // bgcolor
+    if (endResult == 1) {
+      w->drawString(256, 180, "Player 1 wins!");
+    } else {
+      w->drawString(256, 180, "Player 2 wins!");
+    }
+    return;
+  }
 
   // Initial print for Player 1:
-  if (turn == 1) {
+  if (round == 1) {
     // Printing background items
     w->fillRectangle(8, 8, 584, 484, 1); // frame
     w->fillRectangle(13, 13, 574, 474, 5); // bgcolor
@@ -166,8 +178,8 @@ void graphicObserver::print(int player) {
     w->fillRectangle(lX + 153, lY + 3, 18, 3, c);
     w->fillRectangle(lX + 159, lY, 6, 33, c);
 
-    // int brdX = 170;
-    // int brdY = 187;
+    int brdX = 204;
+    int brdY = 187;
 
     // Current player background
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
@@ -252,7 +264,9 @@ void graphicObserver::print(int player) {
     }
 
   } else {
-
+    int brdX = 204;
+    int brdY = 187;
+    
     // Reprint after resetting
     if (player == 0) {
     w->fillRectangle(brdX - 4, brdY - 82, 191, 68, 4);
@@ -311,7 +325,12 @@ void graphicObserver::print(int player) {
           w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 1);
 
         } else if (c <= 'h' && c >= 'a') {
+          if (turn - theMap->board()->getPlayer(0)->getLinks().at(c)->getFrozen() < 11) {
+            w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 4);
+            continue;
+          }
           if (player == 0) {
+            
             if (theMap->board()->getPlayer(0)->getLinks().at(c)->getType() == 'V') { // virus
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 2);
             } else { // data
@@ -333,6 +352,10 @@ void graphicObserver::print(int player) {
           }
 
         } else if (c >= 'A' && c <= 'H') { // opponent links
+          if (turn - theMap->board()->getPlayer(1)->getLinks().at(c)->getFrozen() < 11) {
+            w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 4);
+            continue;
+          }
           if (player == 1) {
             if (theMap->board()->getPlayer(1)->getLinks().at(c)->getType() == 'V') { // virus
               w->fillRectangle(brdX + 23 * j, brdY + 23 * i + 2, 22, 22, 2);
@@ -389,5 +412,5 @@ void graphicObserver::print(int player) {
     
   }
 
-  ++turn;
+  ++round;
 }
